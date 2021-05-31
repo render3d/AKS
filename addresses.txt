@@ -1,1 +1,2 @@
 https://github.com/render3d/AKS.git
+git@github.com:render3d/AKS.git
