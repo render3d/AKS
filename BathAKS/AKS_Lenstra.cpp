@@ -96,8 +96,8 @@ int main (int argc, char* argv[]){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken=" << duration << " milliseconds \n\n";
-            my_file << "Time Taken=" << duration << " milliseconds \n\n";
+            std::cout << "Time Taken = " << duration << " milliseconds \n\n";
+            my_file << "Time Taken = " << duration << " milliseconds \n\n";
             my_file.close();
 
             int choice; // Give user opportunity to continue or exit program
@@ -115,7 +115,7 @@ int main (int argc, char* argv[]){
 
             // order of n mod r is bigger than v;
             int p = 0;
-            ZZ p::init(r); // calculate mod r
+            ZZ_p::init(r); // calculate mod r
 
             while(v <= r){
                 ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
@@ -175,7 +175,7 @@ int main (int argc, char* argv[]){
     my_file << "n is prime \n";
 
     //n must be prime if went t h r o ug h t h i s s t age , o u t p u t r e s u l t t o f i l e .
-    my_file << "Time Taken=" << duration << " milliseconds \n\n";
+    my_file << "Time Taken = " << duration << " milliseconds \n\n";
     my_file.close();
 
     std::cout << n << " i s prime. \n\n";

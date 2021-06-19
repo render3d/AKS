@@ -163,8 +163,8 @@ int main(int argc, char argv[]){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken=" << duration << " milliseconds \n\n";
-            my_file << "Time Taken=" << duration << " milliseconds \n\n";
+            std::cout << "Time Taken = " << duration << " milliseconds \n\n";
+            my_file << "Time Taken = " << duration << " milliseconds \n\n";
             my_file.close();
             std::cout << n << " is not prime. \n\n";
 
