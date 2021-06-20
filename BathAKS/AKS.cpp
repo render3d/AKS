@@ -34,27 +34,27 @@ int main(int argc, char argv[]){
     ZZ n;
     n = 0;
 
-    std::cout << "Enter a positive integer number n you want to be tested \n";
+    std::cout << "Enter a positive integer number n you want to be tested:\n";
     std::cin >> n;
 
     if(n < 1){
-        std::cout << "Integer n needs to be positive \n\n";
+        std::cout << "Integer n needs to be positive.\n\n";
         goto start;
     }
     else if(n == 1){
-        std::cout << "1 is neither prime or composite . \n\n";
+        std::cout << "1 is neither prime or composite .\n\n";
         goto start;
     }
     else if(n == 2){
-        std::cout << "2 is prime. \n\n";
+        std::cout << "2 is prime.\n\n";
         goto start;
     }
     else if(n == 3){
-        std::cout << "3 is prime. \n\n";
+        std::cout << "3 is prime.\n\n";
         goto start;
     }
 
-    std::ofstream my_file ("AKS_original.doc", std::ios::app); // output result into file
+    std::ofstream my_file ("log.doc", std::ios::app); // output result into file
     std::cout << "n = " << n << "\n";
     my_file << "n = " << n << "\n";
 
@@ -65,16 +65,16 @@ int main(int argc, char argv[]){
     int PP = PerfectPower(n); // Check if n is a perfect power; returns 1 if n is a perfect power, 0 otherwise
 
     if(PP==1){
-        my_file << n << " is a perfect power, hence is not prime \n\n";
+        my_file << n << " is a perfect power, hence is not prime.\n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
-        std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
-        my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+        std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
         my_file.close();
         int choice;
 
         // Give user opportunity to continue or exit program
-        std::cout << "Press '1' to test a new number, '0' to exit the program\n";
+        std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
         std::cin >> choice;
 
         if(choice == 1){
@@ -95,25 +95,25 @@ int main(int argc, char argv[]){
         ZZ r1 = GCD(r, n);
 
         if(r1 != 1){ // line 4 of Fig 2.1
-            std::cout << "n has factors other than n and 1, hence is composite \n\n";
+            std::cout << "n has factors other than n and 1, hence is composite.\n\n";
 
-            my_file << n << " is composite. \n";
-            my_file << r1 << " is a divisor \n\n";
+            my_file << n << " is composite.\n";
+            my_file << r1 << " is a divisor.\n\n";
 
-            std::cout << r1 << " is a divisor \n\n";
+            std::cout << r1 << " is a divisor.\n\n";
 
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+            std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
-            my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
             my_file.close();
 
             int choice;
 
             // Give user opportunity to continue or exit program
-            std::cout << " Press '1' to test a new number, '0' to Exit the program\n"; std::cin >> choice;
+            std::cout << " Press '1' to test a new number, '0' to Exit the program:\n"; std::cin >> choice;
             if(choice == 1){
                 goto start;
             }
@@ -163,17 +163,17 @@ int main(int argc, char argv[]){
             std::cout << "a fails at " << a << "\n";
 
             // Line 12 fails for an a, hence n is composite
-            my_file << "Hence n is not prime \n";
+            my_file << "Hence n is not prime.\n";
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
-            my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+            std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
             my_file.close();
-            std::cout << n << " is not prime. \n\n";
+            std::cout << n << " is not prime.\n\n";
 
             int choice; // Give user opportunity to continue or exit program
-            std::cout << "Press '1' to test a new number, '0' to exit the program \n"; std::cin >> choice;
+            std::cout << "Press '1' to test a new number, '0' to exit the program:\n"; std::cin >> choice;
             if(choice == 1){
                 goto start;
             }
@@ -186,14 +186,14 @@ int main(int argc, char argv[]){
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
 
-    my_file << "n is prime \n"; // line 13 Fig 2.1
-    std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
-    my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+    my_file << "n is prime.\n"; // line 13 Fig 2.1
+    std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
     my_file.close();
-    std::cout << n << " is prime. \n\n";
+    std::cout << n << " is prime.\n\n";
 
     int choice; // Give user opportunity to continue or Exit program
-    std::cout << "Press '1' to test a new number, '0' to exit the program \n";
+    std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
     std::cin >> choice;
     if(choice == 1){
         goto start;
