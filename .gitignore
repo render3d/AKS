@@ -6,4 +6,5 @@ dump
 bin
 log.doc
 *.out
+*.exe
 AKSgallotMIRACL.cpp
