@@ -14,18 +14,18 @@ int PerfectPower(ZZ n){
         a = pow(2, c); // assign guess value for a
 
         while(power(a, b) > n){
-            double d = to_double(((b - 1) * a + n / power(a , ( b-1))) / b); // Apply Integer Newton's Method
+            double d = to_double(((b - 1) * a + n / power(a, (b-1))) / b); // Apply Integer Newton's Method
             ZZ e = to_ZZ(floor(d));
             a = to_long(e); // adjust a
         }
 
         if(n == power(a, b)){
             // if n is a perfect power.
-            cout << n << " is a perfect power, hence is not prime \n" ;
-            cout << "n = a^b \ n" ;
+            cout << n << " is a perfect power, hence is not prime.\n" ;
+            cout << "n = a^b\n" ;
             cout << "b = " << b << "\n" ;
             cout << "a = " << a << "\n\n" ;
-            return ( 1 ) ;
+            return(1);
         }
         else{
             b = b + 1;
