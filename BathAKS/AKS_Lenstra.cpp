@@ -6,11 +6,14 @@
 #include <math.h> // standard libraries
 #include <fstream>
 #include <iostream>
-#include <stdio.h>
 // #include <windows.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 // #include <mmsystem.h>
 #include <time.h>
 #include <chrono>
+#include <string>
 
 #include <NTL/ZZ.h> // NTL Libraries
 #include <NTL/ZZ_p.h>
@@ -65,7 +68,7 @@ int main (int argc, char * argv[]){
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
         std::cout << "Time Taken = " << duration << " milliseconds \n\n";
-        my_file << "Time Taken=" << duration << " milliseconds \n\n";
+        my_file << "Time Taken = " << duration << " milliseconds \n\n";
         my_file.close();
 
         int choice; // Give user opportunity to continue or exit program

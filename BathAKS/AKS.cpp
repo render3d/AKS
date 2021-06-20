@@ -6,11 +6,14 @@
 #include <math.h>
 #include <fstream>
 #include <iostream>
-#include <stdio.h>
 // #include <windows.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 // #include <mmsystem.h>
 #include <time.h>
 #include <chrono>
+#include <string>
 
 #include <NTL/ZZ.h> // NTL Libraries
 #include <NTL/RR.h>
