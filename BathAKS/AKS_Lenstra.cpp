@@ -68,8 +68,8 @@ int main (int argc, char * argv[]){
         my_file << n << " is a perfect power, hence is not prime \n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
-        std::cout << "Time Taken = " << duration << " milliseconds \n\n";
-        my_file << "Time Taken = " << duration << " milliseconds \n\n";
+        std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+        my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
         my_file.close();
 
         int choice; // Give user opportunity to continue or exit program
@@ -100,8 +100,8 @@ int main (int argc, char * argv[]){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken = " << duration << " milliseconds \n\n";
-            my_file << "Time Taken = " << duration << " milliseconds \n\n";
+            std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+            my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
             my_file.close();
 
             int choice; // Give user opportunity to continue or exit program
@@ -156,8 +156,8 @@ int main (int argc, char * argv[]){
             my_file << "the a which fails is " << a << "\n";
             my_file << "n is not prime \n"; // line 12 fails for particular a
 
-            std::cout << "Time Taken = " << duration << " milliseconds \n\n";
-            my_file << "Time Taken = " << duration << " milliseconds \n\n";
+            std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
+            my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
             std::cout << n << " is not prime. \n\n";
             my_file.close();
 
@@ -175,11 +175,11 @@ int main (int argc, char * argv[]){
 
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
-    std::cout << "Time Taken = " << duration << " milliseconds \n\n";
+    std::cout << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
     my_file << "n is prime \n";
 
     //n must be prime if went t h r o ug h t h i s s t age , o u t p u t r e s u l t t o f i l e .
-    my_file << "Time Taken = " << duration << " milliseconds \n\n";
+    my_file << "Time Taken = " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds \n\n";
     my_file.close();
 
     std::cout << n << " i s prime. \n\n";
