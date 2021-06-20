@@ -1,11 +1,11 @@
 #include <NTL/RR.h>
 
-// function to calculate if n = aˆb
+// function to calculate if n = a^b
 // takes input ZZ n and returns 1 if n is a perfect power, 0 otherwise
 
 int PerfectPower(ZZ n){
     long b = 2;
-    RR k = to RR (log(n) / log(2));
+    RR k = to_RR(log(n) / log(2));
     ZZ a;
 
     while(b <= to_long(k)){
@@ -22,7 +22,7 @@ int PerfectPower(ZZ n){
         if(n == power(a, b)){
             // if n is a perfect power.
             cout << n << " is a perfect power, hence is not prime \n" ;
-            cout << "n = aˆb \ n" ;
+            cout << "n = a^b \ n" ;
             cout << "b = " << b << "\n" ;
             cout << "a = " << a << "\n\n" ;
             return ( 1 ) ;
