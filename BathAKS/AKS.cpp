@@ -15,12 +15,13 @@
 #include <chrono>
 #include <string>
 
-#include <NTL/ZZ.h> // NTL Libraries
-#include <NTL/RR.h>
-#include <NTL/ZZ_p.h>
-#include <NTL/ZZ_pX.h>
-#include <NTL/ZZX.h>
-#include <NTL/vec_ZZ.h>
+#include "NTL/ZZ.h" // NTL Libraries
+#include "NTL/RR.h"
+#include "NTL/ZZ_p.h"
+#include "NTL/ZZ_pX.h"
+#include "NTL/ZZX.h"
+#include "NTL/vec_ZZ.h"
+NTL_CLIENT
 
 #include "PerfectPower.h" //Each Indepedent Test
 #include "IsPrime.h"
