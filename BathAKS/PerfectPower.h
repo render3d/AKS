@@ -8,7 +8,7 @@ int PerfectPower(ZZ n){
     RR k = to RR (log(n) / log(2));
     ZZ a;
 
-    while(b <= to long(k)){
+    while(b <= to_long(k)){
         // b cannot be bigger than k
         long c = to_long(ceil((log(n) / log(2)) / to_long(b)));
         a = pow(2, c); // assign guess value for a
@@ -16,7 +16,7 @@ int PerfectPower(ZZ n){
         while(power(a, b) > n){
             double d = to_double(((b - 1) * a + n / power(a , ( b-1))) / b); // Apply Integer Newton's Method
             ZZ e = to_ZZ(floor(d));
-            a = to_long (e); // adjust a
+            a = to_long(e); // adjust a
         }
 
         if(n == power(a, b)){
