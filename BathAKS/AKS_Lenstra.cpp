@@ -22,7 +22,7 @@
 #include "Euler.h"
 #include "Congruence.h"
 
-int main (int argc, char* argv[]){
+int main (int argc, char * argv[]){
 
     start:
     ZZ n;
