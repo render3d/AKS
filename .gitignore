@@ -5,3 +5,4 @@ archive
 dump
 bin
 log.doc
+*.out
