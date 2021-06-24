@@ -182,7 +182,7 @@ int main (int argc, char * argv[]){
     my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
     my_file.close();
 
-    std::cout << n << " i s prime.\n\n";
+    std::cout << n << " is prime.\n\n";
 
     int choice;    // Give user opportunity to continue or exit program
     std::cout << "Press '1' to test a new number, '0' to exit the program:\n"; std::cin >> choice;
