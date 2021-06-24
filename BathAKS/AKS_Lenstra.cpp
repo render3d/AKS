@@ -52,7 +52,13 @@ int main (int argc, char * argv[]){
         goto start;
     }
 
-    std::ofstream my_file("log.doc", std::ios::app); // output result into file
+    string prfx = "log-";
+    string sffx = ;
+    string extn = ".txt";
+
+    string filename = prfx + sffx + extn;
+
+    std::ofstream my_file(filename, std::ios::app); // output result into file
     std::cout << "n = " << n << "\n";
     my_file << "n = " << n << "\n";
 

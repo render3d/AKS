@@ -11,9 +11,12 @@
 template <typename T> std::string type_name();
 
 int main() {
+    auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::cout << time;
+
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
-    std::cout << "Start\n";
+    std::cout << "\nStart\n";
 
     //do stuff here
     unsigned int microsecond = 1000000;
