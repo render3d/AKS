@@ -50,7 +50,7 @@ int main (int argc, char * argv[]){
 
     string filename = prfx + sffx + extn;
 
-    std::ofstream my_file(filename, std::ios::app); // output result into file
+    std::ofstream perflog(filename, std::ios::app); // output result into file
 
     start:
     ZZ n;
@@ -77,7 +77,7 @@ int main (int argc, char * argv[]){
     }
 
     std::cout << "n = " << n << "\n";
-    my_file << "n = " << n << "\n";
+    perflog << "n = " << n << "\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -88,12 +88,12 @@ int main (int argc, char * argv[]){
 
     // returns 1 if n is a perfect power, 0 otherwise;
     if(PP == 1){
-        my_file << n << " is a perfect power, hence is not prime.\n\n";
+        perflog << n << " is a perfect power, hence is not prime.\n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
         std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file.close();
+        perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        // perflog.close();
 
         int choice; // Give user opportunity to continue or exit program
         std::cout << " Press '1' to test a new number, '0' to exit the program:\n";
@@ -116,16 +116,16 @@ int main (int argc, char * argv[]){
         ZZ R = GCD(r, n);
         if(R != 1 ){ // line 4 of Fig 2.2
             std::cout << "n has factors other than n and 1, hence is composite.\n\n";
-            my_file << n << " is composite.\n";
-            my_file << R << " is a divisor.\n\n";
+            perflog << n << " is composite.\n";
+            perflog << R << " is a divisor.\n\n";
             std::cout << R << " is a divisor.\n\n";
 
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file.close();
+            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            // perflog.close();
 
             int choice; // Give user opportunity to continue or exit program
             std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
@@ -162,10 +162,10 @@ int main (int argc, char * argv[]){
 
     r = r1;
     std::cout << "r = " << r << "\n";
-    my_file << "r = " << r << "\n";
+    perflog << "r = " << r << "\n";
     // calculate lines 11-13 of Fig 2.2
     ZZ r2 = Euler(to_long(r));
-    my_file << "Euler(" << r << ") = " << r2 << "\n";
+    perflog << "Euler(" << r << ") = " << r2 << "\n";
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
     long a;
 
@@ -176,13 +176,13 @@ int main (int argc, char * argv[]){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
             std::cout << "the a which fails is " << a << "\n";
-            my_file << "the a which fails is " << a << "\n";
-            my_file << "n is not prime.\n"; // line 12 fails for particular a
+            perflog << "the a which fails is " << a << "\n";
+            perflog << "n is not prime.\n"; // line 12 fails for particular a
 
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
             std::cout << n << " is not prime.\n\n";
-            my_file.close();
+            // perflog.close();
 
             int choice; // Give user opportunity to continue or exit program
             std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
@@ -199,11 +199,11 @@ int main (int argc, char * argv[]){
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
     std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file << "n is prime.\n";
+    perflog << "n is prime.\n";
 
     //n must be prime if went t h r o ug h t h i s s t age , o u t p u t r e s u l t t o f i l e .
-    my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file.close();
+    perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    // perflog.close();
 
     std::cout << n << " is prime.\n\n";
 

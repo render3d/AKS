@@ -52,7 +52,7 @@ int main(int argc, char argv[]){
 
     string filename = prfx + sffx + extn;
 
-    std::ofstream my_file(filename, std::ios::app); // output result into file
+    std::ofstream perflog(filename, std::ios::app); // output result into file
 
     start:
     ZZ n;
@@ -79,7 +79,7 @@ int main(int argc, char argv[]){
     }
 
     std::cout << "n = " << n << "\n";
-    my_file << "n = " << n << "\n";
+    perflog << "n = " << n << "\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -88,12 +88,12 @@ int main(int argc, char argv[]){
     int PP = PerfectPower(n); // Check if n is a perfect power; returns 1 if n is a perfect power, 0 otherwise
 
     if(PP==1){
-        my_file << n << " is a perfect power, hence is not prime.\n\n";
+        perflog << n << " is a perfect power, hence is not prime.\n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
         std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file.close();
+        perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        // perflog.close();
         int choice;
 
         // Give user opportunity to continue or exit program
@@ -120,8 +120,8 @@ int main(int argc, char argv[]){
         if(r1 != 1){ // line 4 of Fig 2.1
             std::cout << "n has factors other than n and 1, hence is composite.\n\n";
 
-            my_file << n << " is composite.\n";
-            my_file << r1 << " is a divisor.\n\n";
+            perflog << n << " is composite.\n";
+            perflog << r1 << " is a divisor.\n\n";
 
             std::cout << r1 << " is a divisor.\n\n";
 
@@ -130,8 +130,8 @@ int main(int argc, char argv[]){
 
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file.close();
+            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            // perflog.close();
 
             int choice;
 
@@ -173,7 +173,7 @@ int main(int argc, char argv[]){
     }
 
     std::cout << "r = " << r << "\n";
-    my_file << "r = " << r << "\n";
+    perflog << "r = " << r << "\n";
     long a;
     long b = to_long(2 * sqrt(to_long(r)) * (log(n) / log(2)));
 
@@ -182,17 +182,17 @@ int main(int argc, char argv[]){
 
         // Returns 0 if condition fails, returns 1 if holds
         if(f == 0){
-            my_file << "a fails at " << a << "\n";
+            perflog << "a fails at " << a << "\n";
             std::cout << "a fails at " << a << "\n";
 
             // Line 12 fails for an a, hence n is composite
-            my_file << "Hence n is not prime.\n";
+            perflog << "Hence n is not prime.\n";
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file.close();
+            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            // perflog.close();
             std::cout << n << " is not prime.\n\n";
 
             int choice; // Give user opportunity to continue or exit program
@@ -209,10 +209,10 @@ int main(int argc, char argv[]){
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
 
-    my_file << "n is prime.\n"; // line 13 Fig 2.1
+    perflog << "n is prime.\n"; // line 13 Fig 2.1
     std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file.close();
+    perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    // perflog.close();
     std::cout << n << " is prime.\n\n";
 
     int choice; // Give user opportunity to continue or Exit program
