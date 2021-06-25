@@ -6,12 +6,15 @@
 #include <math.h> // standard libraries
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 // #include <windows.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 // #include <mmsystem.h>
 #include <time.h>
+#include <ctime>
 #include <chrono>
 #include <string>
 
@@ -26,7 +29,28 @@ NTL_CLIENT
 #include "Euler.h"
 #include "Congruence.h"
 
+string getTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    auto time = oss.str();
+
+    // std::cout << time;
+
+    return time;
+}
+
 int main (int argc, char * argv[]){
+
+    string prfx = "log-Lenstra-";
+    string sffx = getTime();
+    string extn = ".txt";
+
+    string filename = prfx + sffx + extn;
+
+    std::ofstream my_file(filename, std::ios::app); // output result into file
 
     start:
     ZZ n;
@@ -52,13 +76,6 @@ int main (int argc, char * argv[]){
         goto start;
     }
 
-    string prfx = "log-";
-    string sffx = ;
-    string extn = ".txt";
-
-    string filename = prfx + sffx + extn;
-
-    std::ofstream my_file(filename, std::ios::app); // output result into file
     std::cout << "n = " << n << "\n";
     my_file << "n = " << n << "\n";
 
