@@ -1,37 +1,52 @@
 // type test for chrono library steady_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
+// g++ -g -O2 -std=c++11 -pthread -march=native BathAKS/AKS_Lenstra.cpp -o BathAKS/LenstraAKS.out -lntl -lgmp -lm
 
+#include <typeinfo>
+
+#include <math.h> // standard libraries
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
-#include <ctime>
-#include <chrono>
+// #include <windows.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <typeinfo>
+// #include <mmsystem.h>
+#include <time.h>
+#include <ctime>
+#include <chrono>
 #include <string>
+
+#include "NTL/ZZ.h" // NTL Libraries
+#include "NTL/ZZ_p.h"
+#include "NTL/ZZ_pX.h"
+#include "NTL/ZZX.h"
+#include "NTL/vec_ZZ.h"
+NTL_CLIENT
 
 template <typename T> std::string type_name();
 
-std::string getTime() {
+string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%d-%m-%Y-%H-%M-%S");
+    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
     auto time = oss.str();
 
-    std::cout << time << std::endl;
+    // std::cout << time;
 
     return time;
 }
 
 int main() {
-    getTime();
+    std::cout << getTime();
 
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
-    std::cout << "Start\n";
+    std::cout << "\nStart\n";
 
     //do stuff here
     unsigned int microsecond = 1000000;
