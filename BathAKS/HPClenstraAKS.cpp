@@ -11,18 +11,24 @@
 // #include <windows.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <cstdio>
 #include <stdlib.h>
+#include <cstdlib>
 // #include <mmsystem.h>
 #include <time.h>
 #include <ctime>
 #include <chrono>
 #include <string>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 #include "NTL/ZZ.h" // NTL Libraries
 #include "NTL/ZZ_p.h"
 #include "NTL/ZZ_pX.h"
 #include "NTL/ZZX.h"
 #include "NTL/vec_ZZ.h"
+#include <NTL/ZZ_pXFactoring.h>
+#include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
 #include "PerfectPower.h" //Each Indepedent Test
@@ -43,6 +49,8 @@ string getTime() {
 }
 
 int main (int argc, char * argv[]){
+
+    SetNumThreads(8); // number of threads - should correspond to the number of available cores on your machine.
 
     string prfx = "log-Lenstra-";
     string sffx = getTime();
@@ -93,7 +101,7 @@ int main (int argc, char * argv[]){
         auto duration = finish - start;
         std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
         my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file.close();
+        // my_file.close();
 
         int choice; // Give user opportunity to continue or exit program
         std::cout << " Press '1' to test a new number, '0' to exit the program:\n";
@@ -125,7 +133,7 @@ int main (int argc, char * argv[]){
 
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
             my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file.close();
+            // my_file.close();
 
             int choice; // Give user opportunity to continue or exit program
             std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
@@ -167,52 +175,62 @@ int main (int argc, char * argv[]){
     ZZ r2 = Euler(to_long(r));
     my_file << "Euler(" << r << ") = " << r2 << "\n";
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
-    long a;
 
-    for(a = 1; a <= to_long(r2 - 1); ++a){ // line 9 of Fig 2.2
-        int f = Congruence (a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
+    bool PRIME = true;
 
-        if(f == 0){
-            auto finish = std::chrono::steady_clock::now();
-            auto duration = finish - start;
-            std::cout << "the a which fails is " << a << "\n";
-            my_file << "the a which fails is " << a << "\n";
-            my_file << "n is not prime.\n"; // line 12 fails for particular a
+    NTL_EXEC_RANGE(to_long(r2 - 1), first, last);
 
-            std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            std::cout << n << " is not prime.\n\n";
-            my_file.close();
+        for(long a = first; a <= last; ++a){ // line 9 of Fig 2.2
+            int f = Congruence (a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
 
-            int choice; // Give user opportunity to continue or exit program
-            std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
-            std::cin >> choice;
-            if(choice == 1){
-                goto start;
-            }
-            else if(choice == 0){
-                return(0); // E x i t program
+            if(f == 0){
+                auto finish = std::chrono::steady_clock::now();
+                auto duration = finish - start;
+                std::cout << "the a which fails is " << a << "\n";
+                my_file << "the a which fails is " << a << "\n";
+                my_file << "n is not prime.\n"; // line 12 fails for particular a
+
+                std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+                my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+                std::cout << n << " is not prime.\n\n";
+                // my_file.close();
+
+                PRIME = false;
             }
         }
+
+    NTL_EXEC_RANGE_END;
+
+    if(PRIME == false){
+        int choice; // Give user opportunity to continue or exit program
+        std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
+        std::cin >> choice;
+        if(choice == 1){
+            goto start;
+        }
+        else if(choice == 0){
+            return(0); // Exit program
+        }
     }
+    else{
+        auto finish = std::chrono::steady_clock::now();
+        auto duration = finish - start;
+        std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        my_file << "n is prime.\n";
 
-    auto finish = std::chrono::steady_clock::now();
-    auto duration = finish - start;
-    std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file << "n is prime.\n";
+        //n must be prime if went through this stage, output result to file.
+        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        // my_file.close();
 
-    //n must be prime if went t h r o ug h t h i s s t age , o u t p u t r e s u l t t o f i l e .
-    my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    my_file.close();
+        std::cout << n << " is prime.\n\n";
 
-    std::cout << n << " is prime.\n\n";
-
-    int choice;    // Give user opportunity to continue or exit program
-    std::cout << "Press '1' to test a new number, '0' to exit the program:\n"; std::cin >> choice;
-    if(choice == 1){
-        goto start;
-    }
-    else if(choice == 0){
-        return(1); // Exit program
+        int choice;    // Give user opportunity to continue or exit program
+        std::cout << "Press '1' to test a new number, '0' to exit the program:\n"; std::cin >> choice;
+        if(choice == 1){
+            goto start;
+        }
+        else if(choice == 0){
+            return(1); // Exit program
+        }
     }
 }
