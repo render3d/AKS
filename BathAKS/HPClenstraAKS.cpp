@@ -36,11 +36,6 @@ NTL_CLIENT
 #include "Euler.h"
 #include "Congruence.h"
 
-const auto ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
-const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
-
-std::ofstream perflog(getFilename(), std::ios::app); // output result into file
-
 string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
@@ -64,6 +59,12 @@ string getFilename() {
     return filename;
 }
 
+const auto ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
+const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
+
+string filename = getFilename();
+std::ofstream perflog(filename, std::ios::app); // output result into file
+
 int main (int argc, char * argv[]){
 
     while (1) {
@@ -75,7 +76,7 @@ int main (int argc, char * argv[]){
         switch (opt)
         {
         case 1:
-            lenstraAKS();
+            bool lenstraAKS();
             break;
         case 0:
             exit(1);
