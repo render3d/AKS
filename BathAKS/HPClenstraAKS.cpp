@@ -1,5 +1,5 @@
 /*
-    A C++ implementation of Lenstra's algorithm by Hua Li that uses the NTL library:
+    A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li, that uses the NTL library's faster arithemetic methods and basic thread pool functionality:
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
 */
 
