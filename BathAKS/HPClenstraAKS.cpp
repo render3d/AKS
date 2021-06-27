@@ -36,7 +36,7 @@ NTL_CLIENT
 #include "Euler.h"
 #include "Congruence.h"
 
-string getTime() {
+std::string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
@@ -49,12 +49,12 @@ string getTime() {
     return time;
 }
 
-string getFilename() {
-    string prfx = "log-LenstraHPC-";
-    string sffx = getTime();
-    string extn = ".txt";
+std::string getFilename() {
+    std::string prfx = "log-LenstraHPC-";
+    std::string sffx = getTime();
+    std::string extn = ".txt";
 
-    string filename = prfx + sffx + extn;
+    std::string filename = prfx + sffx + extn;
 
     return filename;
 }
@@ -62,7 +62,7 @@ string getFilename() {
 const auto ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
 const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
 
-string filename = getFilename();
+std::string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
 bool lenstraAKS () {
