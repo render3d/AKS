@@ -1,13 +1,19 @@
+
 #include <cpuid.h>
 #include <iostream>
 #include <map>
+#include <stdlib.h>
+#include <unistd.h>
 #include <string>
 #include <thread>
+#include <filesystem>
+#include <experimental/filesystem>
+
+using namespace std;
 
 //may return 0 when not able to detect
 const auto nthreads = std::thread::hardware_concurrency();
-
-using namespace std;
+char tmp[256];
 
 struct CPUVendorID {
     unsigned int ebx;
@@ -51,4 +57,5 @@ int main() {
     cout << "Vendor ID: " << vendorIDString << endl;
     cout << "Vendor name: " << vendorName << endl;
     cout << "Thread count: " << nthreads << endl;
+    cout << "Current Path:"  << getcwd(tmp, 256) << endl;
 }
