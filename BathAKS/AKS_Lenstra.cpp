@@ -191,7 +191,7 @@ int main (int argc, char * argv[]){
                 goto start;
             }
             else if(choice == 0){
-                return(0); // E x i t program
+                return(0); // Exit program
             }
         }
     }
@@ -201,7 +201,7 @@ int main (int argc, char * argv[]){
     std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
     perflog << "n is prime.\n";
 
-    //n must be prime if went t h r o ug h t h i s s t age , o u t p u t r e s u l t t o f i l e .
+    //n must be prime if went through this stage, output result to file
     perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
     // perflog.close();
 
