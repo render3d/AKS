@@ -65,27 +65,6 @@ const auto SetNumThreads(ncores); // number of threads - should correspond to th
 string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
-int main (int argc, char * argv[]){
-
-    while (1) {
-        int opt; // Give user opportunity to continue or exit program
-
-        std::cout << "Press '1' to test a number, '0' to exit the program:\n";
-        std::cin >> opt;
-
-        switch (opt)
-        {
-        case 1:
-            bool lenstraAKS();
-            break;
-        case 0:
-            exit(1);
-        default:
-            break;
-        }
-    }
-}
-
 bool lenstraAKS () {
 
     start:
@@ -225,4 +204,21 @@ bool lenstraAKS () {
     // perflog.close();
 
     return true;
+}
+
+int main (int argc, char * argv[]){
+
+    while (1) {
+        int opt; // Give user opportunity to continue or exit program
+
+        std::cout << "Press '1' to test a number, '0' to exit the program:\n";
+        std::cin >> opt;
+
+        if (opt == 1) {
+            bool PRIME = lenstraAKS();
+        }
+        else if (opt == 0) {
+            return(0); // Exit program
+        }
+    }
 }
