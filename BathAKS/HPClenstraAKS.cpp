@@ -19,6 +19,7 @@
 #include <ctime>
 #include <chrono>
 #include <string>
+#include <thread>
 #include <sys/time.h>
 #include <sys/resource.h>
 
@@ -35,6 +36,11 @@ NTL_CLIENT
 #include "Euler.h"
 #include "Congruence.h"
 
+const auto ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
+const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
+
+std::ofstream perflog(getFilename(), std::ios::app); // output result into file
+
 string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
@@ -48,17 +54,38 @@ string getTime() {
     return time;
 }
 
-int main (int argc, char * argv[]){
-
-    SetNumThreads(8); // number of threads - should correspond to the number of available cores on your machine.
-
-    string prfx = "log-Lenstra-";
+string getFilename() {
+    string prfx = "log-LenstraHPC-";
     string sffx = getTime();
     string extn = ".txt";
 
     string filename = prfx + sffx + extn;
 
-    std::ofstream my_file(filename, std::ios::app); // output result into file
+    return filename;
+}
+
+int main (int argc, char * argv[]){
+
+    while (1) {
+        int opt; // Give user opportunity to continue or exit program
+
+        std::cout << "Press '1' to test a number, '0' to exit the program:\n";
+        std::cin >> opt;
+
+        switch (opt)
+        {
+        case 1:
+            lenstraAKS();
+            break;
+        case 0:
+            exit(1);
+        default:
+            break;
+        }
+    }
+}
+
+bool lenstraAKS () {
 
     start:
     ZZ n;
@@ -73,19 +100,19 @@ int main (int argc, char * argv[]){
     }
     else if(n == 1){
         std::cout << "1 is neither prime or composite.\n\n";
-        goto start;
+        return false;
     }
     else if(n == 2){
         std::cout << "2 is prime.\n\n";
-        goto start;
+        return true;
     }
     else if(n == 3){
         std::cout << "3 is prime.\n\n";
-        goto start;
+        return true;
     }
 
     std::cout << "n = " << n << "\n";
-    my_file << "n = " << n << "\n";
+    perflog << "n = " << n << "\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -96,23 +123,16 @@ int main (int argc, char * argv[]){
 
     // returns 1 if n is a perfect power, 0 otherwise;
     if(PP == 1){
-        my_file << n << " is a perfect power, hence is not prime.\n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
+
+        std::cout << n << " is a perfect power, hence is not prime.\n\n";
         std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        // my_file.close();
 
-        int choice; // Give user opportunity to continue or exit program
-        std::cout << " Press '1' to test a new number, '0' to exit the program:\n";
-        std::cin >> choice;
-
-        if(choice == 1){
-            goto start;
-        }
-        else if(choice == 0){
-            return(0); // Exit program
-        }
+        perflog << n << " is a perfect power, hence is not prime.\n\n";
+        perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        // perflog.close();
+        return false;
     }
 
     // Find a suitable r
@@ -123,27 +143,18 @@ int main (int argc, char * argv[]){
     while(r < n){ // line 3 of Fig 2.2
         ZZ R = GCD(r, n);
         if(R != 1 ){ // line 4 of Fig 2.2
-            std::cout << "n has factors other than n and 1, hence is composite.\n\n";
-            my_file << n << " is composite.\n";
-            my_file << R << " is a divisor.\n\n";
-            std::cout << R << " is a divisor.\n\n";
-
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
+            std::cout << n << " has factors other than n and 1, hence is composite.\n\n";
+            std::cout << R << " is a divisor.\n\n";
             std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            // my_file.close();
 
-            int choice; // Give user opportunity to continue or exit program
-            std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
-            std::cin >> choice;
-            if(choice == 1){
-                goto start;
-            }
-            else if(choice == 0){
-                return(0); // Exit program
-            }
+            perflog << n << " is composite.\n";
+            perflog << R << " is a divisor.\n\n";
+            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            // perflog.close();
+            return false;
         }
         else { // lines 5 and 6 of Fig 2.2
             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
@@ -170,13 +181,12 @@ int main (int argc, char * argv[]){
 
     r = r1;
     std::cout << "r = " << r << "\n";
-    my_file << "r = " << r << "\n";
+    perflog << "r = " << r << "\n";
+
     // calculate lines 11-13 of Fig 2.2
     ZZ r2 = Euler(to_long(r));
-    my_file << "Euler(" << r << ") = " << r2 << "\n";
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
-
-    bool PRIME = true;
+    perflog << "Euler(" << r << ") = " << r2 << "\n";
 
     NTL_EXEC_RANGE(to_long(r2 - 1), first, last);
 
@@ -186,51 +196,32 @@ int main (int argc, char * argv[]){
             if(f == 0){
                 auto finish = std::chrono::steady_clock::now();
                 auto duration = finish - start;
-                std::cout << "the a which fails is " << a << "\n";
-                my_file << "the a which fails is " << a << "\n";
-                my_file << "n is not prime.\n"; // line 12 fails for particular a
 
-                std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-                my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
                 std::cout << n << " is not prime.\n\n";
-                // my_file.close();
+                std::cout << "the a which fails is " << a << "\n";
+                std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
-                PRIME = false;
+                perflog << n << " is not prime.\n"; // line 12 fails for particular a
+                perflog << "the a which fails is " << a << "\n";
+                perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+                // perflog.close();
+
+                return false;
             }
         }
 
     NTL_EXEC_RANGE_END;
 
-    if(PRIME == false){
-        int choice; // Give user opportunity to continue or exit program
-        std::cout << "Press '1' to test a new number, '0' to exit the program:\n";
-        std::cin >> choice;
-        if(choice == 1){
-            goto start;
-        }
-        else if(choice == 0){
-            return(0); // Exit program
-        }
-    }
-    else{
-        auto finish = std::chrono::steady_clock::now();
-        auto duration = finish - start;
-        std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        my_file << "n is prime.\n";
+    auto finish = std::chrono::steady_clock::now();
+    auto duration = finish - start;
 
-        //n must be prime if went through this stage, output result to file.
-        my_file << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        // my_file.close();
+    std::cout << n << " is prime.\n\n";
+    std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
-        std::cout << n << " is prime.\n\n";
+    //n must be prime if went through this stage, output result to file
+    perflog << "n is prime.\n";
+    perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    // perflog.close();
 
-        int choice;    // Give user opportunity to continue or exit program
-        std::cout << "Press '1' to test a new number, '0' to exit the program:\n"; std::cin >> choice;
-        if(choice == 1){
-            goto start;
-        }
-        else if(choice == 0){
-            return(1); // Exit program
-        }
-    }
+    return true;
 }
