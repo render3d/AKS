@@ -2,6 +2,10 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <thread>
+
+//may return 0 when not able to detect
+const auto nthreads = std::thread::hardware_concurrency();
 
 using namespace std;
 
@@ -46,4 +50,5 @@ int main() {
     cout << "Max instruction ID: " << eax << endl;
     cout << "Vendor ID: " << vendorIDString << endl;
     cout << "Vendor name: " << vendorName << endl;
+    cout << "Thread count: " << nthreads << endl;
 }
