@@ -168,9 +168,10 @@ bool lenstraAKS () {
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
     perflog << "Euler(" << r << ") = " << r2 << "\n";
 
-    NTL_EXEC_RANGE(to_long(r2 - 1), first, last);
+    // NTL_EXEC_RANGE(to_long(r2 - 1), first, last);
 
-        for(long a = first; a <= last; ++a){ // line 9 of Fig 2.2
+        for(long a = 1; a <= to_long(r2 - 1); ++a){ // line 9 of Fig 2.2
+        // for(long a = first; a <= last; ++a){ // line 9 of Fig 2.2
             int f = Congruence (a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
 
             if(f == 0){
@@ -190,7 +191,7 @@ bool lenstraAKS () {
             }
         }
 
-    NTL_EXEC_RANGE_END;
+    // NTL_EXEC_RANGE_END;
 
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
