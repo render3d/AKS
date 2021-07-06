@@ -65,7 +65,7 @@ const auto SetNumThreads(ncores); // number of threads - should correspond to th
 std::string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
-inline std::string fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME, const bool& time, const string& other) {
+inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME, const long& time, const std::string& other) {
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
@@ -98,7 +98,6 @@ int main (int argc, char * argv[]){
     }
 
     std::cout << "n = " << n << "\n";
-    perflog << "n = " << n << "\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -108,11 +107,12 @@ int main (int argc, char * argv[]){
 
     // returns 1 if n is a perfect power, 0 otherwise;
     if(PP == 1){
-        perflog << n << " is a perfect power, hence is not prime.\n\n";
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
-        std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+
+        // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+        std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
+        // perflog << n << " is a perfect power, hence is not prime.\n\n";
 
         int opt; // Give user opportunity to continue or exit program
         std::printf("Press '1' to test a new number, '0' to exit the program:\n");
@@ -134,16 +134,16 @@ int main (int argc, char * argv[]){
     while(r < n){ // line 3 of Fig 2.2
         ZZ R = GCD(r, n);
         if(R != 1 ){ // line 4 of Fig 2.2
-            std::cout << "n has factors other than n and 1, hence is composite.\n\n";
-            perflog << n << " is composite.\n";
-            perflog << R << " is a divisor.\n\n";
-            std::cout << R << " is a divisor.\n\n";
-
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
 
-            std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            std::cout << "n has factors other than n and 1, hence is composite.\n\n";
+            // perflog << n << " is composite.\n";
+            // perflog << R << " is a divisor.\n\n";
+            std::cout << R << " is a divisor.\n\n";
+
+            std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
+            // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
             int opt; // Give user opportunity to continue or exit program
             std::printf("Press '1' to test a new number, '0' to exit the program:\n");
@@ -180,11 +180,11 @@ int main (int argc, char * argv[]){
 
     r = r1;
     std::cout << "r = " << r << "\n";
-    perflog << "r = " << r << "\n";
+    // perflog << "r = " << r << "\n";
 
     // calculate lines 11-13 of Fig 2.2
     ZZ r2 = Euler(to_long(r));
-    perflog << "Euler(" << r << ") = " << r2 << "\n";
+    // perflog << "Euler(" << r << ") = " << r2 << "\n";
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
 
     for(long a = 1; a <= to_long(r2 - 1); ++a){ // line 9 of Fig 2.2
@@ -194,11 +194,11 @@ int main (int argc, char * argv[]){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
             std::cout << "the a which fails is " << a << "\n";
-            perflog << "the a which fails is " << a << "\n";
-            perflog << "n is not prime.\n"; // line 12 fails for particular a
+            // perflog << "the a which fails is " << a << "\n";
+            // perflog << "n is not prime.\n"; // line 12 fails for particular a
 
-            std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
+            // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
             std::cout << n << " is not prime.\n\n";
 
 
@@ -216,16 +216,16 @@ int main (int argc, char * argv[]){
 
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
-    std::cout << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-    perflog << "n is prime.\n";
+    std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
+    // perflog << "n is prime.\n"; //n must be prime if went through this stage, output result to file
 
-    //n must be prime if went through this stage, output result to file
-    perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 
     std::cout << n << " is prime.\n\n";
 
     int opt;    // Give user opportunity to continue or exit program
-    std::printf("Press '1' to test a new number, '0' to exit the program:\n"); std::cin >> opt;
+    std::printf("Press '1' to test a new number, '0' to exit the program:\n");
+    std::cin >> opt;
     if(opt == 1){
         goto start;
     }
