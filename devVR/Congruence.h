@@ -1,6 +1,6 @@
 // calculates line 10 of Fig 2.2
 
-int Congruence(long a, ZZ n, ZZ r){
+int Congruence(const long& a, const ZZ& n, const ZZ& r){
     ZZ_p::init(n); //mod n
     ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1;
     ZZ_pX c = ZZ_pX(1, 1) - a ; // c = x - a;

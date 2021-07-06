@@ -3,7 +3,7 @@
 // function to calculate if n = a^b
 // takes input ZZ n and returns 1 if n is a perfect power, 0 otherwise
 
-int PerfectPower(ZZ n){
+int PerfectPower(const ZZ& n){
     long b = 2;
     RR k = to_RR(log(n) / log(2));
     ZZ a;
@@ -36,4 +36,5 @@ int PerfectPower(ZZ n){
         return(0); // n is not a perfect power .
     }
 
+    return(0);
 }
