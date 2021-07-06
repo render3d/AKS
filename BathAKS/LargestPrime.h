@@ -1,4 +1,4 @@
-// calulates the largest prime factor of an input n
+// calculates the largest prime factor of an input n
 
 ZZ LargestPrime(ZZ n){
     ZZ f; f = 1;
@@ -14,7 +14,7 @@ ZZ LargestPrime(ZZ n){
     }
 
     if(x == 1){
-        return ( f ) ;
+        return (f) ;
     }
     else{
         return(x);

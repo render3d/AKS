@@ -14,7 +14,7 @@ int PerfectPower(ZZ n){
         a = pow(2, c); // assign guess value for a
 
         while(power(a, b) > n){
-            double d = to_double(((b - 1) * a + n / power(a, (b-1))) / b); // Apply Integer Newton's Method
+            double d = to_double(((b - 1) * a + n / power(a, (b - 1))) / b); // Apply Integer Newton's Method
             ZZ e = to_ZZ(floor(d));
             a = to_long(e); // adjust a
         }

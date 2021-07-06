@@ -5,7 +5,7 @@ int IsPrime(ZZ n){
     ZZ t;
     t = 4;
 
-    for(s = 2; t <= n; s++){
+    for(s = 2; t <= n; ++s){
         if(n % s == 0){ // n has factors other than n and 1, hence is composite.
             return(0);
         }

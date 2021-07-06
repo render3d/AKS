@@ -15,7 +15,7 @@ ZZ Euler(long r){
         }
 
         if(p == 2)
-        p--;
+        --p;
     }
 
     ZZ eu1 = to_ZZ(eu);
