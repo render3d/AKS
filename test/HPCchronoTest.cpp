@@ -1,8 +1,9 @@
 // type test for chrono library steady_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
-// g++ -g -O2 -std=c++11 -pthread -march=native BathAKS/AKS_Lenstra.cpp -o BathAKS/LenstraAKS.out -lntl -lgmp -lm
+// g++ -g -O2 -std=c++11 -pthread -march=native test/HPCchronoTest.cpp -o test/test.out -lntl -lgmp -lm
 
 #include <typeinfo>
+#include <string_view>
 
 #include <math.h> // standard libraries
 #include <fstream>
@@ -25,8 +26,6 @@
 #include "NTL/ZZX.h"
 #include "NTL/vec_ZZ.h"
 NTL_CLIENT
-
-template <typename T> std::string type_name();
 
 string getTime() {
     auto t = std::time(nullptr);
@@ -56,7 +55,11 @@ int main() {
     auto then = std::chrono::high_resolution_clock::now();
     // auto then = std::chrono::steady_clock::now();
     auto duration = then - now;
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    long l;
 
     std::cout << "Stop\n";
-    std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << '\n';
+    std::cout << time << '\n';
+    std::cout << typeid(time).name() << '\n';
+    std::cout << typeid(l).name() << '\n';
 }
