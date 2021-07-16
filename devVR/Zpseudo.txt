@@ -1,0 +1,19 @@
+ZZ_px A,B.
+     C=Multiply(A,B).
+
+Becomes
+     N=ComputeSize(A,B);
+     NA=Flatten(A,N);
+     NB=Flatten(B,N);
+     NC=FFTmultiply(NA,NB);
+     C=Unflatten(NC,N);
+     C=ReduceCoefficients(C,P).
+
+     D=PowerMod(A,n,B); is short for
+     D=1;
+     while (n>0)
+        if (n is odd)
+            then D=Multiply(D,A); D=Remainder(D,B);
+        A=Multiply(A,A);   A=Remainder(A,B);
+        n=n/2
+
