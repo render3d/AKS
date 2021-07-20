@@ -1,19 +1,17 @@
-ZZ_px A,B.
-     C=Multiply(A,B).
+ZZ_px A,B
+C = Multiply(A,B) becomes
+     N = ComputeSize(A,B);           // N = 2^b - 1 > max(D,E) * max(x_i) * max(y_k)
+     NA = Flatten(A,N);              // sub N in A
+     NB = Flatten(B,N);              // sub N in B
+     NC = FFTmultiply(NA,NB);        // multiply integers with FFT
+     C = Unflatten(NC,N);            // get coefficients
+     C = ReduceCoefficients(C,P)     // reduce coefficients mod p
 
-Becomes
-     N=ComputeSize(A,B);
-     NA=Flatten(A,N);
-     NB=Flatten(B,N);
-     NC=FFTmultiply(NA,NB);
-     C=Unflatten(NC,N);
-     C=ReduceCoefficients(C,P).
-
-     D=PowerMod(A,n,B); is short for
-     D=1;
-     while (n>0)
-        if (n is odd)
-            then D=Multiply(D,A); D=Remainder(D,B);
-        A=Multiply(A,A);   A=Remainder(A,B);
-        n=n/2
+D = PowerMod(A,n,B); is short for
+     D = 1;
+     while (n > 0)
+     if (n is odd)
+          then D = Multiply(D,A); D = Remainder(D,B);
+     A = Multiply(A,A);   A = Remainder(A,B);
+     n = n/2
 
