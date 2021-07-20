@@ -34,7 +34,8 @@ NTL_CLIENT
 
 #include "PerfectPower.h" //Each Indepedent Test
 #include "Euler.h"
-#include "Congruence.h"
+#include "CongruenceZn.h"
+#include "CongruenceZnx.h"
 
 std::string getTime() {
     auto t = std::time(nullptr);
@@ -188,7 +189,7 @@ int main (int argc, char * argv[]){
     std::cout << "Euler(" << r << ") = " << r2 << "\n";
 
     for(long a = 1; a <= to_long(r2 - 1); ++a){ // line 9 of Fig 2.2
-        int f = Congruence (a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
+        int f = CongruenceZnx(a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
 
         if(f == 0){
             auto finish = std::chrono::steady_clock::now();
