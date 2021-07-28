@@ -4,6 +4,8 @@
 NTL_CLIENT
 
 int CongruenceZnx(const long& a, const ZZ& n, const ZZ& r){
+    // congruence test of polynomials in regular form
+
     ZZ_p::init(n); //mod n
     ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1;
     ZZ_pX c = ZZ_pX(1, 1) - a ; // c = x - a;
@@ -18,4 +20,5 @@ int CongruenceZnx(const long& a, const ZZ& n, const ZZ& r){
     else{
         return(0); // n is not prime.
     }
+
 }
