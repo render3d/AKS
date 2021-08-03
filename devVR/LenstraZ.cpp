@@ -50,7 +50,7 @@ std::string getTime() {
 }
 
 std::string getFilename() {
-    std::string prfx = "log-LenstraHPC-";
+    std::string prfx = "log-LenstraZ-";
     std::string sffx = getTime();
     std::string extn = ".csv";
 
