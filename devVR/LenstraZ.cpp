@@ -35,7 +35,6 @@ NTL_CLIENT
 #include "PerfectPower.h" //Each Indepedent Test
 #include "Euler.h"
 #include "CongruenceZ.h"
-#include "CongruenceZnx.h"
 
 std::string getTime() {
     auto t = std::time(nullptr);
