@@ -1,5 +1,5 @@
 /*
-    A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li, that uses the NTL library's faster arithemetic methods and basic thread pool functionality:
+    A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li:
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
 */
 
@@ -43,8 +43,6 @@ std::string getTime() {
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
     auto time = oss.str();
-
-    // std::cout << time;
 
     return time;
 }
@@ -109,21 +107,16 @@ int main (int argc, char * argv[]){
     if(PP == 1){
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
+        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-        // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-        std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
-        // perflog << n << " is a perfect power, hence is not prime.\n\n";
+        std::printf("%ld is not prime",to_long(n));
+        std::printf("%ld is a perfect power",to_long(n));
+        std::printf("Time taken: %ld milliseconds",time);
 
-        int opt; // Give user opportunity to continue or exit program
-        std::printf("Press '1' to test a new number, '0' to exit the program:\n");
-        std::cin >> opt;
+        std::string note = std::to_string(to_long(n)) + " is a perfect power";
+        fileWrite(n,ncores,false,time,note);
 
-        if(opt == 1){
-            goto start;
-        }
-        else if(opt == 0){
-            return(0); // Exit program
-        }
+        goto start;
     }
 
     // Find a suitable r
@@ -131,31 +124,23 @@ int main (int argc, char * argv[]){
     ZZ R;
     ZZ r1;
 
-    while(r < n){ // line 3 of Fig 2.2
+    while(r < n){
         ZZ R = GCD(r, n);
-        if(R != 1 ){ // line 4 of Fig 2.2
+        if(R != 1 ){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-            std::cout << "n has factors other than n and 1, hence is composite.\n\n";
-            // perflog << n << " is composite.\n";
-            // perflog << R << " is a divisor.\n\n";
-            std::cout << R << " is a divisor.\n\n";
+            std::printf("%ld is not prime",to_long(n));
+            std::printf("%ld is a divisor",to_long(R));
+            std::printf("Time taken: %ld milliseconds",time);
 
-            std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
-            // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+            std::string note = std::to_string(to_long(R)) + " is a divisor";
+            fileWrite(n,ncores,false,time,note);
 
-            int opt; // Give user opportunity to continue or exit program
-            std::printf("Press '1' to test a new number, '0' to exit the program:\n");
-            std::cin >> opt;
-            if(opt == 1){
-                goto start;
-            }
-            else if(opt == 0){
-                return(0); // Exit program
-            }
+            goto start;
         }
-        else { // lines 5 and 6 of Fig 2.2
+        else {
             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
 
             // order of n mod r is bigger than v;
@@ -166,7 +151,7 @@ int main (int argc, char * argv[]){
                 ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
                 ZZ_p z = to_ZZ_p(x);
                 if(z == to_ZZ_p(1)){
-                    r1 = r; // store value of r;
+                    r1 = r; // store value of r
                     r = n + 1;
                     break;
                 }
@@ -175,61 +160,43 @@ int main (int argc, char * argv[]){
                 }
             }
         }
-        r = r + 1; // line 7 of Fig 2.2
+        r = r + 1;
     }
 
     r = r1;
     std::cout << "r = " << r << "\n";
-    // perflog << "r = " << r << "\n";
 
-    // calculate lines 11-13 of Fig 2.2
     ZZ r2 = Euler(to_long(r));
-    // perflog << "Euler(" << r << ") = " << r2 << "\n";
-    std::cout << "Euler(" << r << ") = " << r2 << "\n";
+    std::printf("Euler(%ld) = %ld",to_long(r),to_long(r2));
 
-    for(long a = 1; a <= to_long(r2 - 1); ++a){ // line 9 of Fig 2.2
-        int f = CongruenceZ(a, n, r); // line 10 of Fig 2.2, returns 1 if condition holds, 0 otherwise
+    for(long a = 1; a <= to_long(r2 - 1); ++a){
+        int f = CongruenceZ(a, n, r);
 
         if(f == 0){
             auto finish = std::chrono::steady_clock::now();
             auto duration = finish - start;
-            std::cout << "the a which fails is " << a << "\n";
-            // perflog << "the a which fails is " << a << "\n";
-            // perflog << "n is not prime.\n"; // line 12 fails for particular a
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-            std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
-            // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
-            std::cout << n << " is not prime.\n\n";
+            std::printf("%ld is not prime.\n",to_long(n));
+            std::printf("The a which fails is %ld\n.",a);
+            std::printf("Time taken: %ld milliseconds\n",time);
 
+            std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+            fileWrite(n,ncores,false,time,note);
 
-            int opt; // Give user opportunity to continue or exit program
-            std::printf("Press '1' to test a new number, '0' to exit the program:\n");
-            std::cin >> opt;
-            if(opt == 1){
-                goto start;
-            }
-            else if(opt == 0){
-                return(0); // Exit program
-            }
+            goto start;
         }
     }
 
     auto finish = std::chrono::steady_clock::now();
     auto duration = finish - start;
-    std::printf("Time taken: %d milliseconds", int(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()));
-    // perflog << "n is prime.\n"; //n must be prime if went through this stage, output result to file
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-    // perflog << "Time Taken:" << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
+    std::printf("%ld is prime.\n",to_long(n));
+    std::printf("Time taken: %ld milliseconds\n",time);
 
-    std::cout << n << " is prime.\n\n";
+    std::string note = "n/a";
+    fileWrite(n,ncores,true,time,note);
 
-    int opt;    // Give user opportunity to continue or exit program
-    std::printf("Press '1' to test a new number, '0' to exit the program:\n");
-    std::cin >> opt;
-    if(opt == 1){
-        goto start;
-    }
-    else if(opt == 0){
-        return(1); // Exit program
-    }
+    goto start;
 }
