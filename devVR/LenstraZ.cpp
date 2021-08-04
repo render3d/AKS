@@ -73,7 +73,7 @@ int main (int argc, char * argv[]){
 
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
-    start:
+    // start:
     ZZ n;
     n = 0;
 
@@ -82,19 +82,19 @@ int main (int argc, char * argv[]){
 
     if(n < 1){
         std::printf("Integer n needs to be positive.\n");
-        goto start;
+        // goto start;
     }
     else if(n == 1){
         std::printf("1 is neither prime or composite.\n");
-        goto start;
+        // goto start;
     }
     else if(n == 2){
         std::printf("2 is prime.\n");
-        goto start;
+        // goto start;
     }
     else if(n == 3){
         std::printf("3 is prime.\n");
-        goto start;
+        // goto start;
     }
 
     std::cout << "n = " << n << "\n";
@@ -118,7 +118,7 @@ int main (int argc, char * argv[]){
         std::string note = std::to_string(to_long(n)) + " is a perfect power";
         fileWrite(n,ncores,false,time,note);
 
-        goto start;
+        // goto start;
     }
 
     // Find a suitable r
@@ -140,7 +140,7 @@ int main (int argc, char * argv[]){
             std::string note = std::to_string(to_long(R)) + " is a divisor";
             fileWrite(n,ncores,false,time,note);
 
-            goto start;
+            // goto start;
         }
         else {
             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
@@ -186,7 +186,8 @@ int main (int argc, char * argv[]){
             std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
             fileWrite(n,ncores,false,time,note);
 
-            goto start;
+            // goto start;
+            break;
         }
     }
 
@@ -200,5 +201,5 @@ int main (int argc, char * argv[]){
     std::string note = "n/a";
     fileWrite(n,ncores,true,time,note);
 
-    goto start;
+    // goto start;
 }
