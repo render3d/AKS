@@ -13,18 +13,25 @@
 // #include <windows.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <cstdio>
 #include <stdlib.h>
+#include <cstdlib>
 // #include <mmsystem.h>
 #include <time.h>
 #include <ctime>
 #include <chrono>
 #include <string>
+#include <thread>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 #include "NTL/ZZ.h" // NTL Libraries
 #include "NTL/ZZ_p.h"
 #include "NTL/ZZ_pX.h"
 #include "NTL/ZZX.h"
 #include "NTL/vec_ZZ.h"
+#include <NTL/ZZ_pXFactoring.h>
+#include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
 string getTime() {
@@ -43,7 +50,7 @@ string getTime() {
 // std::ofstream perflog("logTest.txt", std::ios::app); // output result to txt file
 std::ofstream perflog("logTest.csv", std::ios::app); // output result to csv file
 
-inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME, const long& time, const std::string& other) {
+inline void fileWrite(const int& n, const unsigned int& cores, const bool& PRIME, const long& time, const std::string& other) {
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
@@ -72,5 +79,5 @@ int main() {
     std::cout << typeid(time).name() << '\n';
     std::cout << typeid(l).name() << '\n';
 
-
+    fileWrite(347,8,true,time,"note");
 }
