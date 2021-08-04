@@ -2,7 +2,7 @@
     A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li:
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
     Compile with:
-        g++ -g -O2 -std=c++11 -pthread -march=native dir/foo.cpp -o dir/foo.out -lntl -lgmp -lm
+        $ g++ -g -O2 -std=c++11 -pthread -march=native dir/foo.cpp -o dir/foo.out -lntl -lgmp -lm
 */
 
 #include <math.h> // standard libraries
