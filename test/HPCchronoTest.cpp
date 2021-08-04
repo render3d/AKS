@@ -1,6 +1,7 @@
 // type test for chrono library steady_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
 // g++ -g -O2 -std=c++11 -pthread -march=native test/HPCchronoTest.cpp -o test/test.out -lntl -lgmp -lm
+// g++ test/HPCchronoTest.cpp -o test/HPCchronoTest.out
 
 #include <typeinfo>
 #include <string_view>
@@ -54,7 +55,7 @@ inline void fileWrite(const int& n, const unsigned int& cores, const bool& PRIME
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
-int main() {
+int main () {
     std::cout << getTime();
 
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
