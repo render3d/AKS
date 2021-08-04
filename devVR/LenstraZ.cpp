@@ -170,7 +170,7 @@ int main (int argc, char * argv[]){
     std::printf("Euler(%ld) = %ld",to_long(r),to_long(r2));
 
     for(long a = 1; a <= to_long(r2 - 1); ++a){
-        int f = CongruenceZ(a, n, r);
+        int f = CongruenceZ(a,n,r);
 
         if(f == 0){
             auto finish = std::chrono::steady_clock::now();
