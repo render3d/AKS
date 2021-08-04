@@ -40,8 +40,17 @@ string getTime() {
     return time;
 }
 
+// std::ofstream perflog("logTest.txt", std::ios::app); // output result to txt file
+std::ofstream perflog("logTest.csv", std::ios::app); // output result to csv file
+
+inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME, const long& time, const std::string& other) {
+    perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
+}
+
 int main() {
     std::cout << getTime();
+
+    perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
@@ -62,4 +71,6 @@ int main() {
     std::cout << time << '\n';
     std::cout << typeid(time).name() << '\n';
     std::cout << typeid(l).name() << '\n';
+
+
 }
