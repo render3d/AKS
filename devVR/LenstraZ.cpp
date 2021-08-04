@@ -141,7 +141,6 @@ int main (int argc, char * argv[]){
             fileWrite(n,ncores,false,time,note);
 
             // goto start;
-            break;
         }
         else {
             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
