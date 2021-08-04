@@ -81,19 +81,19 @@ int main (int argc, char * argv[]){
     std::cin >> n;
 
     if(n < 1){
-        std::printf("Integer n needs to be positive.\n\n");
+        std::printf("Integer n needs to be positive.\n");
         goto start;
     }
     else if(n == 1){
-        std::printf("1 is neither prime or composite.\n\n");
+        std::printf("1 is neither prime or composite.\n");
         goto start;
     }
     else if(n == 2){
-        std::printf("2 is prime.\n\n");
+        std::printf("2 is prime.\n");
         goto start;
     }
     else if(n == 3){
-        std::printf("3 is prime.\n\n");
+        std::printf("3 is prime.\n");
         goto start;
     }
 
@@ -111,9 +111,9 @@ int main (int argc, char * argv[]){
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-        std::printf("%ld is not prime",to_long(n));
-        std::printf("%ld is a perfect power",to_long(n));
-        std::printf("Time taken: %ld milliseconds",time);
+        std::printf("%ld is not prime.\n",to_long(n));
+        std::printf("%ld is a perfect power.\n",to_long(n));
+        std::printf("Time taken: %ld milliseconds\n",time);
 
         std::string note = std::to_string(to_long(n)) + " is a perfect power";
         fileWrite(n,ncores,false,time,note);
@@ -133,9 +133,9 @@ int main (int argc, char * argv[]){
             auto duration = finish - start;
             auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-            std::printf("%ld is not prime",to_long(n));
-            std::printf("%ld is a divisor",to_long(R));
-            std::printf("Time taken: %ld milliseconds",time);
+            std::printf("%ld is not prime.\n",to_long(n));
+            std::printf("%ld is a divisor.\n",to_long(R));
+            std::printf("Time taken: %ld milliseconds\n",time);
 
             std::string note = std::to_string(to_long(R)) + " is a divisor";
             fileWrite(n,ncores,false,time,note);
@@ -169,7 +169,7 @@ int main (int argc, char * argv[]){
     std::cout << "r = " << r << "\n";
 
     ZZ r2 = Euler(to_long(r));
-    std::printf("Euler(%ld) = %ld",to_long(r),to_long(r2));
+    std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
 
     for(long a = 1; a <= to_long(r2 - 1); ++a){
         int f = CongruenceZ(a,n,r);
@@ -180,7 +180,7 @@ int main (int argc, char * argv[]){
             auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
             std::printf("%ld is not prime.\n",to_long(n));
-            std::printf("The a which fails is %ld\n.",a);
+            std::printf("The a which fails is %ld\n",a);
             std::printf("Time taken: %ld milliseconds\n",time);
 
             std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
