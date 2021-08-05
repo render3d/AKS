@@ -69,7 +69,7 @@ inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME,
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
-int main (int argc, char * argv[]){
+int main (int argc, char * argv[]) {
 
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
@@ -141,6 +141,7 @@ int main (int argc, char * argv[]){
             fileWrite(n,ncores,false,time,note);
 
             // goto start;
+            break;
         }
         else {
             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
