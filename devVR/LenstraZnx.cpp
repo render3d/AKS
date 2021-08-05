@@ -69,32 +69,22 @@ inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME,
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
-int main (int argc, char * argv[]) {
-
-    perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
-
-    // start:
-    ZZ n;
-    n = 0;
-
-    std::printf("Enter a positive integer number n you want to be tested:\n");
-    std::cin >> n;
-
+inline bool Lenstra (const ZZ& n) {
     if(n < 1){
         std::printf("Integer n needs to be positive.\n");
-        // goto start;
+        return false;
     }
     else if(n == 1){
         std::printf("1 is neither prime or composite.\n");
-        // goto start;
+        return false;
     }
     else if(n == 2){
         std::printf("2 is prime.\n");
-        // goto start;
+        return true;
     }
     else if(n == 3){
         std::printf("3 is prime.\n");
-        // goto start;
+        return true;
     }
 
     std::cout << "n = " << n << "\n";
@@ -118,7 +108,7 @@ int main (int argc, char * argv[]) {
         std::string note = std::to_string(to_long(n)) + " is a perfect power";
         fileWrite(n,ncores,false,time,note);
 
-        // goto start;
+        return false;
     }
 
     // Find a suitable r
@@ -140,7 +130,7 @@ int main (int argc, char * argv[]) {
             std::string note = std::to_string(to_long(R)) + " is a divisor";
             fileWrite(n,ncores,false,time,note);
 
-            // goto start;
+            return false;
             break;
         }
         else {
@@ -174,6 +164,7 @@ int main (int argc, char * argv[]) {
 
     for(long a = 1; a <= to_long(r2 - 1); ++a){
         int f = CongruenceZnx(a,n,r);
+        // int f = CongruenceZ(a,n,r);
 
         if(f == 0){
             auto finish = std::chrono::steady_clock::now();
@@ -187,7 +178,7 @@ int main (int argc, char * argv[]) {
             std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
             fileWrite(n,ncores,false,time,note);
 
-            // goto start;
+            return false;
             break;
         }
     }
@@ -202,5 +193,20 @@ int main (int argc, char * argv[]) {
     std::string note = "n/a";
     fileWrite(n,ncores,true,time,note);
 
-    // goto start;
+    return true;
+}
+
+int main (int argc, char * argv[]) {
+
+    perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
+
+    bool prime;
+    ZZ n;
+    n = 0;
+
+    std::printf("Enter a positive integer number n you want to be tested:\n");
+    std::cin >> n;
+
+    prime = Lenstra(n);
+
 }
