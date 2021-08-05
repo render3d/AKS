@@ -87,7 +87,7 @@ inline bool Lenstra (const ZZ& n) {
         return true;
     }
 
-    std::cout << "n = " << n << "\n";
+    std::printf("n = %ld\n",to_long(n));
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -157,7 +157,7 @@ inline bool Lenstra (const ZZ& n) {
     }
 
     r = r1;
-    std::cout << "r = " << r << "\n";
+    std::printf("r = %ld\n",to_long(r));
 
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
