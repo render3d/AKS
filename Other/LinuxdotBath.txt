@@ -1,0 +1,7 @@
+Login:
+    Open a terminal.
+    Type ssh user@linux.bath.ac.uk
+    If you wish to do X forwarding, type ssh -X user@linux.bath.ac.uk
+    Enter your password when prompted.
+Logout:
+    exit
