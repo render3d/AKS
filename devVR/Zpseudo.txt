@@ -1,4 +1,5 @@
 ZZ_px A,B
+
 C = Multiply(A,B) becomes
      N = ComputeSize(A,B);           // N = 2^b - 1 > max(D,E) * max(x_i) * max(y_k)
      NA = Flatten(A,N);              // sub N in A
@@ -14,4 +15,3 @@ D = PowerMod(A,n,B); is short for
           then D = Multiply(D,A); D = Remainder(D,B);
      A = Multiply(A,A);   A = Remainder(A,B);
      n = n/2
-
