@@ -1,6 +1,0 @@
-Login:
-    Open a terminal.
-    ssh user@nitt.cs.bath.ac.uk
-    Enter your password when prompted.
-Logout:
-    exit

@@ -1,6 +1,0 @@
-Start:
-    maple
-Exit
-    quit
-Next Prime:
-a = nextprime(210);
