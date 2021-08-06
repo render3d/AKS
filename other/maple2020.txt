@@ -5,7 +5,7 @@ Exit
 Next Prime:
     a = nextprime(210);
 List primes in set:
-    L:=[];
-    p = prime;
-    q = prime - 210;
+    L := [];
+    p := prime;
+    q := prime - 210;
     for i from q to p do if isprime(i) then L:=[op(L),i];end if; end do: L;
