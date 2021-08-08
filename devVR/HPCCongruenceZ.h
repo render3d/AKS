@@ -3,7 +3,7 @@
 #include "NTL/ZZ_pX.h"
 NTL_CLIENT
 
-int CongruenceZ(const long& a, const ZZ& n, const ZZ& r){
+int CongruenceZ(const ZZ& n, const ZZ& r, const ZZ& r2){
     // congruence test of polynomials in large integer form
 
     return 0;

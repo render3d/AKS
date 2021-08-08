@@ -3,7 +3,6 @@
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
     Compile with:
         $ g++ -g -O2 -std=c++11 -pthread -march=native dir/foo.cpp -o dir/foo.out -lntl -lgmp -lm
-        $ nvcc HPCLenstraZnx.cu -o HPCLenstraZnx
 */
 
 #include <math.h> // standard libraries
@@ -163,38 +162,38 @@ inline bool Lenstra (const ZZ& n) {
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
 
-    for(long a = 1; a <= to_long(r2 - 1); ++a){
-        int f = CongruenceZnx(a,n,r);
-        // int f = CongruenceZ(a,n,r);
+    int f = CongruenceZnx(n,r,r2);
+    // int f = CongruenceZ(a,n,r);
 
-        if(f == 0){
-            auto finish = std::chrono::steady_clock::now();
-            auto duration = finish - start;
-            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    if(f == 1){
+        auto finish = std::chrono::steady_clock::now();
+        auto duration = finish - start;
+        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-            std::printf("%ld is not prime.\n",to_long(n));
-            std::printf("The a which fails is %ld\n",a);
-            std::printf("Time taken: %ld milliseconds\n",time);
+        std::printf("%ld is prime.\n",to_long(n));
+        std::printf("Time taken: %ld milliseconds\n",time);
 
-            std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
-            fileWrite(n,ncores,false,time,note);
+        std::string note = "n/a";
+        fileWrite(n,ncores,true,time,note);
 
-            return false;
-            break;
-        }
+        return true;
+    }
+    else {
+        auto finish = std::chrono::steady_clock::now();
+        auto duration = finish - start;
+        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+
+        std::printf("%ld is not prime.\n",to_long(n));
+        std::printf("The a which fails is %ld\n",f);
+        std::printf("Time taken: %ld milliseconds\n",time);
+
+        std::string note = "a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+        fileWrite(n,ncores,false,time,note);
+
+        return false;
+        // break;
     }
 
-    auto finish = std::chrono::steady_clock::now();
-    auto duration = finish - start;
-    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-
-    std::printf("%ld is prime.\n",to_long(n));
-    std::printf("Time taken: %ld milliseconds\n",time);
-
-    std::string note = "n/a";
-    fileWrite(n,ncores,true,time,note);
-
-    return true;
 }
 
 int main (int argc, char * argv[]) {
