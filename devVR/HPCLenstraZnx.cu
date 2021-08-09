@@ -36,9 +36,15 @@
 #include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
+// includes CUDA
+#include <cuda_runtime.h>
+
+// includes, project
+#include <helper_cuda.h>
+#include <helper_functions.h> // helper functions for SDK examples
+
 #include "PerfectPower.h" //Each Indepedent Test
 #include "Euler.h"
-#include "CongruenceZnx.h"
 
 std::string getTime() {
     auto t = std::time(nullptr);
@@ -69,6 +75,32 @@ std::ofstream perflog(filename, std::ios::app); // output result into file
 
 inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME, const long& time, const std::string& other) {
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
+}
+
+__global__ void CongruenceZnx (ZZ *n, ZZ *r, ZZ *r2) { // __global__ void kernel(ZZ *d_n, ZZ *d_r, ZZ *d_r2){
+    // congruence test of polynomials in regular form
+
+    // Thread indexing
+    int i = threadIdx.x;
+
+    // Perform this operation for every thread
+
+    for(long a = 1; a <= to_long(*r2 - 1); ++a){
+        ZZ_p::init(*n); //mod n
+        ZZ_pX b = ZZ_pX(to_long(*r), 1) - 1; // b = x^r - 1;
+        ZZ_pX c = ZZ_pX(1, 1) - a ; // c = x - a;
+        ZZ_pX f = PowerMod(c, *n, b); // f =(x - a)^n mod c, n which is the RHS
+        ZZ_pX e = ZZ_pX(1, 1);
+        ZZ_pX g = PowerMod(e, *n, b); // x^n mod b, n
+        g = g - a ; // g1 = x^n - a mod c, n.
+
+        if(f == g){
+            return(1); // n is prime
+        }
+        else{
+            return(a); // n is not prime.
+        }
+    }
 }
 
 inline bool Lenstra (const ZZ& n) {
@@ -164,8 +196,28 @@ inline bool Lenstra (const ZZ& n) {
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
 
-    int f = CongruenceZnx(n,r,r2);
-    // int f = CongruenceZ(a,n,r);
+    // Declare variables
+    int *h_f, *d_f;
+
+    // Allocate memory on the device -- cudaMalloc(Location of Memory on Device,sizeof(int));
+    cudaMalloc((void**)&d_f,sizeof(int));
+
+    // Copy data from Host to Device
+    cudaMemcpy(d_f,h_f,sizeof(int),cudaMemcpyHostToDevice);
+
+    // Configuration Parameters
+    dim3 grid_size(1);
+    dim3 block_size(N); \\ N threads in block
+
+    // Launch Kernel -- CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2)
+    CongruenceZnx<<<grid_size,block_size>>>(n,r,r2);
+
+    // Copy data back to host
+    cudaMemcpy(h_f,d_f,sizeof(int),cudaMemcpyDeviceToHost);
+
+    // De-allocate memory
+    cudaFree(d_f);
+    free(h_f);
 
     if(f == 1){
         auto finish = std::chrono::steady_clock::now();
@@ -211,4 +263,5 @@ int main (int argc, char * argv[]) {
 
     prime = Lenstra(n);
 
+    return 0;
 }

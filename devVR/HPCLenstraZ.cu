@@ -36,6 +36,13 @@
 #include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
+// includes CUDA
+#include <cuda_runtime.h>
+
+// includes, project
+#include <helper_cuda.h>
+#include <helper_functions.h> // helper functions for SDK examples
+
 #include "PerfectPower.h" //Each Indepedent Test
 #include "Euler.h"
 #include "CongruenceZ.h"
@@ -163,6 +170,15 @@ inline bool Lenstra (const ZZ& n) {
 
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
+
+    // Allocate memory on the device
+    cudaMalloc(...);
+
+    // Copy data from Host to Device
+    cudaMemcpy(...);
+
+    // Launch Kernel
+    kernel_0<<<grid_sz0,block_sz0>>>(...);
 
     // int f = CongruenceZnx(n,r,r2);
     int f = CongruenceZ(n,r,r2);
