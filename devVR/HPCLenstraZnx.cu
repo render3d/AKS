@@ -207,7 +207,7 @@ inline bool Lenstra (const ZZ& n) {
 
     // Configuration Parameters
     dim3 grid_size(1);
-    dim3 block_size(N); \\ N threads in block
+    dim3 block_size(N); // N threads in block
 
     // Launch Kernel -- CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2)
     CongruenceZnx<<<grid_size,block_size>>>(n,r,r2);
