@@ -1,6 +1,6 @@
 // type test for chrono library steady_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
-// g++ -g -O2 -std=c++11 -pthread -march=native BathAKS/AKS_Lenstra.cpp -o BathAKS/LenstraAKS.out -lntl -lgmp -lm
+// $ g++ -g -O2 -std=c++11 -pthread -march=native test/chronoTest.cpp -o test/chronoTest.out -lntl -lgmp -lm
 
 #include <typeinfo>
 
@@ -28,21 +28,31 @@ NTL_CLIENT
 
 template <typename T> std::string type_name();
 
-string getTime() {
+std::string getDate() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
-    auto time = oss.str();
+    oss << std::put_time(&tm, "%Y-%m-%d");
+    auto date = oss.str();
 
-    // std::cout << time;
+    return date;
+}
+
+std::string getTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%H-%M-%S");
+    auto time = oss.str();
 
     return time;
 }
 
 int main() {
-    std::cout << getTime();
+    std::cout << getTime() << "\n";
+    std::cout << getDate();
 
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
