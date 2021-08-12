@@ -2,7 +2,7 @@
     A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li:
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
     Compile with:
-        $ g++ -g -O2 -std=c++11 -pthread -march=native dir/foo.cpp -o dir/foo.out -lntl -lgmp -lm
+        $ g++ -g -O2 -std=c++11 -pthread -march=native devVR/LenstraZnx.cpp -o devVR/LenstraZnx.out -lntl -lgmp -lm
 */
 
 #include <math.h> // standard libraries
@@ -22,6 +22,7 @@
 #include <chrono>
 #include <string>
 #include <thread>
+#include <array>
 #include <sys/time.h>
 #include <sys/resource.h>
 
@@ -50,7 +51,7 @@ std::string getTime() {
 }
 
 std::string getFilename() {
-    std::string prfx = "log-LenstraZ-";
+    std::string prfx = "log-LenstraZnx-";
     std::string sffx = getTime();
     std::string extn = ".csv";
 
@@ -58,9 +59,6 @@ std::string getFilename() {
 
     return filename;
 }
-
-unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
-const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
 
 std::string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
@@ -162,10 +160,11 @@ inline bool Lenstra (const ZZ& n) {
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
 
-    int f = CongruenceZnx(n,r,r2);
+    long a = to_long(r2 - 1);
+    long f = CongruenceZnx(n,r,r2,a);
     // int f = CongruenceZ(a,n,r);
 
-    if(f == 1){
+    if(f == 0){
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
@@ -191,7 +190,6 @@ inline bool Lenstra (const ZZ& n) {
         fileWrite(n,ncores,false,time,note);
 
         return false;
-        // break;
     }
 
 }
@@ -201,12 +199,23 @@ int main (int argc, char * argv[]) {
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
     bool prime;
-    ZZ n;
-    n = 0;
 
-    std::printf("Enter a positive integer number n you want to be tested:\n");
-    std::cin >> n;
+    // int nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
+    int nos[] = {11491, 11497, 11503, 11519, 11527, 11549, 11551, 11579, 11587, 11593, 11597, 11617, 11621, 11633, 11657, 11677, 11681, 11689, 11699, 11701};
+    int nosSize = sizeof(nos)/sizeof(*nos);
+    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    prime = Lenstra(n);
+    // for (int i = 0; i < nosSize; ++i) {
+    for (int i = nos[0]; i < nos[nosEnd] + 1; ++i) {
+    // for (int i = 5; i < 506; ++i) {
+        // ZZ n;
+        // n = 0;
+
+        // std::printf("Enter a positive integer number n you want to be tested:\n");
+        // std::cin >> n;
+
+        // prime = Lenstra(to_ZZ(nos[i]));
+        prime = Lenstra(to_ZZ(i));
+    }
 
 }
