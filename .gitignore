@@ -2,7 +2,6 @@ addresses.txt
 archive
 dump
 bin
-log*
 *.out
 *.exe
 AKSgallotMIRACL.cpp
