@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <cstdlib>
+#include <filesystem>
 // #include <mmsystem.h>
 #include <time.h>
 #include <ctime>
@@ -39,27 +40,52 @@ NTL_CLIENT
 #include "Euler.h"
 #include "CongruenceZnx.h"
 
+std::string getDate() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d");
+    auto date = oss.str();
+
+    return date;
+}
+
 std::string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    oss << std::put_time(&tm, "%H-%M-%S");
     auto time = oss.str();
 
     return time;
 }
 
+std::string getDateTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    auto datetime = oss.str();
+
+    return datetime;
+}
+
 std::string getFilename() {
-    std::string prfx = "log-LenstraZnx-";
-    std::string sffx = getTime();
+    // std::string fldr = "logs/" + getDate() + "/";
+    std::string fldr = "logs/";
+    std::string prfx = "LnstrZnx-";
+    std::string sffx = getDateTime();
     std::string extn = ".csv";
 
-    std::string filename = prfx + sffx + extn;
+    std::string filename = fldr + prfx + sffx + extn;
 
     return filename;
 }
 
+// std::filesystem::create_directory("logs/" + getDate());
 std::string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
