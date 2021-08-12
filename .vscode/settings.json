@@ -65,13 +65,15 @@
         "cinttypes": "cpp",
         "variant": "cpp",
         "complex": "cpp",
-        "cfenv": "cpp"
+        "cfenv": "cpp",
+        "__nullptr": "cpp"
     },
     "cSpell.ignoreWords": [
         "crandall",
         "cstdio",
         "cstdlib",
         "cuda",
+        "fldr",
         "fstream",
         "impr",
         "iomanip",
