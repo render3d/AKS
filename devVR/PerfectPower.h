@@ -20,11 +20,10 @@ int PerfectPower(const ZZ& n){
         }
 
         if(n == power(a, b)){
-            // if n is a perfect power.
-            cout << n << " is a perfect power, hence is not prime.\n" ;
-            cout << "n = a^b\n" ;
-            cout << "b = " << b << "\n" ;
-            cout << "a = " << a << "\n\n" ;
+            // if n is a perfect power
+            printf("n = a^b\n");
+            printf("b = %ld\n",b);
+            printf("a = %ld\n\n",to_long(a));
             return(1);
         }
         else{
@@ -33,7 +32,7 @@ int PerfectPower(const ZZ& n){
     }
 
     if(n != power(a,b)){
-        return(0); // n is not a perfect power .
+        return(0); // n is not a perfect power
     }
 
     return(0);
