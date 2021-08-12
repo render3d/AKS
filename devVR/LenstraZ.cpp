@@ -34,7 +34,7 @@
 #include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
-#include "PerfectPower.h" //Each Indepedent Test
+#include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
 #include "CongruenceZ.h"
 
