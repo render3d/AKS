@@ -69,9 +69,32 @@
     },
     "cSpell.ignoreWords": [
         "crandall",
+        "cstdio",
+        "cstdlib",
+        "cuda",
+        "fstream",
         "impr",
+        "iomanip",
+        "iostream",
+        "localtime",
+        "malloc",
+        "mmsystem",
+        "nullptr",
+        "ofstream",
+        "ostringstream",
         "papadopoulos",
-        "powm"
+        "powm",
+        "printf",
+        "pthread",
+        "sstream",
+        "stdio",
+        "stdlib",
+        "unistd"
     ],
-    "cSpell.language": "en-GB"
+    "cSpell.language": "en-GB",
+    "cSpell.words": [
+        "cuda",
+        "memcpy",
+        "perflog"
+    ]
 }
