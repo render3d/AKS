@@ -1,27 +1,35 @@
 
 #include "NTL/ZZ_p.h"
 #include "NTL/ZZ_pX.h"
+#include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
-int CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2){
+unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
+const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
+
+long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
     // congruence test of polynomials in regular form
 
-    ZZ_p::init(n);                      //mod n
+    ZZ_p::init(n);                      // initialise mod n
     ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1;
     ZZ_pX e = ZZ_pX(1, 1);              // e = x
     ZZ_pX d = PowerMod(e, n, b);        // d = x^n mod b, n
 
-    for(long a = 1; a <= to_long(r2 - 1); ++a){
+    // NTL_EXEC_RANGE(a,first,last)
 
-        ZZ_pX c = ZZ_pX(1, 1) - a ;         // c = x - a;
-        ZZ_pX f = PowerMod(c, n, b);        // f =(x - a)^n mod c, n which is the RHS
-        ZZ_pX g = d - a;                    // g = x^n - a mod c, n.
+        // for(long j = first; j <= last; ++j){
+        for(long j = 1; j <= a; ++j){
 
-        if(f == g){
-            return(1); // n is prime
+            ZZ_pX c = ZZ_pX(1, 1) - a ;         // c = x - a;
+            ZZ_pX f = PowerMod(c, n, b);        // f =(x - a)^n (mod b, n) - LHS
+            ZZ_pX g = d - a;                    // g = x^n - a (mod b, n) - RHS
+
+            if(f != g){
+                return(to_long(a)); // n is not prime
+            }
         }
-        else{
-            return(a); // n is not prime.
-        }
-    }
+
+    // NTL_EXEC_RANGE_END
+
+    return(0); // n is prime
 }
