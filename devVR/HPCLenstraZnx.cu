@@ -43,7 +43,7 @@ NTL_CLIENT
 #include <helper_cuda.h>
 #include <helper_functions.h> // helper functions for SDK examples
 
-#include "PerfectPower.h" //Each Indepedent Test
+#include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
 
 std::string getTime() {
