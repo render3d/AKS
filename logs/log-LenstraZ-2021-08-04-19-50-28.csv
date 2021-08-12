@@ -1,0 +1,3 @@
+Int, Cores, Prime (T/F), Time (milliseconds), Comments
+1000000000000000007,2,0,347,a = 1; r = 1684; phi(r) = 840
+1000000000000000007,2,1,347,n/a
