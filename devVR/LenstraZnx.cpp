@@ -26,6 +26,8 @@
 #include <array>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "NTL/ZZ.h" // NTL Libraries
 #include "NTL/ZZ_p.h"
@@ -74,8 +76,10 @@ std::string getDateTime() {
 }
 
 std::string getFilename() {
-    // std::string fldr = "logs/" + getDate() + "/";
+    // std::string make = "/logs/" + getDate();
+    // int result = mkdir(make.c_str(), 0777);
     std::string fldr = "logs/";
+    // std::string fldr = "logs/" + getDate() + "/";
     std::string prfx = "LnstrZnx-";
     std::string sffx = getDateTime();
     std::string extn = ".csv";
