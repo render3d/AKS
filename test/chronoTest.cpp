@@ -50,23 +50,55 @@ std::string getTime() {
     return time;
 }
 
+long powMod (long a, long n, long b) {
+    // calculates a^n in O(log n)
+
+    long ans = 1;            // Initialise answer
+
+    while (n > 0) {
+        if (n % 2 == 1) {   // if (n is odd) then
+            ans = (ans * a) % b;
+        }
+
+        a = (a * a) % b;    // a = a^2 (mod b)
+        n /= 2;             // n = n/2
+    }
+
+    return ans;
+}
+
 int main() {
-    std::cout << getTime() << "\n";
-    std::cout << getDate();
+    // std::cout << getTime() << "\n";
+    // std::cout << getDate();
+
+    int a = 850, n = 520, b = 961;
+    printf("\na^n (mod b) = %d^%d (mod %d)\n\n",a,n,b);
 
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
-    std::cout << "\nStart\n";
+    // printf("\nStart\n");
 
-    //do stuff here
-    unsigned int microsecond = 1000000;
-    usleep(3 * microsecond);//sleeps for 3 second
+    // // do stuff here
+    // unsigned int microsecond = 1000000;
+    // usleep(3 * microsecond);//sleeps for 3 second
     // std::cout << typeid(now).name() << '\n';
+
+    // for (int i = 10; --i; ) {
+    // for (int i = 0; i < 10; ++i) {
+    //     printf("%d\n",i);
+    // }
+
+    long tntl = PowerMod(a,n,b);
+    long test = powMod(a,n,b);
+
+    // printf("Bitwise AND: %d", n & 1);
 
     auto then = std::chrono::high_resolution_clock::now();
     // auto then = std::chrono::steady_clock::now();
     auto duration = then - now;
 
-    std::cout << "Stop\n";
-    std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << '\n';
+    printf("PowerMod = %ld\n", tntl);
+    printf("powMod = %ld\n", test);
+
+    std::cout << "\nTime: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 }
