@@ -1,17 +1,29 @@
 ZZ_px A,B
 
-C = Multiply(A,B) becomes
-     N = ComputeSize(A,B);           // N = 2^b - 1 > max(D,E) * max(x_i) * max(y_k)
-     NA = Flatten(A,N);              // sub N in A
-     NB = Flatten(B,N);              // sub N in B
-     NC = FFTmultiply(NA,NB);        // multiply integers with FFT
-     C = Unflatten(NC,N);            // get coefficients
-     C = ReduceCoefficients(C,P)     // reduce coefficients mod p
+N = ComputeSize(A,B); becomes
+     t = max(D,E) * max(x_i) * max(y_k)
 
-D = PowerMod(A,n,B); is short for
+     int ans = 0;
+     int b = 0;
+     while (ans <= t)
+          ans = 2^b - 1
+          b = b + 1
+     return lhs = 2^b - 1
+
+C = Multiply(A,B) becomes
+     N = ComputeSize(A,B);              // N = 2^b - 1 > max(D,E) * max(x_i) * max(y_k)
+     NA = Flatten(A,N);                 // sub N in A
+     NB = Flatten(B,N);                 // sub N in B
+     NC = FFTmultiply(NA,NB);           // multiply integers with FFT
+     C = Unflatten(NC,N);               // get coefficients
+     C = ReduceCoefficients(C,P)        // reduce coefficients mod p
+
+D = PowerMod(A,n,B); is short for       // D = A^n (mod B)
      D = 1;
      while (n > 0)
-     if (n is odd)
-          then D = Multiply(D,A); D = Remainder(D,B);
-     A = Multiply(A,A);   A = Remainder(A,B);
-     n = n/2
+          if (n is odd) then
+               D = Multiply(D,A);
+               D = Remainder(D,B);
+          A = Multiply(A,A);
+          A = Remainder(A,B);
+          n = n/2
