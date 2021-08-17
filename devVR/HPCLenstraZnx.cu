@@ -77,28 +77,26 @@ inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME,
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
-__global__ void CongruenceZnx (ZZ *n, ZZ *r, ZZ *r2) { // __global__ void kernel(ZZ *d_n, ZZ *d_r, ZZ *d_r2){
+__global__ void CongruenceZnx (ZZ *n, ZZ *r, ZZ *r2, long *u, long a) { // __global__ void kernel(ZZ *d_n, ZZ *d_r, ZZ *d_r2){
     // congruence test of polynomials in regular form
 
     // Thread indexing
-    int i = threadIdx.x;
+    long i = to_long(threadIdx.x);
 
     // Perform this operation for every thread
+    if (i < a) {                            // ensures kernel does not execute more threads than size of a
+        ZZ_p::init(n);                      // initialise mod n
 
-    for(long a = 1; a <= to_long(*r2 - 1); ++a){
-        ZZ_p::init(*n); //mod n
-        ZZ_pX b = ZZ_pX(to_long(*r), 1) - 1; // b = x^r - 1;
-        ZZ_pX c = ZZ_pX(1, 1) - a ; // c = x - a;
-        ZZ_pX f = PowerMod(c, *n, b); // f =(x - a)^n mod c, n which is the RHS
-        ZZ_pX e = ZZ_pX(1, 1);
-        ZZ_pX g = PowerMod(e, *n, b); // x^n mod b, n
-        g = g - a ; // g1 = x^n - a mod c, n.
+        ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
+        ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
+        ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
 
-        if(f == g){
-            return(1); // n is prime
-        }
-        else{
-            return(a); // n is not prime.
+        ZZ_pX c = ZZ_pX(1, 1) - i;          // c = x - a (mod n);
+        ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
+        ZZ_pX g = d - i;                    // g = x^n - a (mod b, n) - RHS
+
+        if(f != g){
+            u[i] = 0; // n is not prime
         }
     }
 }
@@ -190,64 +188,91 @@ inline bool Lenstra (const ZZ& n) {
         r = r + 1;
     }
 
-    r = r1;
-    std::printf("r = %ld\n",to_long(r));
+    h_r = r1;
+    std::printf("r = %ld\n",to_long(h_r));
 
-    ZZ r2 = Euler(to_long(r));
-    std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
+    ZZ h_r2 = Euler(to_long(h_r));
+    std::printf("Euler(%ld) = %ld\n",to_long(h_r),to_long(h_r2));
 
     // Declare variables
-    int *h_f, *d_f;
+    long h_an;
+    long h_av[a];
+    ZZ h_n = n;
+
+    long* d_an;
+    long* d_av;
+    ZZ* d_n;
+    ZZ* d_r;
+    ZZ* d_r2;
+
+    // Initialise variables
+    h_an = to_long(h_r2 - 1);
+    for (long x = 0; x < a; ++x) {
+        h_av[x] = x + 1;
+    }
 
     // Allocate memory on the device -- cudaMalloc(Location of Memory on Device,sizeof(int));
-    cudaMalloc((void**)&d_f,sizeof(int));
+    cudaMalloc((void**)&d_an,sizeof(long));
+    cudaMalloc((void**)&d_av,h_an*sizeof(long));
+    cudaMalloc((void**)&d_n,sizeof(ZZ));
+    cudaMalloc((void**)&d_r,sizeof(ZZ));
+    cudaMalloc((void**)&d_r2,sizeof(ZZ));
 
     // Copy data from Host to Device
-    cudaMemcpy(d_f,h_f,sizeof(int),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_an,h_an,sizeof(long),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_av,h_av,h_an*sizeof(long),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_n,h_n,sizeof(ZZ),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_r,h_r,sizeof(ZZ),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_r2,h_r2,sizeof(ZZ),cudaMemcpyHostToDevice);
 
     // Configuration Parameters
     dim3 grid_size(1);
-    dim3 block_size(N); // N threads in block
+    dim3 block_size(h_an); // a threads in block
 
-    // Launch Kernel -- CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2)
-    CongruenceZnx<<<grid_size,block_size>>>(n,r,r2);
+    // Launch Kernel -- CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an)
+    CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an);
 
     // Copy data back to host
-    cudaMemcpy(h_f,d_f,sizeof(int),cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_av,d_av,h_an*sizeof(long),cudaMemcpyDeviceToHost);
 
     // De-allocate memory
-    cudaFree(d_f);
-    free(h_f);
+    cudaFree(d_an);
+    cudaFree(d_av);
+    cudaFree(d_n);
+    cudaFree(d_r);
+    cudaFree(d_r2);
+    // free(h_av);
 
-    if(f == 1){
-        auto finish = std::chrono::steady_clock::now();
-        auto duration = finish - start;
-        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    for (long x = 0; x < h_an; ++x) {
+        if(h_av[x] == 0){
+            auto finish = std::chrono::steady_clock::now();
+            auto duration = finish - start;
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-        std::printf("%ld is prime.\n",to_long(n));
-        std::printf("Time taken: %ld milliseconds\n",time);
+            long a = x + 1;
+            std::printf("%ld is not prime.\n",to_long(n));
+            std::printf("The a which fails is %ld\n",a);
+            std::printf("Time taken: %ld milliseconds\n",time);
 
-        std::string note = "n/a";
-        fileWrite(n,ncores,true,time,note);
+            std::string note = "a = " + std::to_string(a) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+            fileWrite(n,ncores,false,time,note);
 
-        return true;
-    }
-    else {
-        auto finish = std::chrono::steady_clock::now();
-        auto duration = finish - start;
-        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-
-        std::printf("%ld is not prime.\n",to_long(n));
-        std::printf("The a which fails is %ld\n",f);
-        std::printf("Time taken: %ld milliseconds\n",time);
-
-        std::string note = "a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
-        fileWrite(n,ncores,false,time,note);
-
-        return false;
-        // break;
+            return false;
+            // break;
+        }
     }
 
+    auto finish = std::chrono::steady_clock::now();
+    auto duration = finish - start;
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+
+    std::printf("%ld is prime.\n",to_long(n));
+    std::printf("Time taken: %ld milliseconds\n",time);
+
+    std::string note = "n/a";
+    fileWrite(n,ncores,true,time,note);
+
+    return true;
 }
 
 int main (int argc, char * argv[]) {
