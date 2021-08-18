@@ -115,7 +115,7 @@ inline bool Lenstra (const ZZ& n) {
         return true;
     }
 
-    std::printf("n = %ld\n",to_long(n));
+    std::cout << "n = " << n << "\n\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
