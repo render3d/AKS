@@ -230,22 +230,26 @@ int main (int argc, char * argv[]) {
 
     bool prime;
 
+    ZZ p = conv<ZZ>("689960931088884849033689023336009222695077");
+    prime = Lenstra(p);
+
     // int nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
-    int nos[] = {11491, 11497, 11503, 11519, 11527, 11549, 11551, 11579, 11587, 11593, 11597, 11617, 11621, 11633, 11657, 11677, 11681, 11689, 11699, 11701};
-    int nosSize = sizeof(nos)/sizeof(*nos);
-    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
+    // int nos[] = {11491, 11497, 11503, 11519, 11527, 11549, 11551, 11579, 11587, 11593, 11597, 11617, 11621, 11633, 11657, 11677, 11681, 11689, 11699, 11701};
+    // ZZ nos[] = {689960931088884849033689023336009222694927, 689960931088884849033689023336009222694971, 689960931088884849033689023336009222695053, 689960931088884849033689023336009222695077};
+    // int nosSize = sizeof(nos)/sizeof(*nos);
+    // int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
     // for (int i = 0; i < nosSize; ++i) {
-    for (int i = nos[0]; i < nos[nosEnd] + 1; ++i) {
-    // for (int i = 5; i < 506; ++i) {
-        // ZZ n;
-        // n = 0;
+    // for (int i = nos[0]; i < nos[nosEnd] + 1; ++i) {
+    // // for (int i = 5; i < 506; ++i) {
+    //     // ZZ n;
+    //     // n = 0;
 
-        // std::printf("Enter a positive integer number n you want to be tested:\n");
-        // std::cin >> n;
+    //     // std::printf("Enter a positive integer number n you want to be tested:\n");
+    //     // std::cin >> n;
 
-        // prime = Lenstra(to_ZZ(nos[i]));
-        prime = Lenstra(to_ZZ(i));
-    }
+    //     // prime = Lenstra(to_ZZ(nos[i]));
+    //     prime = Lenstra(to_ZZ(i));
+    // }
 
 }
