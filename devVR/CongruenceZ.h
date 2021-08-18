@@ -26,7 +26,7 @@ long powMod(long a, long n, long b) {
 }
 
 ZZ getMaxCoeff(ZZX x) {
-    // 
+    // returns the largest coefficient of the input polynomial
 
     ZZ x_i = conv<ZZ>("0");
 
