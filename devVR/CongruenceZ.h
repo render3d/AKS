@@ -9,9 +9,9 @@
 NTL_CLIENT
 
 long powMod(long a, long n, long b) {
-    // calculates a^n in O(log n)
+    // calculates a^n (mod b) in O(log n)
 
-    long ans = 1;            // Initialise answer
+    long ans = 1;           // Initialise answer
 
     while (n > 0) {
         if (n % 2 == 1) {   // if (n is odd) then
@@ -26,7 +26,10 @@ long powMod(long a, long n, long b) {
 }
 
 ZZ getMaxCoeff(ZZX x) {
+    // 
+
     ZZ x_i = conv<ZZ>("0");
+
     for (long i = 0; i = deg(x); ++i) {
         if (x_i > coeff(x,i)) {
             x_i = coeff(x,i);
