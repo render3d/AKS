@@ -27,6 +27,8 @@
 #include "NTL/ZZXFactoring.h"
 NTL_CLIENT
 
+#include "../devVR/CongruenceZ.h" // personal header
+
 template <typename T> std::string type_name();
 
 std::string getDate() {
@@ -51,79 +53,74 @@ std::string getTime() {
     return time;
 }
 
-long powMod (long a, long n, long b) {
-    // calculates a^n in O(log n)
-
-    long ans = 1;            // Initialise answer
-
-    while (n > 0) {
-        if (n % 2 == 1) {   // if (n is odd) then
-            ans = (ans * a) % b;
-        }
-
-        a = (a * a) % b;    // a = a^2 (mod b)
-        n /= 2;             // n = n/2
-    }
-
-    return ans;
-}
-
 int main() {
     // std::cout << getTime() << "\n";
     // std::cout << getDate();
 
-    int a = 850, n = 520, b = 961;
-    printf("\na^n (mod b) = %d^%d (mod %d)\n\n",a,n,b);
+    // int a = 850, n = 520, b = 961;
+    // printf("\na^n (mod b) = %d^%d (mod %d)\n\n",a,n,b);
 
     ZZX f;
 
     cin >> f;
+    // test cases
+    // [2 10 14 6] = 2 + 10x + 14x^2 +6x^3
+    // 
+    // 
 
     auto now = std::chrono::high_resolution_clock::now();
     // auto now = std::chrono::steady_clock::now();
-    // printf("\nStart\n");
+    printf("\nStart\n");
 
-    // // do stuff here
+    // // *** DO STUFF HERE ***
+
     // unsigned int microsecond = 1000000;
     // usleep(3 * microsecond);//sleeps for 3 second
-    std::cout << typeid(f).name() << '\n';
-
-    Vec< Pair< ZZX, long > > factors;
-    ZZ c;
-
-    factor(c, factors, f);
-
-    cout << c << "\n";
-    cout << factors << "\n";
 
     // for (int i = 10; --i; ) {
     // for (int i = 0; i < 10; ++i) {
     // for (int i = 0; i < 10; --i) {
-    for (int i = 10-1; i >= 0; --i) {
-        printf("%d\n",i);
-    }
+    // for (int i = 10-1; i >= 0; --i) {
+    //     printf("%d\n",i);
+    // }
 
-    long tntl = PowerMod(a,n,b);
-    long test = powMod(a,n,b);
+    // long tntl = PowerMod(a,n,b);
+    // long test = powMod(a,n,b);
 
-    ZZ x = conv<ZZ>("12345678901234567890000");
-    std::cout << "x = " << x << "\n";
-    ZZ y = conv<ZZ>("98765432109876543210");
-    std::cout << "y = " << y << "\n\n";
+    // ZZ x = conv<ZZ>("12345678901234567890000");
+    // std::cout << "x = " << x << "\n";
+    // ZZ y = conv<ZZ>("98765432109876543210");
+    // std::cout << "y = " << y << "\n\n";
 
-    ZZ q = x/y;
+    // ZZ q = x/y;
     // ZZ q = to_ZZ(x/y);
 
     // printf("Bitwise AND: %d", n & 1);
 
+    ZZ coeffMaxF = getMaxCoeff(f);
+    std::cout << "Max coeff of f(x) = " << coeffMaxF << "\n";
+
+    ZZ x = ZZ(6);
+    ZZ resEval = evaluate(f,x);
+    std::cout << "When x = " << x << ", f(x) = " << resEval << "\n";
+
+    ZZX g;
+    cin >> g;
+
+    ZZX fgBin = polyMultiply(f,g);
+    ZZX fgNTL = f * g;
+
+    std::cout << "Binary Segmentation: f(x) * g(x) = " << fgBin << "\n";
+    std::cout << "NTL Polynomial Prod: f(x) * g(x) = " << fgNTL << "\n";
+
+
     auto then = std::chrono::high_resolution_clock::now();
-    // auto then = std::chrono::steady_clock::now();
     auto duration = then - now;
 
-    printf("PowerMod = %ld\n", tntl);
-    printf("powMod = %ld\n", test);
+    // printf("PowerMod = %ld\n", tntl);
+    // printf("powMod = %ld\n", test);
 
-    printf("\nInteger (ZZ) division: %ld\n", to_long(q));
+    // printf("\nInteger (ZZ) division: %ld\n", to_long(q));
 
     std::cout << "\nTime: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 }
