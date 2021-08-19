@@ -6,7 +6,7 @@
         "activity/interactiveprofile/cachecontrol": "Flush All",
         "activity/interactiveprofile/clockcontrol": "Base",
         "activity/interactiveprofile/disableprofilingstartstop": false,
-        "activity/interactiveprofile/enablenvtxsupport": false,
+        "activity/interactiveprofile/enablenvtxsupport": true,
         "activity/interactiveprofile/enableprofilingfromstart": true,
         "activity/interactiveprofile/importsource": false,
         "activity/profile/applyrules": true,
@@ -61,6 +61,6 @@
         "platform/win32/workingdir": "",
         "platform/windows/device": ""
     },
-    "uuid": "{8bf795bf-5ee3-4346-a9ca-b7a0426e1f5d}",
+    "uuid": "{c438545d-eb6f-419c-9b31-73f528a7a95f}",
     "version": "1.0"
 }
