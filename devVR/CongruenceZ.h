@@ -10,6 +10,7 @@ NTL_CLIENT
 
 long powMod(long a, long n, long b) {
     // calculates a^n (mod b) in O(log n)
+    // Tested on longs but types need modifying to be NTL compatible
 
     long ans = 1;           // Initialise answer
 
@@ -25,13 +26,13 @@ long powMod(long a, long n, long b) {
     return ans;
 }
 
-ZZ getMaxCoeff(ZZX x) {
+ZZ getMaxCoeff(const ZZX& x) {
     // returns the largest coefficient of the input polynomial
 
-    ZZ x_i = conv<ZZ>("0");
+    ZZ x_i = ConstTerm(x);
 
-    for (long i = 0; i = deg(x); ++i) {
-        if (x_i > coeff(x,i)) {
+    for (long i = 1; i <= deg(x); ++i) {
+        if (x_i < coeff(x,i)) {
             x_i = coeff(x,i);
         }
         else {
@@ -42,14 +43,14 @@ ZZ getMaxCoeff(ZZX x) {
     return x_i;
 }
 
-ZZ evaluate(ZZX f, ZZ x) {
-    // evaluates f(x) for x = x
+ZZ evaluate(const ZZX& f, const ZZ& x) {
+    // evaluates f(y) for y = x
 
     long fDeg = deg(f);
     ZZ ans = ConstTerm(f);
 
     for (long i = 1; i <= fDeg; ++i) {
-        ans += coeff(f,i)*x;
+        ans += coeff(f,i)*power(x,i);
     }
 
     return ans;
@@ -58,37 +59,62 @@ ZZ evaluate(ZZX f, ZZ x) {
 ZZX polyMultiply(ZZX f, ZZX g) {
     // polynomial multiplication by Binary Segmentation
 
-    ZZ maxTermFG = to_ZZ(std::max(deg(f)+1,deg(g)+1));
+    ZZ termsF = to_ZZ(deg(f)+1);
+    ZZ termsG = to_ZZ(deg(g)+1);
+
+    ZZ maxTermFG = to_ZZ(std::max(termsF,termsG));
+    std::cout << "\nmax(U,V) = " << maxTermFG <<"\n";
+
     ZZ maxCoeffF = getMaxCoeff(f);
+    std::cout << "max(f_j) = " << maxCoeffF <<"\n";
+
     ZZ maxCoeffG = getMaxCoeff(g);
+    std::cout << "max(g_k) = " << maxCoeffG <<"\n";
 
     ZZ rhs = maxTermFG * maxCoeffF * maxCoeffG;         // rhs = max(U,V) * max(f_j) * max(g_k)
+    std::cout << "\nRHS = " << rhs <<"\n";
 
-    ZZ b = conv<ZZ>("1");
-    ZZ lhs = 2^b - 1;                                   // lhs = 2^b-1
+    long b = 1;
+    ZZ lhs = (power2_ZZ(b)) - 1;                        // lhs = 2^b-1
     while (lhs < rhs) {                                 // Choose b such that 2^b − 1 > max(U,V) * max(x_i) * max(y_k)
         b = b + 1;
-        lhs = 2^b - 1;
+        lhs = (power2_ZZ(b)) - 1;
     }
+    std::cout << "LHS = 2^" << b << " - 1 = " << lhs <<"\n\n";
 
     ZZ X = lhs;
     ZZ F = evaluate(f,X);                               // evaluate f(x) for x = 2^b - 1
+    std::cout << "F = f(X) = f(" << X << ") = " << F <<"\n";
     ZZ G = evaluate(g,X);                               // evaluate g(x) for x = 2^b - 1
+    std::cout << "G = g(X) = f(" << X << ") = " << G <<"\n\n";
 
     ZZ m = F * G;                                       // Integer multiply
+    std::cout << "m = F * G = " << F << " * " << G << " = " << m <<"\n\n";
 
-    long fgDeg = deg(f) + deg(g) + 1;                   // Degree of polynomial product
-    ZZ s[fgDeg];                                        // Store coefficients and constant in an array
+    // long fgDeg = deg(f) + deg(g);                       // Degree of polynomial product
+    long fgTrm = deg(f) + deg(g) + 1;                   // Terms in polynomial product
+    std::cout << "Terms in f(x) * g(x) = " << fgTrm << "\n";
+
+    ZZ s[fgTrm];                                        // Store coefficients and constant in an array
     // std::vector<ZZ> s;                                  // Store coefficients and constant in vector
-    // s.resize(fgDeg);
+    // s.resize(fgTrm);
 
-    for (long i = 0; i < fgDeg; ++i) {                  // Reassemble coefficients into signal
-        s[i] = (m/(lhs^i)) % lhs;                       // Extract next b bits: s_i = floor( m/(2b−1)^i ) mod 2^b − 1
+    for (long i = 0; i < fgTrm; ++i) {                  // Reassemble coefficients into signal
+        s[i] = (m/(power(lhs,i))) % lhs;                // Extract next b bits: s_i = floor( m/(2b−1)^i ) mod 2^b − 1
+        std::cout << "Next " << b << " bits for i = " << i << " are " << s[i] << "\n";
     }                                                   // N.B. -- NTL "/" operator floors result by default
 
     ZZX polyProduct;                                    // Base-b digits of m are desired coefficients
-    for (long i = 0; i < fgDeg; ++i) {
-        SetCoeff(polyProduct,i,s[fgDeg-i]);
+    polyProduct.SetLength(fgTrm);
+    std::cout << "\nPolynomial product preallocated: " << polyProduct << "\n";
+
+    long sumTo = to_long(termsF - termsG - 2);
+    for (long j = 0; j < fgTrm; ++j) {
+    // for (long j = 0; j <= sumTo; ++j) {
+        std::cout << "Coefficient of x^i term when i = " << j <<": " << s[j] << "\n";
+        SetCoeff(polyProduct,j,s[j]);
+        // polyProduct += s[j];
+        std::cout << "Polynomial product after i = " << j <<": " << polyProduct << "\n\n";
     }
 
     polyProduct.normalize();                            // remove leading zeros on coefficients
