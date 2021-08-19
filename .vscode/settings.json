@@ -66,7 +66,9 @@
         "variant": "cpp",
         "complex": "cpp",
         "cfenv": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     },
     "cSpell.ignoreWords": [
         "crandall",
