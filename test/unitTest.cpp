@@ -69,26 +69,38 @@ int main(int argc, char * argv[]) {
     // [2 -1 1]
     // [2 -1 -1]
 
-    auto now = std::chrono::high_resolution_clock::now();
     // printf("\nStart\n");
 
     // // *** DO STUFF HERE ***
 
-    ZZ coeffMaxF = getMaxCoeff(f);
-    std::cout << "\nMax coeff of f(x) = " << coeffMaxF << "\n";
+    // ZZ coeffMaxF = getMaxCoeff(f);
+    // std::cout << "\nMax coeff of f(x) = " << coeffMaxF << "\n";
 
-    ZZ x = ZZ(6);
-    ZZ resEval = evaluate(f,x);
-    std::cout << "\nWhen x = " << x << ", f(x) = " << resEval << "\n";
+    // ZZ x = ZZ(6);
+    // ZZ resEval = evaluate(f,x);
+    // std::cout << "\nWhen x = " << x << ", f(x) = " << resEval << "\n";
 
     ZZX g;
     std::cout << "Enter the polynomial you wish to multiply it by:\n";
     cin >> g;
 
+    // auto then = std::chrono::high_resolution_clock::now();
+    double then = GetTime();
+
     ZZX fgNTL = f * g;
+    double lap1 = GetTime();
+    // auto lap1 = std::chrono::high_resolution_clock::now();
+
     ZZX fgBin = polyMultiply(f,g);
-    std::cout << "Binary Segmentation: f(x) * g(x) = " << fgBin << "\n";
-    std::cout << "NTL Polynomial Prod: f(x) * g(x) = " << fgNTL << "\n";
+    double lap2 = GetTime();
+    // auto lap2 = std::chrono::high_resolution_clock::now();
+
+    // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(lap1-then).count();
+    double tNTL = lap1-then;
+    std::cout << "Binary Segmentation: f(x) * g(x) = " << fgBin << " (" << tNTL*1000 << " milliseconds)\n";
+    // auto tBin = std::chrono::duration_cast<std::chrono::milliseconds>(lap2-lap1).count();
+    double tBin = lap2-lap1;
+    std::cout << "NTL Polynomial Prod: f(x) * g(x) = " << fgNTL << " (" << tBin*1000 << " milliseconds)\n";
 
     if (fgNTL == fgBin) {
         printf("\nBinary Segmentation Multiply Successful.\n");
@@ -96,9 +108,4 @@ int main(int argc, char * argv[]) {
     else {
         printf("\nBinary Segmentation Multiply Failed.\n");
     }
-
-    auto then = std::chrono::high_resolution_clock::now();
-    auto duration = then - now;
-
-    std::cout << "\nTime: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n\n";
 }
