@@ -99,21 +99,46 @@ ZZX polyMultiply(ZZX f, ZZX g) {
     // std::vector<ZZ> s;                                  // Store coefficients and constant in vector
     // s.resize(fgTrm);
 
-    for (long i = 0; i < fgTrm; ++i) {                  // Reassemble coefficients into signal
-        s[i] = (m/(power(lhs,i))) % lhs;                // Extract next b bits: s_i = floor( m/(2b−1)^i ) mod 2^b − 1
-        std::cout << "Next " << b << " bits for i = " << i << " are " << s[i] << "\n";
-    }                                                   // N.B. -- NTL "/" operator floors result by default
+    // for (long i = 0; i < fgTrm; ++i) {                  // Reassemble coefficients into signal
+    //     s[i] = (m/(power(lhs,i))) % lhs;                // Extract next b bits: s_i = floor( m/(2b−1)^i ) mod 2^b − 1
+    //     std::cout << "Next " << b << " bits for i = " << i << " are " << s[i] << "\n";
+    // }                                                   // N.B. -- NTL "/" operator floors result by default
+
+    // s[0] = m % lhs;
+    // for (long i = 1; i < fgTrm; ++i) {
+    //     m = m / lhs;
+    //     s[i] = m % lhs;
+    // }
+
+    s[0] = m % lhs;                                     // Reassemble coefficients into signal
+    std::cout << "\nConstant is equal to " << s[0] << "\n";
+    if (s[0] > lhs/2) {                                 // Extract next b bits: s_i = floor( m/(2b−1)^i ) mod 2^b − 1
+        std::cout << "s[0] > (2^b - 1)/2 " << s[0] << " > " << lhs/2 << "\n";
+        s[0] = s[0] - lhs;
+        std::cout << "Therefore s[0] = s[0] - (2^b - 1) = " << s[0] << "\n";
+        m = m + lhs;
+        std::cout << "And m = m + (2^b - 1) = " << m << "\n";
+    }
+    for (long i = 1; i < fgTrm; ++i) {
+        m = m / lhs;                                    // N.B. -- NTL "/" operator floors result by default
+        std::cout << "For i = " << i << ", m = m / (2^b - 1) = " << m << "\n";
+
+        s[i] = m % lhs;
+        std::cout << "And s[i] = m % (2^b - 1) = " << s[i] << "\n";
+
+        if (s[i] > lhs/2) {
+            s[i] = s[i] - lhs;
+            m = m + lhs;
+        }
+    }
 
     ZZX polyProduct;                                    // Base-b digits of m are desired coefficients
-    polyProduct.SetLength(fgTrm);
+    polyProduct.SetLength(fgTrm);                       // set the length of the underlying coefficient vector to number of Terms in polynomial product
     std::cout << "\nPolynomial product preallocated: " << polyProduct << "\n";
 
-    long sumTo = to_long(termsF - termsG - 2);
     for (long j = 0; j < fgTrm; ++j) {
-    // for (long j = 0; j <= sumTo; ++j) {
         std::cout << "Coefficient of x^i term when i = " << j <<": " << s[j] << "\n";
         SetCoeff(polyProduct,j,s[j]);
-        // polyProduct += s[j];
         std::cout << "Polynomial product after i = " << j <<": " << polyProduct << "\n\n";
     }
 
