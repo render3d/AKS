@@ -109,3 +109,90 @@ int main(int argc, char * argv[]) {
         printf("\nBinary Segmentation Multiply Failed.\n");
     }
 }
+
+// int main(int argc, char * argv[]) {
+
+//     ZZX f;
+
+//     std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+//     std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+//     std::cout << " = x^2 - x + 2):\n";
+//     cin >> f;
+//     // test cases
+//     // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
+//     // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
+//     // [14 10 6 2]
+//     // [16 9 7 1]
+//     // [2 -1 1]
+//     // [2 -1 -1]
+
+//     // printf("\nStart\n");
+
+//     // // *** DO STUFF HERE ***
+
+//     // ZZ coeffMaxF = getMaxCoeff(f);
+//     // std::cout << "\nMax coeff of f(x) = " << coeffMaxF << "\n";
+
+//     // ZZ x = ZZ(6);
+//     // ZZ resEval = evaluate(f,x);
+//     // std::cout << "\nWhen x = " << x << ", f(x) = " << resEval << "\n";
+
+//     ZZX g;
+//     std::cout << "Enter the polynomial you wish to multiply it by:\n";
+//     cin >> g;
+
+//     ZZX h;
+//     std::cout << "And the polynomial you wish to mod the product by:\n";
+//     cin >> h;
+
+//     // // auto then = std::chrono::high_resolution_clock::now();
+//     // double then = GetTime();
+
+//     // ZZX fgNTL = MulMod(f,g,h);
+//     // double lap1 = GetTime();
+//     // // auto lap1 = std::chrono::high_resolution_clock::now();
+
+//     // ZZX fgBin = polyMulMod(f,g,h);
+//     // double lap2 = GetTime();
+//     // // auto lap2 = std::chrono::high_resolution_clock::now();
+
+//     // // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(lap1-then).count();
+//     // double tNTL = lap1-then;
+//     // std::cout << "Binary Segmentation: f(x) * g(x) (mod h(x)) = " << fgBin << " (" << tNTL*1000 << " milliseconds)\n";
+//     // // auto tBin = std::chrono::duration_cast<std::chrono::milliseconds>(lap2-lap1).count();
+//     // double tBin = lap2-lap1;
+//     // std::cout << "NTL Polynomial Prod: f(x) * g(x) (mod h(x)) = " << fgNTL << " (" << tBin*1000 << " milliseconds)\n";
+
+//     // if (fgNTL == fgBin) {
+//     //     printf("\nBinary Segmentation Multiply (mod h) Successful.\n");
+//     // }
+//     // else {
+//     //     printf("\nBinary Segmentation Multiply Failed.\n");
+//     // }
+
+//     // auto then = std::chrono::high_resolution_clock::now();
+//     double then = GetTime();
+
+//     ZZX fgNTL = MulMod(f,g,h);
+//     double lap1 = GetTime();
+//     // auto lap1 = std::chrono::high_resolution_clock::now();
+
+//     ZZX fgBin = polyMulMod(f,g,h);
+//     double lap2 = GetTime();
+//     // auto lap2 = std::chrono::high_resolution_clock::now();
+
+//     // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(lap1-then).count();
+//     double tNTL = lap1-then;
+//     std::cout << "Binary Segmentation: f(x) * g(x) (mod h(x)) = " << fgBin << " (" << tNTL*1000 << " milliseconds)\n";
+//     // auto tBin = std::chrono::duration_cast<std::chrono::milliseconds>(lap2-lap1).count();
+//     double tBin = lap2-lap1;
+//     std::cout << "NTL Polynomial Prod: f(x) * g(x) (mod h(x)) = " << fgNTL << " (" << tBin*1000 << " milliseconds)\n";
+
+//     if (fgNTL == fgBin) {
+//         printf("\nBinary Segmentation PowMod Successful.\n");
+//     }
+//     else {
+//         printf("\nBinary Segmentation PowMod Failed.\n");
+//     }
+
+// }
