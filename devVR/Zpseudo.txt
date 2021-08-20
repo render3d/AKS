@@ -28,17 +28,16 @@ D = PowerMod(A,n,B); is short for       // D = A^n (mod B)
           A = Remainder(A,B);
           n = n/2
 
-s[0]=M % lhs;
-for (i=1;i<....;i++) {
-    M=M/lhs;
-    s[i]=M%lhs;
-    }
-
-s[0]=M % lhs;
-if(s[0]>lhs/2)
-   {s[0]=s[0]-lhs; m=m+lhs;}
-for (i=1;i<....;i++) {
-    M=M/lhs;
-    s[i]=M%lhs;
-    same adjustment
-    }
+s[0] = m % lhs;
+if (s[0] > lhs/2) {
+     s[0] = s[0] - lhs;
+     m = m + lhs;
+}
+for (i=1; i < sizeof(s); ++i) {
+     m = m / lhs;
+     s[i] = m % lhs;
+     if (s[i] > lhs/2) {
+          s[i] = s[i] - lhs;
+          m = m + lhs;
+     }
+}
