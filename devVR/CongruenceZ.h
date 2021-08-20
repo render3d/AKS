@@ -244,16 +244,18 @@ ZZX polyPowMod(ZZX a, ZZ n, ZZX b) {
     // calculates a^n (mod b) in O(log n)
     // Tested on longs but types need modifying to be NTL compatible
 
-    ZZX ans;           // Initialise answer
+    ZZX ans;                            // Initialise answer
     SetCoeff(ans,1);
 
     while (n > 0) {
-        if (n % 2 == 1) {   // if (n is odd) then
-            ans = polyMulMod(ans,a,b);
+        if (n % 2 == 1) {               // if (n is odd) then
+            ans = polyMultiply(ans,a) % b;
+            // ans %= b;
         }
 
-        a = polyMulMod(a,a,b);    // a = a^2 (mod b)
-        n /= 2;             // n = n/2
+        a = polyMultiply(ans,a) % b;    // a = a^2 (mod b)
+        // a %= b;
+        n /= 2;                         // n = n/2
     }
 
     return ans;
