@@ -6,6 +6,9 @@ NTL_CLIENT
 #include "biSegMultiplyZZX.h"
 #include "biSegMultiplyZZpX.h"
 
+unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
+// const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
+
 long CongruenceZ(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a) {
     // congruence test of polynomials in large integer form
 
