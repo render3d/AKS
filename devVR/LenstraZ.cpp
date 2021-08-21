@@ -2,7 +2,7 @@
     A C++ implementation of Lenstra's algorithm, adapted from that from Hua Li:
         https://researchportal.bath.ac.uk/en/publications/the-analysis-and-implementation-of-the-aks-algorithm-and-its-impr
     Compile with:
-        $ g++ -g -O2 -std=c++11 -pthread -march=native dir/foo.cpp -o dir/foo.out -lntl -lgmp -lm
+        $ g++ -g -O2 -std=c++11 -pthread -march=native devVR/LenstraZ.cpp -o devVR/LenstraZ.out -lntl -lgmp -lm
 */
 
 #include <math.h> // standard libraries
@@ -16,14 +16,18 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <cstdlib>
+#include <filesystem>
 // #include <mmsystem.h>
 #include <time.h>
 #include <ctime>
 #include <chrono>
 #include <string>
 #include <thread>
+#include <array>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "NTL/ZZ.h" // NTL Libraries
 #include "NTL/ZZ_p.h"
@@ -38,30 +42,54 @@ NTL_CLIENT
 #include "Euler.h"
 #include "CongruenceZ.h"
 
+std::string getDate() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d");
+    auto date = oss.str();
+
+    return date;
+}
+
 std::string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    oss << std::put_time(&tm, "%H-%M-%S");
     auto time = oss.str();
 
     return time;
 }
 
+std::string getDateTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    auto datetime = oss.str();
+
+    return datetime;
+}
+
 std::string getFilename() {
-    std::string prfx = "log-LenstraZ-";
-    std::string sffx = getTime();
+    // std::string make = "/logs/" + getDate();
+    // int result = mkdir(make.c_str(), 0777);
+    std::string fldr = "logs/";
+    // std::string fldr = "logs/" + getDate() + "/";
+    std::string prfx = "LnstrZ-";
+    std::string sffx = getDateTime();
     std::string extn = ".csv";
 
-    std::string filename = prfx + sffx + extn;
+    std::string filename = fldr + prfx + sffx + extn;
 
     return filename;
 }
 
-unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
-const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
-
+// std::filesystem::create_directory("logs/" + getDate());
 std::string filename = getFilename();
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
@@ -87,7 +115,7 @@ inline bool Lenstra (const ZZ& n) {
         return true;
     }
 
-    std::printf("r = %ld\n",to_long(n));
+    std::cout << "n = " << n << "\n\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();
@@ -162,10 +190,10 @@ inline bool Lenstra (const ZZ& n) {
     ZZ r2 = Euler(to_long(r));
     std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
 
-    // int f = CongruenceZnx(n,r,r2);
-    int f = CongruenceZ(n,r,r2);
+    long a = to_long(r2 - 1);
+    long f = CongruenceZ(n,r,r2,a);
 
-    if(f == 1){
+    if(f == 0){
         auto finish = std::chrono::steady_clock::now();
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
@@ -201,12 +229,27 @@ int main (int argc, char * argv[]) {
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
     bool prime;
-    ZZ n;
-    n = 0;
 
-    std::printf("Enter a positive integer number n you want to be tested:\n");
-    std::cin >> n;
+    ZZ p = conv<ZZ>("689960931088884849033689023336009222695077");
+    prime = Lenstra(p);
 
-    prime = Lenstra(n);
+    // int nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
+    // int nos[] = {11491, 11497, 11503, 11519, 11527, 11549, 11551, 11579, 11587, 11593, 11597, 11617, 11621, 11633, 11657, 11677, 11681, 11689, 11699, 11701};
+    // ZZ nos[] = {689960931088884849033689023336009222694927, 689960931088884849033689023336009222694971, 689960931088884849033689023336009222695053, 689960931088884849033689023336009222695077};
+    // int nosSize = sizeof(nos)/sizeof(*nos);
+    // int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
+
+    // for (int i = 0; i < nosSize; ++i) {
+    // for (int i = nos[0]; i < nos[nosEnd] + 1; ++i) {
+    // // for (int i = 5; i < 506; ++i) {
+    //     // ZZ n;
+    //     // n = 0;
+
+    //     // std::printf("Enter a positive integer number n you want to be tested:\n");
+    //     // std::cin >> n;
+
+    //     // prime = Lenstra(to_ZZ(nos[i]));
+    //     prime = Lenstra(to_ZZ(i));
+    // }
 
 }

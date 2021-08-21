@@ -192,7 +192,6 @@ inline bool Lenstra (const ZZ& n) {
 
     long a = to_long(r2 - 1);
     long f = CongruenceZnx(n,r,r2,a);
-    // int f = CongruenceZ(a,n,r);
 
     if(f == 0){
         auto finish = std::chrono::steady_clock::now();
@@ -220,6 +219,7 @@ inline bool Lenstra (const ZZ& n) {
         fileWrite(n,ncores,false,time,note);
 
         return false;
+        // break;
     }
 
 }
