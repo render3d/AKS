@@ -60,7 +60,12 @@ ZZX polyMultiply(const ZZX& f, const ZZX& g) {
     // polynomial multiplication by Binary Segmentation
 
     ZZ termsF = to_ZZ(deg(f)+1);
+    std::cout << "\nDegree of f is = " << deg(f) <<"\n";
+    std::cout << "No. of terms in f = " << termsF <<"\n";
+
     ZZ termsG = to_ZZ(deg(g)+1);
+    std::cout << "Degree of g is = " << deg(g) <<"\n";
+    std::cout << "No. of terms in g = " << termsG <<"\n";
 
     ZZ maxTermFG = to_ZZ(std::max(termsF,termsG));
     std::cout << "\nmax(U,V) = " << maxTermFG <<"\n";
@@ -86,7 +91,7 @@ ZZX polyMultiply(const ZZX& f, const ZZX& g) {
     ZZ F = evaluate(f,X);                               // evaluate f(x) for x = 2^b - 1
     std::cout << "F = f(X) = f(" << X << ") = " << F <<"\n";
     ZZ G = evaluate(g,X);                               // evaluate g(x) for x = 2^b - 1
-    std::cout << "G = g(X) = f(" << X << ") = " << G <<"\n\n";
+    std::cout << "G = g(X) = g(" << X << ") = " << G <<"\n\n";
 
     ZZ m = F * G;                                       // Integer multiply
     std::cout << "m = F * G = " << F << " * " << G << " = " << m <<"\n\n";
@@ -177,7 +182,7 @@ ZZX polyMulMod(const ZZX& f, const ZZX& g, const ZZX& h) {
     ZZ F = evaluate(f,X);                               // evaluate f(x) for x = 2^b - 1
     std::cout << "F = f(X) = f(" << X << ") = " << F <<"\n";
     ZZ G = evaluate(g,X);                               // evaluate g(x) for x = 2^b - 1
-    std::cout << "G = g(X) = f(" << X << ") = " << G <<"\n\n";
+    std::cout << "G = g(X) = g(" << X << ") = " << G <<"\n\n";
 
     ZZ m = F * G;                                       // Integer multiply
     std::cout << "m = F * G = " << F << " * " << G << " = " << m <<"\n\n";
@@ -245,51 +250,17 @@ ZZX polyPowMod(ZZX a, ZZ n, ZZX b) {
     // Tested on longs but types need modifying to be NTL compatible
 
     ZZX ans;                            // Initialise answer
-    SetCoeff(ans,1);
+    SetCoeff(ans,0,1);
 
     while (n > 0) {
         if (n % 2 == 1) {               // if (n is odd) then
             ans = polyMultiply(ans,a) % b;
             // ans %= b;
         }
-
-        a = polyMultiply(ans,a) % b;    // a = a^2 (mod b)
+        a = polyMultiply(a,a) % b;    // a = a^2 (mod b)
         // a %= b;
         n /= 2;                         // n = n/2
     }
 
     return ans;
-}
-
-long CongruenceZ(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a) {
-    // congruence test of polynomials in large integer form
-
-    ZZ_p::init(n);                      // initialise mod n
-
-    printf("\nCalculating x^r - 1 (mod n) ...\n");
-    ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
-    printf("Done.\n");
-
-    printf("Initialising x (mod n) ...\n");
-    ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
-    printf("Done.\n");
-
-    printf("Calculating x^n (mod (x^r - 1), n) ...\n");
-    ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
-    printf("Done.\n");
-
-    printf("\nCommencing congruence tests:\n\n");
-    for(long j = 1; j <= a; ++j){
-        printf("a = %ld\n",j);
-
-        ZZ_pX c = ZZ_pX(1, 1) - j ;         // c = x - a (mod n);
-        ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
-        ZZ_pX g = d - j;                    // g = x^n - a (mod b, n) - RHS
-
-        if(f != g){
-            return(to_long(j)); // n is not prime
-        }
-    }
-
-    return(0); // n is prime
 }
