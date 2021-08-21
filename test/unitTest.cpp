@@ -27,8 +27,8 @@
 #include "NTL/ZZXFactoring.h"
 NTL_CLIENT
 
-#include "../devVR/CongruenceZ.h" // personal headers
-#include "../devVR/CongruenceZp.h"
+#include "../devVR/biSegMultiplyZZX.h" // personal headers
+#include "../devVR/biSegMultiplyZZpX.h"
 
 int main(int argc, char * argv[]) {
 
