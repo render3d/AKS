@@ -67,7 +67,7 @@ ZZ_pX polyModMul(const ZZ_pX& f, const ZZ_pX& g) {
 
     long b = 1;
     ZZ lhs = (power2_ZZ(b)) - 1;                        // lhs = 2^b-1
-    while (lhs < rhs) {                                 // Choose b such that 2^b − 1 > max(U,V) * max(x_i) * max(y_k)
+    while (lhs <= rhs) {                                 // Choose b such that 2^b − 1 > max(U,V) * max(x_i) * max(y_k)
         b = b + 1;
         lhs = (power2_ZZ(b)) - 1;
     }
