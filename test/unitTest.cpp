@@ -27,7 +27,8 @@
 #include "NTL/ZZXFactoring.h"
 NTL_CLIENT
 
-#include "../devVR/CongruenceZ.h" // personal header
+#include "../devVR/CongruenceZ.h" // personal headers
+#include "../devVR/CongruenceZp.h"
 
 int main(int argc, char * argv[]) {
 
@@ -39,7 +40,7 @@ int main(int argc, char * argv[]) {
     // [2 -1 1]
     // [2 -1 -1]
 
-    // printf("\nStart\n");
+    printf("\nStart\n");
 
     // // *** DO STUFF HERE ***
 
@@ -119,7 +120,51 @@ int main(int argc, char * argv[]) {
 
     // ############### PowMod Tests ############################################
 
-    ZZX f;
+    // ZZ_p::init(ZZ(2));
+
+    // ZZX f;
+    // std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    // std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    // std::cout << " = x^2 - x + 2):\n";
+    // cin >> f;
+
+    // ZZ e;
+    // std::cout << "Enter the exponent you wish to raise it to:\n";
+    // cin >> e;
+
+    // ZZX g;
+    // std::cout << "And the polynomial you wish to mod the product by:\n";
+    // cin >> g;
+
+    // double then = GetTime();
+    // ZZX fegBin = polyPowMod(f,e,g);
+    // double lap1 = GetTime();
+
+    // ZZ_pX f_p = to_ZZ_pX(f);
+    // ZZ_pX g_p = to_ZZ_pX(g);
+
+    // double lap2 = GetTime();
+    // ZZ_pX fegNTL = PowerMod(f_p,e,g_p);
+    // double lap3 = GetTime();
+
+    // double tNTL = lap3-lap2;
+    // std::cout << "NTL Polynomial PowerMod: f(x)^e (mod h(x)) = " << fegNTL << " (" << tNTL*1000 << " milliseconds)\n";
+
+    // double tBin = lap1-then;
+    // std::cout << "Binary Sgmtn polyPowMod: f(x)^e (mod h(x)) = " << fegBin << " (" << tBin*1000 << " milliseconds)\n";
+
+    // if (fgnNTL == fgnBin) {
+    //     printf("\nBinary Segmentation PowMod Successful.\n");
+    // }
+    // else {
+    //     printf("\nBinary Segmentation PowMod Failed.\n");
+    // }
+
+    // ############### PowMod ZZ_p Tests ############################################
+
+    ZZ_p::init(ZZ(2));
+
+    ZZ_pX f;
     std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
     std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
     std::cout << " = x^2 - x + 2):\n";
@@ -129,20 +174,18 @@ int main(int argc, char * argv[]) {
     std::cout << "Enter the exponent you wish to raise it to:\n";
     cin >> e;
 
-    ZZX g;
+    ZZ_pX g;
     std::cout << "And the polynomial you wish to mod the product by:\n";
     cin >> g;
 
+    std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+
     double then = GetTime();
-    ZZX fegBin = polyPowMod(f,e,g);
+    ZZ_pX fegBin = ZZpPowMod(f,e,g);
     double lap1 = GetTime();
 
-    ZZ_p::init(ZZ(2));
-    ZZ_pX f_p = to_ZZ_pX(f);
-    ZZ_pX g_p = to_ZZ_pX(g);
-
     double lap2 = GetTime();
-    ZZ_pX fegNTL = PowerMod(f_p,e,g_p);
+    ZZ_pX fegNTL = PowerMod(f,e,g);
     double lap3 = GetTime();
 
     double tNTL = lap3-lap2;
@@ -151,11 +194,22 @@ int main(int argc, char * argv[]) {
     double tBin = lap1-then;
     std::cout << "Binary Sgmtn polyPowMod: f(x)^e (mod h(x)) = " << fegBin << " (" << tBin*1000 << " milliseconds)\n";
 
-    // if (fgnNTL == fgnBin) {
-    //     printf("\nBinary Segmentation PowMod Successful.\n");
-    // }
-    // else {
-    //     printf("\nBinary Segmentation PowMod Failed.\n");
-    // }
+    if (fegNTL == fegBin) {
+        printf("\nBinary Segmentation PowMod Successful.\n");
+    }
+    else {
+        printf("\nBinary Segmentation PowMod Failed.\n");
+    }
+
+    // test cases
+    // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
+    // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
+    // [14 10 6 2]
+    // [16 9 7 1]
+    // [2 -1 1]
+    // [2 -1 -1]
+
+    // [1 0 0 1]
+    // [-1 1 1 0 -1 0 1]
 
 }
