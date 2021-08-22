@@ -36,7 +36,7 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
         ZZ_pX g = d - j;                    // g = x^n - a (mod b, n) - RHS
 
         if(f != g){
-            return(to_long(j)); // n is not prime
+            return(j); // n is not prime
         }
     }
 
