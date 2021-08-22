@@ -233,8 +233,8 @@ int main (int argc, char * argv[]) {
     // ZZ p = conv<ZZ>("11663");
     // ZZ p = conv<ZZ>("11639");
     // ZZ p = conv<ZZ>("160427");
-    ZZ p = conv<ZZ>("7740919");
-    // ZZ p = conv<ZZ>("23456611");
+    // ZZ p = conv<ZZ>("7740919");
+    ZZ p = conv<ZZ>("23456611");
 
     prime = Lenstra(p);
 
