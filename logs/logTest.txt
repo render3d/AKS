@@ -1,1 +1,0 @@
-Int, Cores, Prime (T/F), Time (milliseconds), Comments
