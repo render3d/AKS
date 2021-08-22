@@ -50,6 +50,8 @@ NTL_CLIENT
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
 
+#include "biSegMultiplyZZpX.h"
+
 std::string getDate() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
@@ -108,7 +110,7 @@ inline void fileWrite(const ZZ& n, const unsigned int& cores, const bool& PRIME,
     perflog << n << "," << cores << "," << PRIME  << "," << time << "," << other << "\n";
 }
 
-__global__ void CongruenceZnx (ZZ *n, ZZ *r, ZZ *r2, long *u, long a) { // __global__ void kernel(ZZ *d_n, ZZ *d_r, ZZ *d_r2){
+__global__ void CongruenceZ (ZZ *n, ZZ *r, ZZ *r2, long *u, long a) { // __global__ void kernel(ZZ *d_n, ZZ *d_r, ZZ *d_r2){
     // congruence test of polynomials in regular form
 
     // Thread indexing
@@ -120,10 +122,10 @@ __global__ void CongruenceZnx (ZZ *n, ZZ *r, ZZ *r2, long *u, long a) { // __glo
 
         ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
         ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
-        ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
+        ZZ_pX d = ZZpXmultiply(e, n, b);        // d = x^n (mod b, n)
 
         ZZ_pX c = ZZ_pX(1, 1) - i;          // c = x - a (mod n);
-        ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
+        ZZ_pX f = ZZpXmultiply(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
         ZZ_pX g = d - i;                    // g = x^n - a (mod b, n) - RHS
 
         if(f != g){
@@ -260,8 +262,8 @@ inline bool Lenstra (const ZZ& n) {
     dim3 grid_size(1);
     dim3 block_size(h_an); // a threads in block
 
-    // Launch Kernel -- CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an)
-    CongruenceZnx<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an);
+    // Launch Kernel -- CongruenceZ<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an)
+    CongruenceZ<<<grid_size,block_size>>>(d_n,d_r,d_r2,d_av,d_an);
 
     // Copy data back to host
     cudaMemcpy(h_av,d_av,h_an*sizeof(long),cudaMemcpyDeviceToHost);
