@@ -1,0 +1,212 @@
+Int, Cores, Prime (T/F), Time (milliseconds), Comments
+160373,2,1,443,n/a
+160374,2,0,0,2 is a divisor
+160375,2,0,0,5 is a divisor
+160376,2,0,0,2 is a divisor
+160377,2,0,0,3 is a divisor
+160378,2,0,0,2 is a divisor
+160379,2,0,0,19 is a divisor
+160380,2,0,0,2 is a divisor
+160381,2,0,0,13 is a divisor
+160382,2,0,0,2 is a divisor
+160383,2,0,0,3 is a divisor
+160384,2,0,0,2 is a divisor
+160385,2,0,0,5 is a divisor
+160386,2,0,0,2 is a divisor
+160387,2,1,282,n/a
+160388,2,0,0,2 is a divisor
+160389,2,0,0,3 is a divisor
+160390,2,0,0,2 is a divisor
+160391,2,0,0,7 is a divisor
+160392,2,0,0,2 is a divisor
+160393,2,0,0,107 is a divisor
+160394,2,0,0,2 is a divisor
+160395,2,0,0,3 is a divisor
+160396,2,0,0,2 is a divisor
+160397,2,1,322,n/a
+160398,2,0,0,2 is a divisor
+160399,2,0,0,29 is a divisor
+160400,2,0,0,2 is a divisor
+160401,2,0,0,3 is a divisor
+160402,2,0,0,2 is a divisor
+160403,2,1,132,n/a
+160404,2,0,0,2 is a divisor
+160405,2,0,0,5 is a divisor
+160406,2,0,0,2 is a divisor
+160407,2,0,0,3 is a divisor
+160408,2,0,0,2 is a divisor
+160409,2,1,269,n/a
+160410,2,0,0,2 is a divisor
+160411,2,0,0,47 is a divisor
+160412,2,0,0,2 is a divisor
+160413,2,0,0,3 is a divisor
+160414,2,0,0,2 is a divisor
+160415,2,0,0,5 is a divisor
+160416,2,0,0,2 is a divisor
+160417,2,0,0,19 is a divisor
+160418,2,0,0,2 is a divisor
+160419,2,0,0,3 is a divisor
+160420,2,0,0,2 is a divisor
+160421,2,0,0,59 is a divisor
+160422,2,0,0,2 is a divisor
+160423,2,1,648,n/a
+160424,2,0,0,2 is a divisor
+160425,2,0,0,3 is a divisor
+160426,2,0,0,2 is a divisor
+160427,2,0,2,a = 1; r = 128; phi(r) = 64
+160428,2,0,0,2 is a divisor
+160429,2,0,0,17 is a divisor
+160430,2,0,0,2 is a divisor
+160431,2,0,0,3 is a divisor
+160432,2,0,0,2 is a divisor
+160433,2,0,0,7 is a divisor
+160434,2,0,0,2 is a divisor
+160435,2,0,0,5 is a divisor
+160436,2,0,0,2 is a divisor
+160437,2,0,0,3 is a divisor
+160438,2,0,0,2 is a divisor
+160439,2,0,0,83 is a divisor
+160440,2,0,0,2 is a divisor
+160441,2,1,368,n/a
+160442,2,0,0,2 is a divisor
+160443,2,0,0,3 is a divisor
+160444,2,0,0,2 is a divisor
+160445,2,0,0,5 is a divisor
+160446,2,0,0,2 is a divisor
+160447,2,0,0,7 is a divisor
+160448,2,0,0,2 is a divisor
+160449,2,0,0,3 is a divisor
+160450,2,0,0,2 is a divisor
+160451,2,0,1,a = 1; r = 128; phi(r) = 64
+160452,2,0,0,2 is a divisor
+160453,2,1,292,n/a
+160454,2,0,0,2 is a divisor
+160455,2,0,0,3 is a divisor
+160456,2,0,0,2 is a divisor
+160457,2,0,0,11 is a divisor
+160458,2,0,0,2 is a divisor
+160459,2,0,0,13 is a divisor
+160460,2,0,0,2 is a divisor
+160461,2,0,0,3 is a divisor
+160462,2,0,0,2 is a divisor
+160463,2,0,0,17 is a divisor
+160464,2,0,0,2 is a divisor
+160465,2,0,0,5 is a divisor
+160466,2,0,0,2 is a divisor
+160467,2,0,0,3 is a divisor
+160468,2,0,0,2 is a divisor
+160469,2,0,0,37 is a divisor
+160470,2,0,0,2 is a divisor
+160471,2,0,0,23 is a divisor
+160472,2,0,0,2 is a divisor
+160473,2,0,0,3 is a divisor
+160474,2,0,0,2 is a divisor
+160475,2,0,0,5 is a divisor
+160476,2,0,0,2 is a divisor
+160477,2,0,9,a = 1; r = 128; phi(r) = 64
+160478,2,0,0,2 is a divisor
+160479,2,0,0,3 is a divisor
+160480,2,0,0,2 is a divisor
+160481,2,1,526,n/a
+160482,2,0,0,2 is a divisor
+160483,2,1,354,n/a
+160484,2,0,0,2 is a divisor
+160485,2,0,0,3 is a divisor
+160486,2,0,0,2 is a divisor
+160487,2,0,0,31 is a divisor
+160488,2,0,0,2 is a divisor
+160489,2,0,0,7 is a divisor
+160490,2,0,0,2 is a divisor
+160491,2,0,0,3 is a divisor
+160492,2,0,0,2 is a divisor
+160493,2,0,0,19 is a divisor
+160494,2,0,0,2 is a divisor
+160495,2,0,0,5 is a divisor
+160496,2,0,0,2 is a divisor
+160497,2,0,0,3 is a divisor
+160498,2,0,0,2 is a divisor
+160499,2,1,371,n/a
+160500,2,0,0,2 is a divisor
+160501,2,0,0,11 is a divisor
+160502,2,0,0,2 is a divisor
+160503,2,0,0,3 is a divisor
+160504,2,0,0,2 is a divisor
+160505,2,0,0,5 is a divisor
+160506,2,0,0,2 is a divisor
+160507,2,1,374,n/a
+160508,2,0,0,2 is a divisor
+160509,2,0,0,3 is a divisor
+160510,2,0,0,2 is a divisor
+160511,2,0,0,13 is a divisor
+160512,2,0,0,2 is a divisor
+160513,2,0,4,a = 1; r = 125; phi(r) = 100
+160514,2,0,0,2 is a divisor
+160515,2,0,0,3 is a divisor
+160516,2,0,0,2 is a divisor
+160517,2,0,0,7 is a divisor
+160518,2,0,0,2 is a divisor
+160519,2,0,0,43 is a divisor
+160520,2,0,0,2 is a divisor
+160521,2,0,0,3 is a divisor
+160522,2,0,0,2 is a divisor
+160523,2,0,0,11 is a divisor
+160524,2,0,0,2 is a divisor
+160525,2,0,0,5 is a divisor
+160526,2,0,0,2 is a divisor
+160527,2,0,0,3 is a divisor
+160528,2,0,0,2 is a divisor
+160529,2,0,16,a = 1; r = 128; phi(r) = 64
+160530,2,0,0,2 is a divisor
+160531,2,0,0,7 is a divisor
+160532,2,0,0,2 is a divisor
+160533,2,0,0,3 is a divisor
+160534,2,0,0,2 is a divisor
+160535,2,0,0,5 is a divisor
+160536,2,0,0,2 is a divisor
+160537,2,0,0,13 is a divisor
+160538,2,0,0,2 is a divisor
+160539,2,0,0,3 is a divisor
+160540,2,0,0,2 is a divisor
+160541,2,1,189,n/a
+160542,2,0,0,2 is a divisor
+160543,2,0,0,37 is a divisor
+160544,2,0,0,2 is a divisor
+160545,2,0,0,3 is a divisor
+160546,2,0,0,2 is a divisor
+160547,2,0,11,a = 1; r = 128; phi(r) = 64
+160548,2,0,0,2 is a divisor
+160549,2,0,0,31 is a divisor
+160550,2,0,0,2 is a divisor
+160551,2,0,0,3 is a divisor
+160552,2,0,0,2 is a divisor
+160553,2,1,556,n/a
+160554,2,0,0,2 is a divisor
+160555,2,0,0,5 is a divisor
+160556,2,0,0,2 is a divisor
+160557,2,0,0,3 is a divisor
+160558,2,0,0,2 is a divisor
+160559,2,0,0,7 is a divisor
+160560,2,0,0,2 is a divisor
+160561,2,0,6,a = 1; r = 125; phi(r) = 100
+160562,2,0,0,2 is a divisor
+160563,2,0,0,3 is a divisor
+160564,2,0,0,2 is a divisor
+160565,2,0,0,5 is a divisor
+160566,2,0,0,2 is a divisor
+160567,2,0,0,11 is a divisor
+160568,2,0,0,2 is a divisor
+160569,2,0,0,3 is a divisor
+160570,2,0,0,2 is a divisor
+160571,2,0,6,a = 1; r = 128; phi(r) = 64
+160572,2,0,0,2 is a divisor
+160573,2,0,0,7 is a divisor
+160574,2,0,0,2 is a divisor
+160575,2,0,0,3 is a divisor
+160576,2,0,0,2 is a divisor
+160577,2,0,0,103 is a divisor
+160578,2,0,0,2 is a divisor
+160579,2,1,251,n/a
+160580,2,0,0,2 is a divisor
+160581,2,0,0,3 is a divisor
+160582,2,0,0,2 is a divisor
+160583,2,1,315,n/a
