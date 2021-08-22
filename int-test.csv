@@ -3,6 +3,10 @@ P in [N-210 to N]
 R 5R
 runtime proportional to R?
 
+unsigned int 4294967295 10 decimal digits
+unsigned long 4294967295 10 decimal digits
+unsigned long long 18446744073709551615 20 decimal digits
+
 *** Random ***
 
 347
