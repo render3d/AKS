@@ -8,27 +8,37 @@
 #include "NTL/ZZ_pX.h"
 NTL_CLIENT
 
-ZZ_p getMaxCoeff(const ZZ_pX& x) {
-    // returns the largest coefficient of the input polynomial
+ZZ_p getMaxCoeff(const ZZ_pX& f) {
+    /*
+        Returns the largest integer coefficient, f_i, of the input
+        polynomial, f(x) (mod p), in O(D) time where D is the number
+        of terms in f(x) (mod p), including those with coefficients
+        equal to zero.
+    */
 
-    ZZ_p x_i = ConstTerm(x);
-    ZZ comp = rep(ConstTerm(x));
+    ZZ_p f_i = ConstTerm(f);
+    ZZ comp = rep(ConstTerm(f));
 
-    for (long i = 1; i <= deg(x); ++i) {
-        if (comp < rep(coeff(x,i))) {
-            x_i = coeff(x,i);
-            comp = rep(coeff(x,i));
+    for (long i = 1; i <= deg(f); ++i) {
+        if (comp < rep(coeff(f,i))) {
+            f_i = coeff(f,i);
+            comp = rep(coeff(f,i));
         }
         else {
             continue;
         }
     }
 
-    return x_i;
+    return f_i;
 }
 
 ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
-    // evaluates f(y) for y = x
+    /*
+        Returns the integer result when the polynomial f(y) (mod p)
+        is evaluated for y = x in O(D) time where D is the number of
+        terms in f(x) (mod p), including those with coefficients
+        equal to zero.
+    */
 
     long fDeg = deg(f);
     ZZ ans = rep(ConstTerm(f));
@@ -41,7 +51,11 @@ ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
 }
 
 ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
-    // polynomial multiplication by Binary Segmentation
+    /*
+        Returns the polynomial product s(x) =  f(x) * g(x) (mod p),
+        using binary segmentation, in O(D) time where D is the number
+        of terms in s(x), including those with coefficients equal to zero.
+    */
 
     ZZ termsF = to_ZZ(deg(f)+1);
     ZZ termsG = to_ZZ(deg(g)+1);
@@ -54,7 +68,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
     long b = 1;
     ZZ lhs = (power2_ZZ(b)) - 1;                            // lhs = 2^b-1
-    while (lhs <= rhs) {                                    // Choose b such that 2^b − 1 > max(U,V) * max(x_i) * max(y_k)
+    while (lhs <= rhs) {                                    // Choose b such that 2^b − 1 > max(U,V) * max(f_j) * max(g_k)
         b = b + 1;
         lhs = (power2_ZZ(b)) - 1;
     }
@@ -97,7 +111,9 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 }
 
 ZZ_pX ZZpPowMod(ZZ_pX a, ZZ n, ZZ_pX b) {
-    // calculates a^n (mod b) in O(log n)
+    /*
+        Calculates a(x)^n (mod b(x), p) in O((log n)*O(D)) time.
+    */
 
     ZZ_pX ans;                          // Initialise answer
     SetCoeff(ans,0,1);

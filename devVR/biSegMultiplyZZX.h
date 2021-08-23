@@ -10,7 +10,6 @@ NTL_CLIENT
 
 ZZ powMod(ZZ a, ZZ n, const ZZ& b) {
     // calculates a^n (mod b) in O(log n)
-    // Tested on longs but not ZZ (to be NTL compatible)
 
     ZZ ans = ZZ(1);         // Initialise answer
 
@@ -25,25 +24,34 @@ ZZ powMod(ZZ a, ZZ n, const ZZ& b) {
     return ans;
 }
 
-ZZ getMaxCoeff(const ZZX& x) {
-    // returns the largest coefficient of the input polynomial
+ZZ getMaxCoeff(const ZZX& f) {
+    /*
+        Returns the largest integer coefficient, f_i, of the input
+        polynomial, f(x), in O(D) time where D is the number of terms
+        in f(x), including those with coefficients equal to zero.
+    */
 
-    ZZ x_i = ConstTerm(x);
+    ZZ f_i = ConstTerm(f);
 
-    for (long i = 1; i <= deg(x); ++i) {
-        if (x_i < coeff(x,i)) {
-            x_i = coeff(x,i);
+    for (long i = 1; i <= deg(f); ++i) {
+        if (f_i < coeff(f,i)) {
+            f_i = coeff(f,i);
         }
         else {
             continue;
         }
     }
 
-    return x_i;
+    return f_i;
 }
 
 ZZ evaluate(const ZZX& f, const ZZ& x) {
-    // evaluates f(y) for y = x
+    /*
+        Returns the integer result when the polynomial f(y) is
+        evaluated for y = x in O(D) time where D is the number of
+        terms in f(x), including those with coefficients equal to
+        zero.
+    */
 
     long fDeg = deg(f);
     ZZ ans = ConstTerm(f);
@@ -56,7 +64,11 @@ ZZ evaluate(const ZZX& f, const ZZ& x) {
 }
 
 ZZX polyMultiply(const ZZX& f, const ZZX& g) {
-    // polynomial multiplication by Binary Segmentation
+    /*
+        Returns the polynomial product s(x) = f(x) * g(x), using
+        binary segmentation, in O(D) time where D is the number of
+        terms in s(x), including those with coefficients equal to zero.
+    */
 
     ZZ termsF = to_ZZ(deg(f)+1);
     ZZ termsG = to_ZZ(deg(g)+1);
@@ -69,7 +81,7 @@ ZZX polyMultiply(const ZZX& f, const ZZX& g) {
 
     long b = 1;
     ZZ lhs = (power2_ZZ(b)) - 1;                        // lhs = 2^b-1
-    while (lhs <= rhs) {                                 // Choose b such that 2^b − 1 > max(U,V) * max(x_i) * max(y_k)
+    while (lhs <= rhs) {                                // Choose b such that 2^b − 1 > max(U,V) * max(f_j) * max(g_k)
         b = b + 1;
         lhs = (power2_ZZ(b)) - 1;
     }
@@ -112,7 +124,11 @@ ZZX polyMultiply(const ZZX& f, const ZZX& g) {
 }
 
 ZZX polyMulMod(const ZZX& f, const ZZX& g, const ZZX& h) {
-    // polynomial multiply (mod h) by Binary Segmentation and where h is also a polynomial
+    /*
+        Returns the polynomial product s(x) = f(x) * g(x) (mod h(x)),
+        using binary segmentation, in O(D) time where D is the number
+        of terms in s(x), including those with coefficients equal to zero.
+    */
 
     ZZ termsF = to_ZZ(deg(f)+1);
     ZZ termsG = to_ZZ(deg(g)+1);
@@ -170,7 +186,11 @@ ZZX polyMulMod(const ZZX& f, const ZZX& g, const ZZX& h) {
 }
 
 ZZX polyMulModN(const ZZX& f, const ZZX& g, const ZZ& n) {
-    // polynomial multiply (mod h) by Binary Segmentation and where h is also a polynomial
+    /*
+        Returns the polynomial product s(x) = f(x) * g(x) (mod n), using
+        binary segmentation, in O(D) time where D is the number of terms
+        in s(x), including those with coefficients equal to zero.
+    */
 
     ZZ termsF = to_ZZ(deg(f)+1);
     ZZ termsG = to_ZZ(deg(g)+1);
@@ -225,7 +245,9 @@ ZZX polyMulModN(const ZZX& f, const ZZX& g, const ZZ& n) {
 }
 
 ZZX polyPowMod(ZZX a, ZZ n, ZZX b) {
-    // calculates a^n (mod b) in O(log n)
+    /*
+        Calculates a(x)^n (mod b(x)) in O((log n)*O(D)) time.
+    */
 
     ZZX ans;                    // Initialise answer
     SetCoeff(ans,0,1);
