@@ -18,14 +18,18 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <cstdlib>
+#include <filesystem>
 // #include <mmsystem.h>
 #include <time.h>
 #include <ctime>
 #include <chrono>
 #include <string>
 #include <thread>
+#include <array>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "NTL/ZZ.h" // NTL Libraries
 #include "NTL/ZZ_p.h"
@@ -46,27 +50,54 @@ NTL_CLIENT
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
 
+std::string getDate() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d");
+    auto date = oss.str();
+
+    return date;
+}
+
 std::string getTime() {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    oss << std::put_time(&tm, "%H-%M-%S");
     auto time = oss.str();
 
     return time;
 }
 
+std::string getDateTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
+    auto datetime = oss.str();
+
+    return datetime;
+}
+
 std::string getFilename() {
-    std::string prfx = "log-LenstraZ-";
-    std::string sffx = getTime();
+    // std::string make = "/logs/" + getDate();
+    // int result = mkdir(make.c_str(), 0777);
+    std::string fldr = "logs/HPCznx/";
+    // std::string fldr = "logs/" + getDate() + "/";
+    std::string prfx = "LnstrZnx-";
+    std::string sffx = getDateTime();
     std::string extn = ".csv";
 
-    std::string filename = prfx + sffx + extn;
+    std::string filename = fldr + prfx + sffx + extn;
 
     return filename;
 }
 
+// std::filesystem::create_directory("logs/" + getDate());
 unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
 const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
 
@@ -119,7 +150,7 @@ inline bool Lenstra (const ZZ& n) {
         return true;
     }
 
-    std::printf("n = %ld\n",to_long(n));
+    std::cout << "n = " << n << "\n\n";
 
     // start timing
     auto start = std::chrono::steady_clock::now();

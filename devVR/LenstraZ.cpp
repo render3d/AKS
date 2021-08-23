@@ -78,7 +78,7 @@ std::string getDateTime() {
 std::string getFilename() {
     // std::string make = "/logs/" + getDate();
     // int result = mkdir(make.c_str(), 0777);
-    std::string fldr = "logs/";
+    std::string fldr = "logs/Z/";
     // std::string fldr = "logs/" + getDate() + "/";
     std::string prfx = "LnstrZ-";
     std::string sffx = getDateTime();
