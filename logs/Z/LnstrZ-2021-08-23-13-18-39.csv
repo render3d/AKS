@@ -1,0 +1,2 @@
+Int, Cores, Prime (T/F), Time (milliseconds), Comments
+160427,2,0,81,a = 1; r = 128; phi(r) = 64
