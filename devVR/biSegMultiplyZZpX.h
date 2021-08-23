@@ -110,7 +110,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
     return polyModProd;
 }
 
-ZZ_pX ZZpPowMod(ZZ_pX a, ZZ n, ZZ_pX b) {
+ZZ_pX ZZpPowMod(ZZ_pX a, ZZ n, const ZZ_pX& b) {
     /*
         Calculates a(x)^n (mod b(x), p) in O((log n)*O(D)) time.
     */
