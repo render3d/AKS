@@ -27,8 +27,47 @@
 #include "NTL/ZZXFactoring.h"
 NTL_CLIENT
 
-#include "../devVR/biSegMultiplyZZX.h" // personal headers
-#include "../devVR/biSegMultiplyZZpX.h"
+// #include "../devVR/biSegMultiplyZZX.h" // personal headers
+// #include "../devVR/biSegMultiplyZZpX.h"
+#include "../archive/biSegMultiplyZZpXpreJHD.h"
+
+// ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
+//     /*
+//         Returns the integer result when the polynomial f(y) (mod p)
+//         is evaluated for y = x in O(D) time where D is the number of
+//         terms in f(x) (mod p), including those with coefficients
+//         equal to zero.
+//     */
+
+//     long fDeg = deg(f);
+//     ZZ ans = rep(ConstTerm(f));
+
+//     for (long i = 1; i <= fDeg; ++i) {
+//         ans += rep(coeff(f,i))*power(x,i);
+//     }
+
+//     return ans;
+// }
+
+// ZZ fastEval(const ZZ_pX& f, const ZZ& x) {
+//     /*
+//         Returns the integer result when the polynomial f(y) (mod p)
+//         is evaluated for y = x in O(D) time where D is the number of
+//         terms in f(x) (mod p), including those with coefficients
+//         equal to zero.
+//     */
+
+//     long fDeg = deg(f);
+//     ZZ ans = rep(ConstTerm(f));
+
+//     ZZ xpow = ZZ(1);
+//     for (long i = 1; i <= fDeg; ++i) {
+//         xpow = xpow*x;
+//         ans += rep(coeff(f,i))*xpow;
+//     }
+
+//     return ans;
+// }
 
 int main(int argc, char * argv[]) {
 
@@ -169,47 +208,47 @@ int main(int argc, char * argv[]) {
 
     // ############### PowMod ZZ_p Tests ############################################
 
-    ZZ_p::init(ZZ(7));
+    // ZZ_p::init(ZZ(7));
 
-    ZZ_pX f;
-    std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
-    std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
-    std::cout << " = x^2 - x + 2):\n";
-    cin >> f;
-    std::cout << "\nf(x) = " << f << "\n\n";
+    // ZZ_pX f;
+    // std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    // std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    // std::cout << " = x^2 - x + 2):\n";
+    // cin >> f;
+    // std::cout << "\nf(x) = " << f << "\n\n";
 
-    ZZ e;
-    std::cout << "Enter the exponent you wish to raise it to:\n";
-    cin >> e;
-    std::cout << "\ne = " << e << "\n\n";
+    // ZZ e;
+    // std::cout << "Enter the exponent you wish to raise it to:\n";
+    // cin >> e;
+    // std::cout << "\ne = " << e << "\n\n";
 
-    ZZ_pX g;
-    std::cout << "And the polynomial you wish to mod the product by:\n";
-    cin >> g;
-    std::cout << "\ng(x) = " << g << "\n\n";
+    // ZZ_pX g;
+    // std::cout << "And the polynomial you wish to mod the product by:\n";
+    // cin >> g;
+    // std::cout << "\ng(x) = " << g << "\n\n";
 
-    std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+    // std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
 
-    double then = GetTime();
-    ZZ_pX fegBin = ZZpPowMod(f,e,g);
-    double lap1 = GetTime();
+    // double then = GetTime();
+    // ZZ_pX fegBin = ZZpPowMod(f,e,g);
+    // double lap1 = GetTime();
 
-    double lap2 = GetTime();
-    ZZ_pX fegNTL = PowerMod(f,e,g);
-    double lap3 = GetTime();
+    // double lap2 = GetTime();
+    // ZZ_pX fegNTL = PowerMod(f,e,g);
+    // double lap3 = GetTime();
 
-    double tNTL = lap3-lap2;
-    std::cout << "NTL Polynomial PowerMod: f(x)^e (mod h(x)) = " << fegNTL << " (" << tNTL*1000 << " milliseconds)\n";
+    // double tNTL = lap3-lap2;
+    // std::cout << "NTL Polynomial PowerMod: f(x)^e (mod h(x)) = " << fegNTL << " (" << tNTL*1000 << " milliseconds)\n";
 
-    double tBin = lap1-then;
-    std::cout << "Binary Sgmtn polyPowMod: f(x)^e (mod h(x)) = " << fegBin << " (" << tBin*1000 << " milliseconds)\n";
+    // double tBin = lap1-then;
+    // std::cout << "Binary Sgmtn polyPowMod: f(x)^e (mod h(x)) = " << fegBin << " (" << tBin*1000 << " milliseconds)\n";
 
-    if (fegNTL == fegBin) {
-        printf("\nBinary Segmentation PowMod Successful.\n");
-    }
-    else {
-        printf("\nBinary Segmentation PowMod Failed.\n");
-    }
+    // if (fegNTL == fegBin) {
+    //     printf("\nBinary Segmentation PowMod Successful.\n");
+    // }
+    // else {
+    //     printf("\nBinary Segmentation PowMod Failed.\n");
+    // }
 
     // ############### PowModNpX Tests ############################################
 
@@ -269,6 +308,59 @@ int main(int argc, char * argv[]) {
     // else {
     //     printf("\nBinary Segmentation PowMod Failed.\n");
     // }
+
+    // ############### PowModNpX Tests ############################################
+
+    ZZ_p::init(ZZ(7));
+
+    ZZ_pX f;
+    std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    std::cout << " = x^2 - x + 2):\n";
+    cin >> f;
+    std::cout << "\nf(x) = " << f << "\n\n";
+
+    ZZ x;
+    std::cout << "Enter the value you wish to solve for:\n";
+    cin >> x;
+    std::cout << "\ne = " << x << "\n\n";
+
+    auto start = std::chrono::steady_clock::now();
+    for (int i = 0; i < 10000000; ++i) {
+        evaluate(f,x);
+    }
+    std::cout << "Original: ";
+    std::cout << "f(" << x << ") = " << evaluate(f,x) << "\n";
+    auto lap1 = std::chrono::steady_clock::now();
+
+    auto duration1 = lap1 - start;
+    auto eval = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
+    std::printf("Time taken: %ld milliseconds\n",eval);
+
+    auto lap2 = std::chrono::steady_clock::now();
+    for (int i = 0; i < 10000000; ++i) {
+        fastEval(f,x);
+    }
+    auto lap3 = std::chrono::steady_clock::now();
+    std::cout << "Faster: ";
+    std::cout << "f(" << x << ") = " << fastEval(f,x) << "\n";
+
+    auto duration2 = lap3 - lap2;
+    auto fast = std::chrono::duration_cast<std::chrono::milliseconds>(duration2).count();
+    std::printf("Time taken: %ld milliseconds\n",fast);
+
+    long double evald = eval;
+    long double fastd = fast;
+
+    long double diff = ((fastd - evald)/evald)*100;
+
+    if (fastEval(f,x) == evaluate(f,x)) {
+        std::printf("Faster evaluation successful.\n");
+        std::printf("New function is %LG times faster than the old one.\n",diff);
+    }
+    else {
+        std::printf("Faster evaluation failed.\n");
+    }
 
     // ##################### TEST CASES ##############################################
     // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3

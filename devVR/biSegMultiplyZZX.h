@@ -45,19 +45,39 @@ ZZ getMaxCoeff(const ZZX& f) {
     return f_i;
 }
 
+// ZZ evaluate(const ZZX& f, const ZZ& x) {
+//     /*
+//         Returns the integer result when the polynomial f(y) is
+//         evaluated for y = x in O(D) time where D is the number of
+//         terms in f(x), including those with coefficients equal to
+//         zero.
+//     */
+
+//     long fDeg = deg(f);
+//     ZZ ans = ConstTerm(f);
+
+//     for (long i = 1; i <= fDeg; ++i) {
+//         ans += coeff(f,i)*power(x,i);
+//     }
+
+//     return ans;
+// }
+
 ZZ evaluate(const ZZX& f, const ZZ& x) {
     /*
-        Returns the integer result when the polynomial f(y) is
-        evaluated for y = x in O(D) time where D is the number of
-        terms in f(x), including those with coefficients equal to
-        zero.
+        Returns the integer result when the polynomial f(y) (mod p)
+        is evaluated for y = x in O(D) time where D is the number of
+        terms in f(x) (mod p), including those with coefficients
+        equal to zero.
     */
 
     long fDeg = deg(f);
     ZZ ans = ConstTerm(f);
 
+    ZZ xpow = ZZ(1);
     for (long i = 1; i <= fDeg; ++i) {
-        ans += coeff(f,i)*power(x,i);
+        xpow = xpow*x;
+        ans += coeff(f,i)*xpow;
     }
 
     return ans;

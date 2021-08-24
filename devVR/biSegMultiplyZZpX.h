@@ -43,8 +43,10 @@ ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
     long fDeg = deg(f);
     ZZ ans = rep(ConstTerm(f));
 
+    ZZ xpow = ZZ(1);
     for (long i = 1; i <= fDeg; ++i) {
-        ans += rep(coeff(f,i))*power(x,i);
+        xpow = xpow*x;
+        ans += rep(coeff(f,i))*xpow;
     }
 
     return ans;
