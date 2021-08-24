@@ -3,7 +3,7 @@
 // #include <NTL/BasicThreadPool.h>
 NTL_CLIENT
 
-#include "biSegMultiplyZZX.h"
+// #include "biSegMultiplyZZX.h"
 #include "biSegMultiplyZZpX.h"
 
 unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
