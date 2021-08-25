@@ -68,7 +68,8 @@
         "cfenv": "cpp",
         "__nullptr": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "ios": "cpp"
     },
     "cSpell.ignoreWords": [
         "crandall",
