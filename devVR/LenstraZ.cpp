@@ -40,6 +40,7 @@ NTL_CLIENT
 
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
+#include "Carmichael.h"
 #include "CongruenceZ.h"
 
 std::string getDate() {
