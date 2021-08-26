@@ -29,7 +29,7 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
         // for(long j = first; j <= last; ++j){
     printf("\nCommencing congruence tests:\n\n");
     for(long j = 1; j <= a; ++j){
-        printf("a = %ld\n",j);
+        // printf("a = %ld\n",j);
 
         ZZ_pX c = ZZ_pX(1, 1) - j ;         // c = x - a (mod n);
         ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
