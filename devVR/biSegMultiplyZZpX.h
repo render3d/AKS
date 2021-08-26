@@ -65,12 +65,12 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
     long termsG = deg(g)+1;
 
     ZZ maxTermFG = to_ZZ(std::max(termsF,termsG));
-    // ZZ_p maxCoeffF = getMaxCoeff(f);
-    // ZZ_p maxCoeffG = getMaxCoeff(g);
-    ZZ maxCoeff = ZZ_p::modulus();
+    ZZ_p maxCoeffF = getMaxCoeff(f);
+    ZZ_p maxCoeffG = getMaxCoeff(g);
+    // ZZ maxCoeff = ZZ_p::modulus();
 
-    // ZZ rhs = maxTermFG * rep(maxCoeffF) * rep(maxCoeffG);   // rhs = max(U,V) * max(f_j) * max(g_k)
-    ZZ rhs = maxTermFG * sqr(maxCoeff);                     // rhs = max(U,V) * max(f_j) * max(g_k)
+    ZZ rhs = maxTermFG * rep(maxCoeffF) * rep(maxCoeffG);   // rhs = max(U,V) * max(f_j) * max(g_k)
+    // ZZ rhs = maxTermFG * sqr(maxCoeff);                     // rhs = max(U,V) * max(f_j) * max(g_k)
 
     long b = 1;
     ZZ lhs = (power2_ZZ(b)) - 1;                            // lhs = 2^b-1
@@ -130,8 +130,8 @@ ZZ_pX ZZpPowMod(ZZ_pX a, ZZ n, const ZZ_pX& b) {
             ans = ZZpXmultiply(ans,a);
             ans %= b;
         }
-        // // a = ZZpXmultiply(a,a);          // a = a^2 (mod b)
-        a = sqr(a);                     // a = a^2 (mod b)
+        a = ZZpXmultiply(a,a);          // a = a^2 (mod b)
+        // a = sqr(a);                     // a = a^2 (mod b)
         a %= b;
 
         n /= 2;                         // n = n/2
