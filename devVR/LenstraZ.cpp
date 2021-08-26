@@ -40,7 +40,7 @@ NTL_CLIENT
 
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
-#include "Carmichael.h"
+// #include "Carmichael.h"
 #include "CongruenceZ.h"
 
 std::string getDate() {
@@ -189,7 +189,9 @@ inline bool Lenstra (const ZZ& n) {
     std::printf("r = %ld\n",to_long(r));
 
     ZZ r2 = Euler(to_long(r));
-    std::printf("Euler(%ld) = %ld\n",to_long(r),to_long(r2));
+    std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
+    // ZZ r2 = Carmichael(to_long(r));
+    // std::printf("Lambda(%ld) = %ld\n",to_long(r),to_long(r2));
 
     long a = to_long(r2 - 1);
     long f = CongruenceZ(n,r,r2,a);
@@ -202,7 +204,8 @@ inline bool Lenstra (const ZZ& n) {
         std::printf("%ld is prime.\n",to_long(n));
         std::printf("Time taken: %ld milliseconds\n",time);
 
-        std::string note = "n/a";
+        std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+        // std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; lambda(r) = " + std::to_string(to_long(r2));
         fileWrite(n,ncores,true,time,note);
 
         return true;
@@ -216,7 +219,8 @@ inline bool Lenstra (const ZZ& n) {
         std::printf("The a which fails is %ld\n",f);
         std::printf("Time taken: %ld milliseconds\n",time);
 
-        std::string note = "a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+        std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+        // std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; lambda(r) = " + std::to_string(to_long(r2));
         fileWrite(n,ncores,false,time,note);
 
         return false;
