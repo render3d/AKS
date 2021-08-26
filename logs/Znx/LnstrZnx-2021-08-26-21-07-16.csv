@@ -1,0 +1,194 @@
+Int, Cores, Prime (T/F), Time (milliseconds), Comments
+23456597,2,1,2276,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456598,2,0,0,2 is a divisor
+23456599,2,0,46,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456600,2,0,0,2 is a divisor
+23456601,2,0,0,3 is a divisor
+23456602,2,0,0,2 is a divisor
+23456603,2,1,3079,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456604,2,0,0,2 is a divisor
+23456605,2,0,0,5 is a divisor
+23456606,2,0,0,2 is a divisor
+23456607,2,0,0,3 is a divisor
+23456608,2,0,0,2 is a divisor
+23456609,2,0,0,11 is a divisor
+23456610,2,0,0,2 is a divisor
+23456611,2,0,41,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456612,2,0,0,2 is a divisor
+23456613,2,0,0,3 is a divisor
+23456614,2,0,0,2 is a divisor
+23456615,2,0,3,5 is a divisor
+23456616,2,0,0,2 is a divisor
+23456617,2,0,0,17 is a divisor
+23456618,2,0,0,2 is a divisor
+23456619,2,0,0,3 is a divisor
+23456620,2,0,0,2 is a divisor
+23456621,2,0,0,19 is a divisor
+23456622,2,0,0,2 is a divisor
+23456623,2,0,0,149 is a divisor
+23456624,2,0,0,2 is a divisor
+23456625,2,0,0,3 is a divisor
+23456626,2,0,0,2 is a divisor
+23456627,2,1,2515,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456628,2,0,0,2 is a divisor
+23456629,2,0,0,7 is a divisor
+23456630,2,0,0,2 is a divisor
+23456631,2,0,0,3 is a divisor
+23456632,2,0,0,2 is a divisor
+23456633,2,0,0,41 is a divisor
+23456634,2,0,0,2 is a divisor
+23456635,2,0,0,5 is a divisor
+23456636,2,0,0,2 is a divisor
+23456637,2,0,0,3 is a divisor
+23456638,2,0,0,2 is a divisor
+23456639,2,0,56,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456640,2,0,0,2 is a divisor
+23456641,2,0,0,13 is a divisor
+23456642,2,0,0,2 is a divisor
+23456643,2,0,0,3 is a divisor
+23456644,2,0,0,2 is a divisor
+23456645,2,0,0,5 is a divisor
+23456646,2,0,0,2 is a divisor
+23456647,2,0,0,107 is a divisor
+23456648,2,0,0,2 is a divisor
+23456649,2,0,0,3 is a divisor
+23456650,2,0,0,2 is a divisor
+23456651,2,0,0,17 is a divisor
+23456652,2,0,0,2 is a divisor
+23456653,2,0,0,11 is a divisor
+23456654,2,0,0,2 is a divisor
+23456655,2,0,0,3 is a divisor
+23456656,2,0,0,2 is a divisor
+23456657,2,0,0,7 is a divisor
+23456658,2,0,0,2 is a divisor
+23456659,2,0,0,19 is a divisor
+23456660,2,0,0,2 is a divisor
+23456661,2,0,0,3 is a divisor
+23456662,2,0,0,2 is a divisor
+23456663,2,0,36,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456664,2,0,0,2 is a divisor
+23456665,2,0,0,5 is a divisor
+23456666,2,0,0,2 is a divisor
+23456667,2,0,0,3 is a divisor
+23456668,2,0,0,2 is a divisor
+23456669,2,1,2670,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456670,2,0,0,2 is a divisor
+23456671,2,0,0,7 is a divisor
+23456672,2,0,0,2 is a divisor
+23456673,2,0,0,3 is a divisor
+23456674,2,0,0,2 is a divisor
+23456675,2,0,0,5 is a divisor
+23456676,2,0,0,2 is a divisor
+23456677,2,0,0,31 is a divisor
+23456678,2,0,0,2 is a divisor
+23456679,2,0,0,3 is a divisor
+23456680,2,0,0,2 is a divisor
+23456681,2,1,2477,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456682,2,0,0,2 is a divisor
+23456683,2,1,2644,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456684,2,0,0,2 is a divisor
+23456685,2,0,0,3 is a divisor
+23456686,2,0,0,2 is a divisor
+23456687,2,0,0,53 is a divisor
+23456688,2,0,0,2 is a divisor
+23456689,2,0,0,59 is a divisor
+23456690,2,0,0,2 is a divisor
+23456691,2,0,0,3 is a divisor
+23456692,2,0,0,2 is a divisor
+23456693,2,0,0,13 is a divisor
+23456694,2,0,0,2 is a divisor
+23456695,2,0,0,5 is a divisor
+23456696,2,0,0,2 is a divisor
+23456697,2,0,0,3 is a divisor
+23456698,2,0,0,2 is a divisor
+23456699,2,0,0,7 is a divisor
+23456700,2,0,0,2 is a divisor
+23456701,2,0,0,223 is a divisor
+23456702,2,0,0,2 is a divisor
+23456703,2,0,0,3 is a divisor
+23456704,2,0,0,2 is a divisor
+23456705,2,0,0,5 is a divisor
+23456706,2,0,0,2 is a divisor
+23456707,2,0,19,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456708,2,0,0,2 is a divisor
+23456709,2,0,0,3 is a divisor
+23456710,2,0,2,2 is a divisor
+23456711,2,0,0,23 is a divisor
+23456712,2,0,0,2 is a divisor
+23456713,2,0,0,7 is a divisor
+23456714,2,0,0,2 is a divisor
+23456715,2,0,0,3 is a divisor
+23456716,2,0,0,2 is a divisor
+23456717,2,1,2589,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456718,2,0,0,2 is a divisor
+23456719,2,0,0,11 is a divisor
+23456720,2,0,0,2 is a divisor
+23456721,2,0,0,3 is a divisor
+23456722,2,0,0,2 is a divisor
+23456723,2,1,2426,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456724,2,0,0,2 is a divisor
+23456725,2,0,0,5 is a divisor
+23456726,2,0,0,2 is a divisor
+23456727,2,0,0,3 is a divisor
+23456728,2,0,0,2 is a divisor
+23456729,2,0,0,131 is a divisor
+23456730,2,0,0,2 is a divisor
+23456731,2,0,24,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456732,2,0,0,2 is a divisor
+23456733,2,0,0,3 is a divisor
+23456734,2,0,0,2 is a divisor
+23456735,2,0,0,5 is a divisor
+23456736,2,0,0,2 is a divisor
+23456737,2,0,0,29 is a divisor
+23456738,2,0,0,2 is a divisor
+23456739,2,0,0,3 is a divisor
+23456740,2,0,0,2 is a divisor
+23456741,2,0,0,7 is a divisor
+23456742,2,0,0,2 is a divisor
+23456743,2,1,2277,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456744,2,0,0,2 is a divisor
+23456745,2,0,0,3 is a divisor
+23456746,2,0,0,2 is a divisor
+23456747,2,1,1883,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456748,2,0,0,2 is a divisor
+23456749,2,1,2446,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456750,2,0,0,2 is a divisor
+23456751,2,0,0,3 is a divisor
+23456752,2,0,0,2 is a divisor
+23456753,2,0,0,17 is a divisor
+23456754,2,0,0,2 is a divisor
+23456755,2,0,0,5 is a divisor
+23456756,2,0,0,2 is a divisor
+23456757,2,0,0,3 is a divisor
+23456758,2,0,0,2 is a divisor
+23456759,2,0,4,79 is a divisor
+23456760,2,0,0,2 is a divisor
+23456761,2,1,2684,a = 127; End: a = 0; r = 256; phi(r) = 128
+23456762,2,0,0,2 is a divisor
+23456763,2,0,0,3 is a divisor
+23456764,2,0,0,2 is a divisor
+23456765,2,0,0,5 is a divisor
+23456766,2,0,0,2 is a divisor
+23456767,2,0,0,67 is a divisor
+23456768,2,0,0,2 is a divisor
+23456769,2,0,0,3 is a divisor
+23456770,2,0,0,2 is a divisor
+23456771,2,0,0,13 is a divisor
+23456772,2,0,0,2 is a divisor
+23456773,2,0,2,19 is a divisor
+23456774,2,0,0,2 is a divisor
+23456775,2,0,0,3 is a divisor
+23456776,2,0,0,2 is a divisor
+23456777,2,0,46,a = 127; End: a = 1; r = 256; phi(r) = 128
+23456778,2,0,0,2 is a divisor
+23456779,2,0,0,37 is a divisor
+23456780,2,0,0,2 is a divisor
+23456781,2,0,0,3 is a divisor
+23456782,2,0,0,2 is a divisor
+23456783,2,0,0,7 is a divisor
+23456784,2,0,0,2 is a divisor
+23456785,2,0,0,5 is a divisor
+23456786,2,0,0,2 is a divisor
+23456787,2,0,0,3 is a divisor
+23456788,2,0,0,2 is a divisor
+23456789,2,1,1864,a = 127; End: a = 0; r = 256; phi(r) = 128

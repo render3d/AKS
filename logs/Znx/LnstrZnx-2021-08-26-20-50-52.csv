@@ -1,0 +1,21 @@
+Int, Cores, Prime (T/F), Time (milliseconds), Comments
+11491,2,1,26,a = 9; End: a = 0; r = 88; lambda(r) = 10
+11497,2,1,2,a = 5; End: a = 0; r = 84; lambda(r) = 6
+11503,2,1,38,a = 7; End: a = 0; r = 96; lambda(r) = 8
+11519,2,1,99,a = 39; End: a = 0; r = 82; lambda(r) = 40
+11527,2,1,53,a = 29; End: a = 0; r = 93; lambda(r) = 30
+11549,2,1,119,a = 35; End: a = 0; r = 95; lambda(r) = 36
+11551,2,1,25,a = 9; End: a = 0; r = 88; lambda(r) = 10
+11579,2,1,148,a = 41; End: a = 0; r = 86; lambda(r) = 42
+11587,2,1,23,a = 9; End: a = 0; r = 88; lambda(r) = 10
+11593,2,1,48,a = 19; End: a = 0; r = 100; lambda(r) = 20
+11597,2,1,60,a = 15; End: a = 0; r = 85; lambda(r) = 16
+11617,2,1,28,a = 9; End: a = 0; r = 88; lambda(r) = 10
+11621,2,1,342,a = 87; End: a = 0; r = 89; lambda(r) = 88
+11633,2,1,231,a = 41; End: a = 0; r = 86; lambda(r) = 42
+11657,2,1,23,a = 5; End: a = 0; r = 84; lambda(r) = 6
+11677,2,1,44,a = 7; End: a = 0; r = 96; lambda(r) = 8
+11681,2,1,148,a = 27; End: a = 0; r = 87; lambda(r) = 28
+11689,2,1,47,a = 9; End: a = 0; r = 88; lambda(r) = 10
+11699,2,1,77,a = 11; End: a = 0; r = 91; lambda(r) = 12
+11701,2,1,106,a = 29; End: a = 0; r = 93; lambda(r) = 30
