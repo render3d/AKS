@@ -69,7 +69,8 @@
         "__nullptr": "cpp",
         "queue": "cpp",
         "stack": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "__split_buffer": "cpp"
     },
     "cSpell.ignoreWords": [
         "crandall",
