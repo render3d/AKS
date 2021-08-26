@@ -1,6 +1,7 @@
 // type test for chrono library steady_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
 // $ g++ -g -O2 -std=c++11 -pthread -march=native test/unitTest.cpp -o test/unitTest.out -lntl -lgmp -lm
+// $ g++ -g -O2 -std=c++11 -pthread -march=native test/unitTest.cpp -o test/unitTest.out -lntl -lgmp -lm && ./test/unitTest.out
 
 #include <typeinfo>
 #include <algorithm>
@@ -29,8 +30,9 @@
 NTL_CLIENT
 
 // #include "../devVR/biSegMultiplyZZX.h" // personal headers
-#include "../devVR/biSegMultiplyZZpX.h"
-#include "../archive/biSegMultiplyZZpXpreJHD.h"
+// #include "../devVR/biSegMultiplyZZpX.h"
+// #include "../archive/biSegMultiplyZZpXpreJHD.h"
+#include "../test/perflogBiSegMultiplyZZpX.h"
 
 #include "../devVR/Carmichael.h"
 // #include "../BathAKS/Carmichael.h"
@@ -433,60 +435,60 @@ int main(int argc, char * argv[]) {
 
     // // ############### Carmichael Tests ############################################
 
-    // unsigned long long test = 241;
-    // unsigned long long ans = 240;
+    // // unsigned long long test = 241;
+    // // unsigned long long ans = 240;
 
-    // unsigned long long test = 256;
-    // unsigned long long ans = 64;
+    // // unsigned long long test = 256;
+    // // unsigned long long ans = 64;
 
-    // unsigned long long test = 360;
-    // unsigned long long ans = 12;
+    // // unsigned long long test = 360;
+    // // unsigned long long ans = 12;
 
-    // unsigned long long test = 1190;
-    // unsigned long long ans = 48;
+    // // unsigned long long test = 1190;
+    // // unsigned long long ans = 48;
 
-    // unsigned long long test = 1312;
-    // unsigned long long ans = 40;         // ans/5
+    // // unsigned long long test = 1312;
+    // // unsigned long long ans = 40;         // ans/5
 
-    // unsigned long long test = 1314;
-    // unsigned long long ans = 72;
+    // // unsigned long long test = 1314;
+    // // unsigned long long ans = 72;
 
-    // unsigned long long test = 1331;
-    // unsigned long long ans = 1210;
+    // // unsigned long long test = 1331;
+    // // unsigned long long ans = 1210;
 
-    // unsigned long long test = 1348;
-    // unsigned long long ans = 336;        // ans/2
+    // // unsigned long long test = 1348;
+    // // unsigned long long ans = 336;        // ans/2
 
-    // unsigned long long test = 1356;
-    // unsigned long long ans = 112;
+    // // unsigned long long test = 1356;
+    // // unsigned long long ans = 112;
 
-    // unsigned long long test = 9323;
-    // unsigned long long ans = 9322;
+    // // unsigned long long test = 9323;
+    // // unsigned long long ans = 9322;
 
-    // unsigned long long test = 49392;
-    // unsigned long long ans = 588;
+    // // unsigned long long test = 49392;
+    // // unsigned long long ans = 588;
 
-    unsigned long long test = 12545938;
-    unsigned long long ans = 72240;
+    // unsigned long long test = 12545938;
+    // unsigned long long ans = 72240;
 
-    auto start = std::chrono::steady_clock::now();
-    ZZ phi = Euler(test);
-    auto lap1 = std::chrono::steady_clock::now();
-    ZZ lmd = Carmichael(test);
-    auto lap2 = std::chrono::steady_clock::now();
+    // auto start = std::chrono::steady_clock::now();
+    // ZZ phi = Euler(test);
+    // auto lap1 = std::chrono::steady_clock::now();
+    // ZZ lmd = Carmichael(test);
+    // auto lap2 = std::chrono::steady_clock::now();
 
-    auto timePhi = std::chrono::duration_cast<std::chrono::milliseconds>(lap1 - start).count();
-    auto timeLmd = std::chrono::duration_cast<std::chrono::milliseconds>(lap2 - lap1).count();
+    // auto timePhi = std::chrono::duration_cast<std::chrono::milliseconds>(lap1 - start).count();
+    // auto timeLmd = std::chrono::duration_cast<std::chrono::milliseconds>(lap2 - lap1).count();
 
-    std::cout << "Euler Totient Function: phi(" << test << ") = " << phi << "(" << timePhi <<" milliseconds)" << "\n";
-    std::cout << "Carmichael Function: lambda(" << test << ") = " << lmd << "(" << timeLmd <<" milliseconds)" << "\n";
+    // std::cout << "Euler Totient Function: phi(" << test << ") = " << phi << "(" << timePhi <<" milliseconds)" << "\n";
+    // std::cout << "Carmichael Function: lambda(" << test << ") = " << lmd << "(" << timeLmd <<" milliseconds)" << "\n";
 
-    if (lmd == ans) {
-        std::printf("Function computed successfully.\n");
-    }
-    else {
-        std::cout << "Function failed - lambda(" << test << ") != " << ans << "\n";
-    }
+    // if (lmd == ans) {
+    //     std::printf("Function computed successfully.\n");
+    // }
+    // else {
+    //     std::cout << "Function failed - lambda(" << test << ") != " << ans << "\n";
+    // }
 
     // // ########################### MAIN LAMBDA HELPERS ##########################################
 
@@ -536,5 +538,142 @@ int main(int argc, char * argv[]) {
 
     // long testLCM = LCM(comp);
     // std::cout << "\nLambda(" << n << ") = " << testLCM << "\n";
+
+    // // ############### PowMod ZZ_p Profiling Tests ############################################
+
+    // ZZ_p::init(ZZ(11));
+
+    // ZZ mdls = ZZ_p::modulus();
+    // std::cout << "\nModulus is: " << mdls << "\n\n";
+
+    // ZZ_pX f;
+    // std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    // std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    // std::cout << " = x^2 - x + 2):\n";
+    // cin >> f;
+    // std::cout << "\nf(x) = " << f << "\n\n";
+
+    // ZZ e;
+    // std::cout << "Enter the exponent you wish to raise it to:\n";
+    // cin >> e;
+    // std::cout << "\ne = " << e << "\n\n";
+
+    // ZZ_pX g;
+    // std::cout << "And the polynomial you wish to mod the product by:\n";
+    // cin >> g;
+    // std::cout << "\ng(x) = " << g << "\n\n";
+
+    // std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+
+    // ZZ_pX fegBin = ZZpPowMod(f,e,g);
+    // ZZ_pX fegNTL = PowerMod(f,e,g);
+
+    // auto start = std::chrono::steady_clock::now();
+    // for (int i = 0; i < 100000; ++i) {
+    //     PowerMod(f,e,g);
+    // }
+    // auto lap1 = std::chrono::steady_clock::now();
+    // std::cout << "\nNTL: f(x)^e (mod p, g(x)) = ";
+    // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegNTL << "\n";
+
+    // auto duration1 = lap1 - start;
+    // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
+    // std::printf("Time taken: %ld milliseconds\n",tNTL);
+
+    // auto lap2 = std::chrono::steady_clock::now();
+    // for (int i = 0; i < 100000; ++i) {
+    //     ZZpPowMod(f,e,g);
+    // }
+    // auto lap3 = std::chrono::steady_clock::now();
+    // std::cout << "\nBin: f(x)^e (mod p, g(x)) = ";
+    // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegBin << "\n";
+
+    // auto duration2 = lap3 - lap2;
+    // auto tBin = std::chrono::duration_cast<std::chrono::milliseconds>(duration2).count();
+    // std::printf("Time taken: %ld milliseconds\n",tBin);
+
+    // long double tNTLd = tNTL;
+    // long double tBind = tBin;
+
+    // long double diff = ((tBind - tNTLd)/tNTLd)*100;
+
+    // if (fegNTL == fegBin) {
+    //     printf("\nBinary Segmentation PowMod Successful.\n");
+    //     if (diff < 0) {
+    //         std::printf("New function is %LG percent faster.\n",diff);
+    //     }
+    //     else {
+    //         std::printf("New function is %LG percent slower.\n",diff);
+    //     }
+    // }
+    // else {
+    //     printf("\nBinary Segmentation PowMod Failed.\n");
+    // }
+
+    // // ##################### TEST CASES ##############################################
+    // // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
+    // // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
+    // // [14 10 6 2]
+    // // [16 9 7 1]
+    // // [2 -1 1]
+    // // [2 -1 -1]
+
+    // // Fix: [1 0 0 1] ^ 8 mod [-1 1 1 0 -1 0 1]
+    // // Fix: [1 1 1 1 1] ^ 2 mod [-1 1 1 0 -1 0 1]
+    // // Fix: [1 1 1 1 1] ^ 25 mod [-1 1 1 0 -1 0 1]
+    // // [133 197 27 69 13 53 17 34 407 190 82 39 48 3]
+    // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
+    // // 4885403941208064
+
+// ############### PowMod ZZ_p Profiling Tests 2 ############################################
+
+    ZZ_p::init(ZZ(11));
+
+    ZZ mdls = ZZ_p::modulus();
+    std::cout << "\nModulus is: " << mdls << "\n\n";
+
+    ZZ_pX f;
+    std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    std::cout << " = x^2 - x + 2):\n";
+    cin >> f;
+    std::cout << "\nf(x) = " << f << "\n\n";
+
+    ZZ e;
+    std::cout << "Enter the exponent you wish to raise it to:\n";
+    cin >> e;
+    std::cout << "\ne = " << e << "\n\n";
+
+    ZZ_pX g;
+    std::cout << "And the polynomial you wish to mod the product by:\n";
+    cin >> g;
+    std::cout << "\ng(x) = " << g << "\n\n";
+
+    std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+
+    ZZ_pX fegBin = ZZpPowMod(f,e,g);
+    ZZ_pX fegNTL = PowerMod(f,e,g);
+
+    if (fegNTL == fegBin) {
+        printf("\nBinary Segmentation PowMod Successful.\n");
+    }
+    else {
+        printf("\nBinary Segmentation PowMod Failed.\n");
+    }
+
+    // ##################### TEST CASES ##############################################
+    // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
+    // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
+    // [14 10 6 2]
+    // [16 9 7 1]
+    // [2 -1 1]
+    // [2 -1 -1]
+
+    // Fix: [1 0 0 1] ^ 8 mod [-1 1 1 0 -1 0 1]
+    // Fix: [1 1 1 1 1] ^ 2 mod [-1 1 1 0 -1 0 1]
+    // Fix: [1 1 1 1 1] ^ 25 mod [-1 1 1 0 -1 0 1]
+    // [133 197 27 69 13 53 17 34 407 190 82 39 48 3]
+    // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
+    // 4885403941208064
 
 }
