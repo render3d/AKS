@@ -468,8 +468,14 @@ int main(int argc, char * argv[]) {
     // // unsigned long long test = 49392;
     // // unsigned long long ans = 588;
 
-    // unsigned long long test = 12545938;
-    // unsigned long long ans = 72240;
+    // // unsigned long long test = 12545938;
+    // // unsigned long long ans = 72240;
+
+    // // unsigned long long test = 0;
+    // // unsigned long long ans = 0;
+
+    // unsigned long long test = 1;
+    // unsigned long long ans = 1;
 
     // auto start = std::chrono::steady_clock::now();
     // ZZ phi = Euler(test);
@@ -625,7 +631,7 @@ int main(int argc, char * argv[]) {
     // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
     // // 4885403941208064
 
-// ############### PowMod ZZ_p Profiling Tests 2 ############################################
+    // ############### PowMod ZZ_p Profiling Tests 2 ############################################
 
     ZZ_p::init(ZZ(11));
 
