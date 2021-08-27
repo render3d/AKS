@@ -5,7 +5,6 @@
 NTL_CLIENT
 
 unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
-const auto SetNumThreads(ncores); // number of threads - should correspond to the number of available cores on your machine
 
 long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
     // congruence test of polynomials in regular form
@@ -25,22 +24,17 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
     printf("Done.\n");
 
     printf("\nCommencing congruence tests:\n\n");
-    NTL_EXEC_RANGE(a,first,last)
+    for(long j = 1; j <= a; ++j){
+        printf("a = %ld\n",j);
 
-        for(long j = first; j <= last; ++j){
-        // for(long j = 1; j <= a; ++j){
-            printf("a = %ld\n",j);
+        ZZ_pX c = ZZ_pX(1, 1) - j ;         // c = x - a (mod n);
+        ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
+        ZZ_pX g = d - j;                    // g = x^n - a (mod b, n) - RHS
 
-            ZZ_pX c = ZZ_pX(1, 1) - j ;         // c = x - a (mod n);
-            ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
-            ZZ_pX g = d - j;                    // g = x^n - a (mod b, n) - RHS
-
-            if(f != g){
-                return(j); // n is not prime
-            }
+        if(f != g){
+            return(j); // n is not prime
         }
-
-    NTL_EXEC_RANGE_END
+    }
 
     return(0); // n is prime
 }
