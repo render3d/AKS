@@ -231,8 +231,6 @@ inline bool Lenstra (const ZZ& n) {
 
 int main (int argc, char * argv[]) {
 
-    std::cout << AvailableThreads() << " of " << ncores << " threads available.\n";
-
     perflog << "Int, Cores, Prime (T/F), Time (milliseconds), Comments\n";
 
     bool prime;
