@@ -1,10 +1,11 @@
 
+#include <vector>
+#include <numeric>
+
 #include "NTL/ZZ_p.h"
 #include "NTL/ZZ_pX.h"
 #include <NTL/BasicThreadPool.h>
 NTL_CLIENT
-
-#include <vector>
 
 unsigned int ncores = std::thread::hardware_concurrency(); // machine cores - may return 0 when not able to detect
 
@@ -60,14 +61,20 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
 
     NTL_EXEC_RANGE_END
 
-    long testSum;
-    long smallest = 0;
+    long testSum = std::accumulate(test.begin(),test.end(),0);
+    long smallest = test.at(0);
     for (int k = 0; k < test.size(); ++k) {
-        testSum += test[k];
-        if (test.at(k) > smallest) {
+        if (test.at(k) < smallest) {
             smallest = test.at(k);
         }
     }
+
+    std::cout << "Test vec:\t";
+    for (int i = 0; i < test.size(); i++) {
+        std::cout << test[i] << "\t";
+    }
+    std::cout << "\nTest sum: " << testSum << "\n";
+    std::cout << "Smallest: " << smallest << "\n";
 
     if (testSum > 0) {
         return smallest;
