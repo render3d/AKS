@@ -41,7 +41,8 @@ NTL_CLIENT
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
 // #include "Carmichael.h"
-#include "CongruenceZnx.h"
+// #include "CongruenceZnx.h"
+#include "CongruenceZnxHPC.h"
 
 std::string getDate() {
     auto t = std::time(nullptr);
@@ -237,9 +238,10 @@ int main (int argc, char * argv[]) {
 
     // // ZZ p = conv<ZZ>("11663");
     // // ZZ p = conv<ZZ>("11639");
-    // ZZ p = conv<ZZ>("23456611");
+    ZZ p = conv<ZZ>("23456611");
+    // ZZ p = conv<ZZ>("23456789");
     // ZZ p = conv<ZZ>("1003026954441971");
-    ZZ p = conv<ZZ>("4467165232203221");
+    // ZZ p = conv<ZZ>("4467165232203221");
     // // ZZ p = conv<ZZ>("689960931088884849033689023336009222695077");
 
     prime = Lenstra(p);
