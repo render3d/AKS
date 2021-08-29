@@ -38,11 +38,10 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
     NTL_EXEC_RANGE(a,first,last)
 
         context.restore();
-        int threadIdx = ceil(last/a) * ncores;
 
-        for(long j = first; j < last; j++){
-            if (j < last) {                            // ensures kernel does not execute more threads than size of a
-                printf("a = %ld\n",(j+1));
+        for(long j = first; j < last; ++j){
+            if (j < last) {                            // ensures each thread does not continue past j = a
+                printf("a = %ld\n",(j + 1));
 
                 ZZ_pX c = ZZ_pX(1, 1) - (j + 1);    // c = x - a (mod n);
                 ZZ_pX f = PowerMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
@@ -53,33 +52,21 @@ long CongruenceZnx(const ZZ& n, const ZZ& r, const ZZ& r2, const long& a){
                     break;
                 }
             }
-            else {
-                test.push_back(0);
-                break;
-            }
         }
 
     NTL_EXEC_RANGE_END
 
-    long testSum = std::accumulate(test.begin(),test.end(),0);
-    long smallest = test.at(0);
-    for (int k = 0; k < test.size(); ++k) {
-        if (test.at(k) < smallest) {
-            smallest = test.at(k);
-        }
-    }
-
-    std::cout << "Test vec:\t";
-    for (int i = 0; i < test.size(); i++) {
-        std::cout << test[i] << "\t";
-    }
-    std::cout << "\nTest sum: " << testSum << "\n";
-    std::cout << "Smallest: " << smallest << "\n";
-
-    if (testSum > 0) {
-        return smallest;
+    if (test.size() == 0) {
+        return 0; // n is prime
     }
     else {
-        return 0; // n is prime
+        long smallest = test.at(0);
+        for (int k = 0; k < test.size(); ++k) {
+            if (test.at(k) < smallest) {
+                smallest = test.at(k);
+            }
+        }
+
+        return smallest;
     }
 }
