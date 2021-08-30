@@ -38,6 +38,13 @@ NTL_CLIENT
 // #include "../BathAKS/Carmichael.h"
 #include "../devVR/Euler.h"
 
+std::string filename = "logs/other/PhiOverLambda104.csv";
+std::ofstream perflog(filename, std::ios::app); // output result into file
+
+inline void fileWrite(const unsigned long& n, const unsigned long& lambda, const unsigned long& phi) {
+    perflog << n << "," << lambda << "," << phi  << "," << phi/lambda << "\n";
+}
+
 // ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
 //     /*
 //         Returns the integer result when the polynomial f(y) (mod p)
@@ -631,55 +638,61 @@ int main(int argc, char * argv[]) {
     // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
     // // 4885403941208064
 
-    // ############### PowMod ZZ_p Profiling Tests 2 ############################################
+    // // ############### PowMod ZZ_p Profiling Tests 2 ############################################
 
-    ZZ_p::init(ZZ(11));
+    // ZZ_p::init(ZZ(11));
 
-    ZZ mdls = ZZ_p::modulus();
-    std::cout << "\nModulus is: " << mdls << "\n\n";
+    // ZZ mdls = ZZ_p::modulus();
+    // std::cout << "\nModulus is: " << mdls << "\n\n";
 
-    ZZ_pX f;
-    std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
-    std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
-    std::cout << " = x^2 - x + 2):\n";
-    cin >> f;
-    std::cout << "\nf(x) = " << f << "\n\n";
+    // ZZ_pX f;
+    // std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
+    // std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
+    // std::cout << " = x^2 - x + 2):\n";
+    // cin >> f;
+    // std::cout << "\nf(x) = " << f << "\n\n";
 
-    ZZ e;
-    std::cout << "Enter the exponent you wish to raise it to:\n";
-    cin >> e;
-    std::cout << "\ne = " << e << "\n\n";
+    // ZZ e;
+    // std::cout << "Enter the exponent you wish to raise it to:\n";
+    // cin >> e;
+    // std::cout << "\ne = " << e << "\n\n";
 
-    ZZ_pX g;
-    std::cout << "And the polynomial you wish to mod the product by:\n";
-    cin >> g;
-    std::cout << "\ng(x) = " << g << "\n\n";
+    // ZZ_pX g;
+    // std::cout << "And the polynomial you wish to mod the product by:\n";
+    // cin >> g;
+    // std::cout << "\ng(x) = " << g << "\n\n";
 
-    std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+    // std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
 
-    ZZ_pX fegBin = ZZpPowMod(f,e,g);
-    ZZ_pX fegNTL = PowerMod(f,e,g);
+    // ZZ_pX fegBin = ZZpPowMod(f,e,g);
+    // ZZ_pX fegNTL = PowerMod(f,e,g);
 
-    if (fegNTL == fegBin) {
-        printf("\nBinary Segmentation PowMod Successful.\n");
+    // if (fegNTL == fegBin) {
+    //     printf("\nBinary Segmentation PowMod Successful.\n");
+    // }
+    // else {
+    //     printf("\nBinary Segmentation PowMod Failed.\n");
+    // }
+
+    // // ##################### TEST CASES ##############################################
+    // // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
+    // // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
+    // // [14 10 6 2]
+    // // [16 9 7 1]
+    // // [2 -1 1]
+    // // [2 -1 -1]
+
+    // // Fix: [1 0 0 1] ^ 8 mod [-1 1 1 0 -1 0 1]
+    // // Fix: [1 1 1 1 1] ^ 2 mod [-1 1 1 0 -1 0 1]
+    // // Fix: [1 1 1 1 1] ^ 25 mod [-1 1 1 0 -1 0 1]
+    // // [133 197 27 69 13 53 17 34 407 190 82 39 48 3]
+    // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
+    // // 4885403941208064
+
+    printf("Stop\n");
+
+    for (unsigned long long i = 10000; i < 10201 ; ++i) {
+        fileWrite(i,to_long(Carmichael(i)),to_long(Euler(i)));
     }
-    else {
-        printf("\nBinary Segmentation PowMod Failed.\n");
-    }
-
-    // ##################### TEST CASES ##############################################
-    // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
-    // [9 16 7 1]  = 9 + 16x + 07x^2 + 1x^3
-    // [14 10 6 2]
-    // [16 9 7 1]
-    // [2 -1 1]
-    // [2 -1 -1]
-
-    // Fix: [1 0 0 1] ^ 8 mod [-1 1 1 0 -1 0 1]
-    // Fix: [1 1 1 1 1] ^ 2 mod [-1 1 1 0 -1 0 1]
-    // Fix: [1 1 1 1 1] ^ 25 mod [-1 1 1 0 -1 0 1]
-    // [133 197 27 69 13 53 17 34 407 190 82 39 48 3]
-    // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
-    // 4885403941208064
 
 }
