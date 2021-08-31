@@ -246,7 +246,7 @@ int main (int argc, char * argv[]) {
 
     prime = Lenstra(p);
 
-    unsigned long long nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
+    // unsigned long long nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
 
     // unsigned long long nos[] = {9923, 9929, 9931, 9941, 9949, 9967, 9973, 10007, 10009, 10037, 10039, 10061, 10067, 10069, 10079, 10091, 10093, 10099, 10103, 10111, 10133};
 
@@ -341,21 +341,21 @@ int main (int argc, char * argv[]) {
 
     // ZZ nos[] = {conv<ZZ>("689960931088884849033689023336009222694927"),conv<ZZ>("689960931088884849033689023336009222694971"),conv<ZZ>("689960931088884849033689023336009222695053"),conv<ZZ>("689960931088884849033689023336009222695077")};
 
-    int nosSize = sizeof(nos)/sizeof(*nos);
-    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
+    // int nosSize = sizeof(nos)/sizeof(*nos);
+    // int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    for (int i = 0; i < nosSize; ++i) {
-    // for (unsigned long long i = nos[0]; i < nos[nosEnd] + 1; ++i) {
-    // for (ZZ i = ZZ(nos[0]); i < ZZ(nos[nosEnd] + 1); ++i) {
-    // // for (int i = 5; i < 506; ++i) {
-        // ZZ n;
-        // n = 0;
+    // for (int i = 0; i < nosSize; ++i) {
+    // // for (unsigned long long i = nos[0]; i < nos[nosEnd] + 1; ++i) {
+    // // for (ZZ i = ZZ(nos[0]); i < ZZ(nos[nosEnd] + 1); ++i) {
+    // // // for (int i = 5; i < 506; ++i) {
+    //     // ZZ n;
+    //     // n = 0;
 
-        // std::printf("Enter a positive integer number n you want to be tested:\n");
-        // std::cin >> n;
+    //     // std::printf("Enter a positive integer number n you want to be tested:\n");
+    //     // std::cin >> n;
 
-        prime = Lenstra(ZZ(nos[i]));
-        // prime = Lenstra(ZZ(i));
-    }
+    //     prime = Lenstra(ZZ(nos[i]));
+    //     // prime = Lenstra(ZZ(i));
+    // }
 
 }
