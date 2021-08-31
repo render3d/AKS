@@ -40,7 +40,7 @@ NTL_CLIENT
 
 #include "PerfectPower.h" //Each Independent Test
 #include "Euler.h"
-// #include "Carmichael.h"
+#include "Carmichael.h"
 // #include "CongruenceZnx.h"
 #include "CongruenceZnxHPC.h"
 
@@ -189,10 +189,10 @@ inline bool Lenstra (const ZZ& n) {
     r = r1;
     std::printf("r = %ld\n",to_long(r));
 
-    ZZ r2 = Euler(to_long(r));
-    std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
-    // ZZ r2 = Carmichael(to_long(r));
-    // std::printf("Lambda(%ld) = %ld\n",to_long(r),to_long(r2));
+    // ZZ r2 = Euler(to_long(r));
+    // std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
+    ZZ r2 = Carmichael(to_long(r));
+    std::printf("Lambda(%ld) = %ld\n",to_long(r),to_long(r2));
 
     long a = to_long(r2 - 1);
     long f = CongruenceZnx(n,r,r2,a);
@@ -205,8 +205,8 @@ inline bool Lenstra (const ZZ& n) {
         std::printf("%ld is prime.\n",to_long(n));
         std::printf("Time taken: %ld milliseconds\n",time);
 
-        std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
-        // std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; lambda(r) = " + std::to_string(to_long(r2));
+        // std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; phi(r) = " + std::to_string(to_long(r2));
+        std::string note = "a = " + std::to_string(a) + "; End: a = " + std::to_string(f) + "; r = " + std::to_string(to_long(r)) + "; lambda(r) = " + std::to_string(to_long(r2));
         fileWrite(n,ncores,true,time,note);
 
         return true;
@@ -242,9 +242,9 @@ int main (int argc, char * argv[]) {
     // ZZ p = conv<ZZ>("4467165232203241"); // not prime
     // ZZ p = conv<ZZ>("1003026954441971");
     // ZZ p = conv<ZZ>("4467165232203221");
-    ZZ p = conv<ZZ>("689960931088884849033689023336009222695077");
+    // ZZ p = conv<ZZ>("689960931088884849033689023336009222695077");
 
-    prime = Lenstra(p);
+    // prime = Lenstra(p);
 
     // unsigned long long nos[] = {137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347};
 
@@ -339,23 +339,26 @@ int main (int argc, char * argv[]) {
 
     // ZZ nos[] = {conv<ZZ>("53437079999999999999999994656083"),conv<ZZ>("53437079999999999999999994656113"),conv<ZZ>("53437079999999999999999994656137"),conv<ZZ>("53437079999999999999999994656153"),conv<ZZ>("53437079999999999999999994656293")};
 
-    // ZZ nos[] = {conv<ZZ>("689960931088884849033689023336009222694927"),conv<ZZ>("689960931088884849033689023336009222694971"),conv<ZZ>("689960931088884849033689023336009222695053"),conv<ZZ>("689960931088884849033689023336009222695077")};
 
-    // int nosSize = sizeof(nos)/sizeof(*nos);
-    // int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    // for (int i = 0; i < nosSize; ++i) {
-    // // for (unsigned long long i = nos[0]; i < nos[nosEnd] + 1; ++i) {
-    // // for (ZZ i = ZZ(nos[0]); i < ZZ(nos[nosEnd] + 1); ++i) {
-    // // // for (int i = 5; i < 506; ++i) {
-    //     // ZZ n;
-    //     // n = 0;
+    ZZ nos[] = {conv<ZZ>("689960931088884849033689023336009222694927"),conv<ZZ>("689960931088884849033689023336009222694971"),conv<ZZ>("689960931088884849033689023336009222695053"),conv<ZZ>("689960931088884849033689023336009222695077")};
 
-    //     // std::printf("Enter a positive integer number n you want to be tested:\n");
-    //     // std::cin >> n;
+    int nosSize = sizeof(nos)/sizeof(*nos);
+    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    //     prime = Lenstra(ZZ(nos[i]));
-    //     // prime = Lenstra(ZZ(i));
-    // }
+    for (int i = 0; i < nosSize; ++i) {
+    // for (unsigned long long i = nos[0]; i < nos[nosEnd] + 1; ++i) {
+    // for (ZZ i = ZZ(nos[0]); i < ZZ(nos[nosEnd] + 1); ++i) {
+    // // for (int i = 5; i < 506; ++i) {
+        // ZZ n;
+        // n = 0;
+
+        // std::printf("Enter a positive integer number n you want to be tested:\n");
+        // std::cin >> n;
+
+        // prime = Lenstra(ZZ(nos[i]));
+        prime = Lenstra(nos[i]);
+        // prime = Lenstra(ZZ(i));
+    }
 
 }
