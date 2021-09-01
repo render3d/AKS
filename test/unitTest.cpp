@@ -694,16 +694,9 @@ int main(int argc, char * argv[]) {
         ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
         ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
 
-        ZZ_pX fNTL;        // f = (x - a)^n (mod b, n) - LHS
-        ZZ_pX fBSg;
-
-        for(long j = 1; j <= a; ++j){
-            std::cout << "\na = " << a << "\n";
-            std::printf("Running %ld of %ld\n",j,a);
-            // ZZ_pX c = ZZ_pX(1, 1) - (j + 1);    // c = x - a (mod n);
-            ZZ_pX c = ZZ_pX(1, 1) - j;    // c = x - a (mod n);
-            ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
-        }
+        std::cout << "a = " << a << "\n";
+        ZZ_pX c = ZZ_pX(1, 1) - a;    // c = x - a (mod n);
+        ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
     }
 
     // // ##################### TEST CASES ##############################################
