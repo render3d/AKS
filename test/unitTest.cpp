@@ -30,13 +30,16 @@
 NTL_CLIENT
 
 // #include "../devVR/biSegMultiplyZZX.h" // personal headers
-// #include "../devVR/biSegMultiplyZZpX.h"
+#include "../devVR/biSegMultiplyZZpX.h"
 // #include "../archive/biSegMultiplyZZpXpreJHD.h"
-#include "../test/perflogBiSegMultiplyZZpX.h"
+// #include "../test/perflogBiSegMultiplyZZpX.h"
 
 #include "../devVR/Carmichael.h"
 // #include "../BathAKS/Carmichael.h"
 #include "../devVR/Euler.h"
+
+std::string compfile = "logs/other/BSegSquareVsNTL.csv";
+std::ofstream complog(compfile, std::ios::app); // output result into file
 
 // ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
 //     /*
@@ -633,71 +636,78 @@ int main(int argc, char * argv[]) {
 
     // ############### PowMod ZZ_p Profiling Tests 2 ############################################
 
-    ZZ nos[] = {conv<ZZ>("11"),conv<ZZ>("347"),conv<ZZ>("9929"),conv<ZZ>("32353"),conv<ZZ>("104527"),conv<ZZ>("7741009"),conv<ZZ>("2968813"),conv<ZZ>("86456873"),conv<ZZ>("200000033"),conv<ZZ>("9999954997"),conv<ZZ>("10015571473"),conv<ZZ>("435465768733"),conv<ZZ>("1000528294751"),conv<ZZ>("99999999999973"),conv<ZZ>("1003026954441829"),conv<ZZ>("100055128505715869"),conv<ZZ>("29546363270378696821"),conv<ZZ>("4973004941902396102547"),conv<ZZ>("614783152143098270145193"),conv<ZZ>("86084043198752959566539087"),conv<ZZ>("1000474617637553175973957531"),conv<ZZ>("387121083116233373653498534693"),conv<ZZ>("53437079999999999999999994656293"),conv<ZZ>("689960931088884849033689023336009222695077")};
+    // ZZ nos[] = {conv<ZZ>("11"),conv<ZZ>("347"),conv<ZZ>("9929"),conv<ZZ>("32353"),conv<ZZ>("104527"),conv<ZZ>("7741009"),conv<ZZ>("2968813"),conv<ZZ>("86456873"),conv<ZZ>("200000033"),conv<ZZ>("9999954997"),conv<ZZ>("10015571473"),conv<ZZ>("435465768733"),conv<ZZ>("1000528294751"),conv<ZZ>("99999999999973"),conv<ZZ>("1003026954441829"),conv<ZZ>("100055128505715869"),conv<ZZ>("29546363270378696821"),conv<ZZ>("4973004941902396102547"),conv<ZZ>("614783152143098270145193"),conv<ZZ>("86084043198752959566539087"),conv<ZZ>("1000474617637553175973957531"),conv<ZZ>("387121083116233373653498534693"),conv<ZZ>("53437079999999999999999994656293"),conv<ZZ>("689960931088884849033689023336009222695077")};
 
-    int nosSize = sizeof(nos)/sizeof(*nos);
-    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
+    // int nosSize = sizeof(nos)/sizeof(*nos);
+    // int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    for (int i = 0; i < nosSize; ++i) {
-        ZZ n = nos[i];
+    // for (int i = 0; i < nosSize; ++i) {
+    //     ZZ n = nos[i];
 
-        // ZZ mdls = ZZ_p::modulus();
-        // std::cout << "\nModulus is: " << mdls << "\n\n";
-        std::cout << "\nn = " << n << "\n";
-        std::printf("Running %d of %d\n",i+1,nosSize+1);
+    //     // ZZ mdls = ZZ_p::modulus();
+    //     // std::cout << "\nModulus is: " << mdls << "\n\n";
+    //     std::cout << "\nn = " << n << "\n";
+    //     std::printf("Running %d of %d\n",i+1,nosSize+1);
 
-        // Find a suitable r
-        ZZ r = to_ZZ(2);
-        ZZ R;
-        ZZ r1;
+    //     // Find a suitable r
+    //     ZZ r = to_ZZ(2);
+    //     ZZ R;
+    //     ZZ r1;
 
-        while(r < n){
-            ZZ R = GCD(r, n);
-            if(R != 1 ){
-                std::printf("%ld is not prime.\n",to_long(n));
-                std::printf("%ld is a divisor.\n",to_long(R));
-                break;
-            }
-            else {
-                ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
+    //     while(r < n){
+    //         ZZ R = GCD(r, n);
+    //         if(R != 1 ){
+    //             std::printf("%ld is not prime.\n",to_long(n));
+    //             std::printf("%ld is a divisor.\n",to_long(R));
+    //             break;
+    //         }
+    //         else {
+    //             ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
 
-                // order of n mod r is bigger than v;
-                int p = 0;
-                ZZ_p::init(r); // calculate mod r
+    //             // order of n mod r is bigger than v;
+    //             int p = 0;
+    //             ZZ_p::init(r); // calculate mod r
 
-                while(v <= r){
-                    ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
-                    ZZ_p z = to_ZZ_p(x);
-                    if(z == to_ZZ_p(1)){
-                        r1 = r; // store value of r
-                        r = n + 1;
-                        break;
-                    }
-                    else{
-                        v = v + 1;
-                    }
-                }
-            }
-            r = r + 1;
-        }
+    //             while(v <= r){
+    //                 ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
+    //                 ZZ_p z = to_ZZ_p(x);
+    //                 if(z == to_ZZ_p(1)){
+    //                     r1 = r; // store value of r
+    //                     r = n + 1;
+    //                     break;
+    //                 }
+    //                 else{
+    //                     v = v + 1;
+    //                 }
+    //             }
+    //         }
+    //         r = r + 1;
+    //     }
 
-        r = r1;
+    //     r = r1;
 
-        ZZ r2 = Euler(to_long(r));
-        std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
+    //     ZZ r2 = Euler(to_long(r));
+    //     std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
 
-        long a = to_long(r2 - 1);
+    //     long a = to_long(r2 - 1);
 
-        ZZ_p::init(n);                      // initialise mod n
+    //     ZZ_p::init(n);                      // initialise mod n
 
-        ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
-        ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
-        ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
+    //     ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
+    //     ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
+    //     ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
 
-        std::cout << "a = " << a << "\n";
-        ZZ_pX c = ZZ_pX(1, 1) - a;    // c = x - a (mod n);
-        ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
-    }
+    //     std::cout << "a = " << a << "\n";
+    //     ZZ_pX c = ZZ_pX(1, 1) - a;    // c = x - a (mod n);
+    //     ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
+
+    //     if (fBSg == PowerMod(c, n, b)) {
+    //         printf("\nBinary Segmentation PowMod Successful.\n");
+    //     }
+    //     else {
+    //         printf("\nBinary Segmentation PowMod Failed.\n");
+    //     }
+    // }
 
     // // ##################### TEST CASES ##############################################
     // // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
@@ -714,17 +724,112 @@ int main(int argc, char * argv[]) {
     // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
     // // 4885403941208064
 
-    printf("Stop\n");
-
     // ############### Multiply ZZ_pX Profiling Tests 3 ############################################
 
-    // auto startNTL = std::chrono::high_resolution_clock::now();
-    // for (int i = 0; i < 99999; ++i) {
-        
-    // }
-    // auto stopNTL = std::chrono::high_resolution_clock::now();
-    // auto durationNTL = stopNTL - startNTL;
-    // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(durationNTL).count();
-    // std::printf("NTL Time:\t%ld milliseconds\n",tNTL);
+    ZZ nos[] = {conv<ZZ>("11"),conv<ZZ>("347"),conv<ZZ>("9929"),conv<ZZ>("32353"),conv<ZZ>("104527"),conv<ZZ>("7741009"),conv<ZZ>("2968813"),conv<ZZ>("86456873"),conv<ZZ>("200000033"),conv<ZZ>("9999954997"),conv<ZZ>("10015571473"),conv<ZZ>("435465768733"),conv<ZZ>("1000528294751"),conv<ZZ>("99999999999973"),conv<ZZ>("1003026954441829"),conv<ZZ>("100055128505715869"),conv<ZZ>("29546363270378696821"),conv<ZZ>("4973004941902396102547"),conv<ZZ>("614783152143098270145193"),conv<ZZ>("86084043198752959566539087"),conv<ZZ>("1000474617637553175973957531"),conv<ZZ>("387121083116233373653498534693"),conv<ZZ>("53437079999999999999999994656293")};
+    // ZZ nos[] = {conv<ZZ>("11"),conv<ZZ>("347")};
+
+    int nosSize = sizeof(nos)/sizeof(*nos);
+    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
+
+    complog << "n,r,phi(r),a,tBSg,tNTL,CORRECT\n";
+
+    if (complog.is_open()) {
+        printf("Writing to logs...");
+        for (int i = 0; i < nosSize; ++i) {
+            ZZ n = nos[i];
+
+            // ZZ mdls = ZZ_p::modulus();
+            // std::cout << "\nModulus is: " << mdls << "\n\n";
+            std::cout << "\nn = " << n << "\n";
+            std::printf("Running %d of %d\n",i+1,nosSize+1);
+
+            // Find a suitable r
+            ZZ r = to_ZZ(2);
+            ZZ R;
+            ZZ r1;
+
+            while(r < n){
+                ZZ R = GCD(r, n);
+                if(R != 1 ){
+                    std::printf("%ld is not prime.\n",to_long(n));
+                    std::printf("%ld is a divisor.\n",to_long(R));
+                    break;
+                }
+                else {
+                    ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
+
+                    // order of n mod r is bigger than v;
+                    int p = 0;
+                    ZZ_p::init(r); // calculate mod r
+
+                    while(v <= r){
+                        ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
+                        ZZ_p z = to_ZZ_p(x);
+                        if(z == to_ZZ_p(1)){
+                            r1 = r; // store value of r
+                            r = n + 1;
+                            break;
+                        }
+                        else{
+                            v = v + 1;
+                        }
+                    }
+                }
+                r = r + 1;
+            }
+
+            r = r1;
+
+            ZZ r2 = Euler(to_long(r));
+            std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
+
+            long a = to_long(r2 - 1);
+
+            ZZ_p::init(n);                      // initialise mod n
+
+            ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
+            ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
+            ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
+
+            std::cout << "a = " << a << "\n";
+            ZZ_pX c = ZZ_pX(1, 1) - a;    // c = x - a (mod n);
+
+            ZZ_pX pmBsg;
+            ZZ_pX pmNTL;
+
+            auto startNTL = std::chrono::high_resolution_clock::now();
+
+            pmNTL = PowerMod(c,n,b);
+
+            auto stopNTL = std::chrono::high_resolution_clock::now();
+            auto durationNTL = stopNTL - startNTL;
+            auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(durationNTL).count();
+            std::printf("NTL Time:\t%ld milliseconds\n",tNTL);
+
+            auto startBsg = std::chrono::high_resolution_clock::now();
+
+            pmBsg = ZZpPowMod(c,n,b);
+
+            auto stopBsg = std::chrono::high_resolution_clock::now();
+            auto durationBsg = stopBsg - startBsg;
+            auto tBsg = std::chrono::duration_cast<std::chrono::milliseconds>(durationBsg).count();
+            std::printf("BSg Time:\t%ld milliseconds\n",tBsg);
+
+            bool equal;
+            if (pmBsg == pmNTL) {
+                equal = true;
+                printf("\nBinary Segmentation PowMod Successful.\n");
+            }
+            else {
+                equal = false;
+                printf("\nBinary Segmentation PowMod Failed.\n");
+            }
+
+            complog << n << "," << r << "," << r2 << "," << a <<  "," << tBsg << "," << tNTL <<  "," << equal << "\n";
+        }
+    }
+
+    printf("Stop\n");
 
 }
