@@ -119,7 +119,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto duration1 = stop1 - start1;
         auto time1 = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
-        std::printf("Initialise Time:\t%ld\tmilliseconds\n",time1);
+        // std::printf("Initialise Time:\t%ld\tmilliseconds\n",time1);
 
         // ################ EVALUATE ########################################
 
@@ -145,7 +145,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto duration2 = stop2 - start2;
         auto time2 = std::chrono::duration_cast<std::chrono::milliseconds>(duration2).count();
-        std::printf("Evaluation Time:\t%ld\tmilliseconds\n",time2);
+        // std::printf("Evaluation Time:\t%ld\tmilliseconds\n",time2);
 
         // ############## INTEGER MULTIPLY ####################################
 
@@ -161,7 +161,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto duration5 = stop5 - start5;
         auto time5 = std::chrono::duration_cast<std::chrono::milliseconds>(duration5).count();
-        std::printf("Multiplication Time:\t%ld\tmilliseconds\n",time5);
+        // std::printf("Multiplication Time:\t%ld\tmilliseconds\n",time5);
 
         // ################ CONSTRUCT ########################################
 
@@ -253,7 +253,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto duration3 = stop3 - start3;
         auto time3 = std::chrono::duration_cast<std::chrono::milliseconds>(duration3).count();
-        std::printf("Construction Time:\t%ld\tmilliseconds\n",time3);
+        // std::printf("Construction Time:\t%ld\tmilliseconds\n",time3);
 
         // ################ RETURN ########################################
 
@@ -296,11 +296,11 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto duration4 = stop4 - start4;
         auto time4 = std::chrono::duration_cast<std::chrono::milliseconds>(duration4).count();
-        std::printf("Return Time:\t\t%ld\tmilliseconds\n",time4);
+        // std::printf("Return Time:\t\t%ld\tmilliseconds\n",time4);
 
         auto durationT = stop4 - start1;
         auto timeT = std::chrono::duration_cast<std::chrono::milliseconds>(durationT).count();
-        std::printf("Total Time:\t\t%ld\tmilliseconds\n",timeT);
+        // std::printf("Total Time:\t\t%ld\tmilliseconds\n",timeT);
 
         ZZ_pX fg;
         NTL::mul(fg,f,g);
@@ -334,11 +334,11 @@ ZZ_pX ZZpPowMod(ZZ_pX a, ZZ n, const ZZ_pX& b) {
 
     while (n > 0) {
         if (n % 2 == 1) {               // if (n is odd) then
-            std::printf("\nMultiply:\n");
+            // std::printf("\nMultiply:\n");
             ans = ZZpXmultiply(ans,a);
             ans %= b;
         }
-        std::printf("\nSquaring:\n");
+        // std::printf("\nSquaring:\n");
         a = ZZpXmultiply(a,a);          // a = a^2 (mod b)
         // a = sqr(a);                     // a = a^2 (mod b)
         a %= b;
