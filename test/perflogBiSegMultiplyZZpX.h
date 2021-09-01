@@ -9,7 +9,7 @@
 NTL_CLIENT
 
 // std::string filename = "logs/other/BSegVsNTL.csv";
-std::string filename = "logs/other/BSegProfile1.csv";
+std::string filename = "logs/other/BSegProfile2.csv";
 std::ofstream perflog(filename, std::ios::app); // output result into file
 
 ZZ_p getMaxCoeff(const ZZ_pX& f) {
@@ -93,19 +93,19 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
             lhs = (power2_ZZ(b)) - 1;
         }
 
-        for (int i = 0; i < 999; ++i) {
+        for (int i = 0; i < 4; ++i) {
             // ZZ termsF = to_ZZ(deg(f)+1);
             // ZZ termsG = to_ZZ(deg(g)+1);
             long termsF = deg(f)+1;
             long termsG = deg(g)+1;
 
             ZZ maxTermFG = to_ZZ(std::max(termsF,termsG));
-            // ZZ_p maxCoeffF = getMaxCoeff(f);
-            // ZZ_p maxCoeffG = getMaxCoeff(g);
-            ZZ maxCoeff = ZZ_p::modulus();
+            ZZ_p maxCoeffF = getMaxCoeff(f);
+            ZZ_p maxCoeffG = getMaxCoeff(g);
+            // ZZ maxCoeff = ZZ_p::modulus();
 
-            // ZZ rhs = maxTermFG * rep(maxCoeffF) * rep(maxCoeffG);   // rhs = max(U,V) * max(f_j) * max(g_k)
-            ZZ rhs = maxTermFG * sqr(maxCoeff);                     // rhs = max(U,V) * max(f_j) * max(g_k)
+            ZZ rhs = maxTermFG * rep(maxCoeffF) * rep(maxCoeffG);   // rhs = max(U,V) * max(f_j) * max(g_k)
+            // ZZ rhs = maxTermFG * sqr(maxCoeff);                     // rhs = max(U,V) * max(f_j) * max(g_k)
 
             long b = 1;
             ZZ lhs = (power2_ZZ(b)) - 1;                            // lhs = 2^b-1
@@ -125,7 +125,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto start2 = std::chrono::high_resolution_clock::now();
 
-        for (int i = 0; i < 999; ++i) {
+        for (int i = 0; i < 4; ++i) {
 
             // ZZ X = lhs;
             ZZ F = evaluate(f,lhs);                                   // evaluate f(x) for x = 2^b - 1
@@ -151,7 +151,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto start5 = std::chrono::high_resolution_clock::now();
 
-        for (int i = 0; i < 999; ++i) {
+        for (int i = 0; i < 4; ++i) {
             ZZ m = F * G;                                           // Integer multiply
         }
 
@@ -205,7 +205,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
         //     }
         // }
 
-        for (int i = 0; i < 999; ++i) {
+        for (int i = 0; i < 4; ++i) {
             m = F * G;                                              // Integer multiply
 
             long fgTrm = termsF + termsG - 1;                       // Terms in polynomial product
@@ -259,7 +259,7 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
 
         auto start4 = std::chrono::high_resolution_clock::now();
 
-        for (int i = 0; i < 999; ++i) {
+        for (int i = 0; i < 4; ++i) {
             ZZ_pX polyModProd;                                      // Base-b digits of m are desired coefficients
 
             polyModProd.SetLength(fgTrm);                           // set the length of the underlying coefficient vector to number of Terms in polynomial product
