@@ -1,4 +1,4 @@
-// type test for chrono library steady_clock
+// type test for chrono library high_resolution_clock
 // cp test/chronoTest.cpp test/HPCchronoTest.cpp
 // $ g++ -g -O2 -std=c++11 -pthread -march=native test/unitTest.cpp -o test/unitTest.out -lntl -lgmp -lm
 // $ g++ -g -O2 -std=c++11 -pthread -march=native test/unitTest.cpp -o test/unitTest.out -lntl -lgmp -lm && ./test/unitTest.out
@@ -37,13 +37,6 @@ NTL_CLIENT
 #include "../devVR/Carmichael.h"
 // #include "../BathAKS/Carmichael.h"
 #include "../devVR/Euler.h"
-
-std::string filename = "logs/other/PhiOverLambda104.csv";
-std::ofstream perflog(filename, std::ios::app); // output result into file
-
-inline void fileWrite(const unsigned long& n, const unsigned long& lambda, const unsigned long& phi) {
-    perflog << n << "," << lambda << "," << phi  << "," << phi/lambda << "\n";
-}
 
 // ZZ evaluate(const ZZ_pX& f, const ZZ& x) {
 //     /*
@@ -249,11 +242,11 @@ int main(int argc, char * argv[]) {
     // ZZ_pX fegBin = ZZpPowMod(f,e,g);
     // ZZ_pX fegNTL = PowerMod(f,e,g);
 
-    // auto start = std::chrono::steady_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 100000; ++i) {
     //     PowerMod(f,e,g);
     // }
-    // auto lap1 = std::chrono::steady_clock::now();
+    // auto lap1 = std::chrono::high_resolution_clock::now();
     // std::cout << "\nNTL: f(x)^e (mod p, g(x)) = ";
     // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegNTL << "\n";
 
@@ -261,11 +254,11 @@ int main(int argc, char * argv[]) {
     // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
     // std::printf("Time taken: %ld milliseconds\n",tNTL);
 
-    // auto lap2 = std::chrono::steady_clock::now();
+    // auto lap2 = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 100000; ++i) {
     //     ZZpPowMod(f,e,g);
     // }
-    // auto lap3 = std::chrono::steady_clock::now();
+    // auto lap3 = std::chrono::high_resolution_clock::now();
     // std::cout << "\nBin: f(x)^e (mod p, g(x)) = ";
     // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegBin << "\n";
 
@@ -385,23 +378,23 @@ int main(int argc, char * argv[]) {
     // cin >> x;
     // std::cout << "\ne = " << x << "\n\n";
 
-    // auto start = std::chrono::steady_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 10000000; ++i) {
     //     slowEval(f,x);
     // }
     // std::cout << "Original: ";
     // std::cout << "f(" << x << ") = " << slowEval(f,x) << "\n";
-    // auto lap1 = std::chrono::steady_clock::now();
+    // auto lap1 = std::chrono::high_resolution_clock::now();
 
     // auto duration1 = lap1 - start;
     // auto eval = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
     // std::printf("Time taken: %ld milliseconds\n",eval);
 
-    // auto lap2 = std::chrono::steady_clock::now();
+    // auto lap2 = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 10000000; ++i) {
     //     fastEval(f,x);
     // }
-    // auto lap3 = std::chrono::steady_clock::now();
+    // auto lap3 = std::chrono::high_resolution_clock::now();
     // std::cout << "Faster: ";
     // std::cout << "f(" << x << ") = " << fastEval(f,x) << "\n";
 
@@ -484,11 +477,11 @@ int main(int argc, char * argv[]) {
     // unsigned long long test = 1;
     // unsigned long long ans = 1;
 
-    // auto start = std::chrono::steady_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     // ZZ phi = Euler(test);
-    // auto lap1 = std::chrono::steady_clock::now();
+    // auto lap1 = std::chrono::high_resolution_clock::now();
     // ZZ lmd = Carmichael(test);
-    // auto lap2 = std::chrono::steady_clock::now();
+    // auto lap2 = std::chrono::high_resolution_clock::now();
 
     // auto timePhi = std::chrono::duration_cast<std::chrono::milliseconds>(lap1 - start).count();
     // auto timeLmd = std::chrono::duration_cast<std::chrono::milliseconds>(lap2 - lap1).count();
@@ -581,11 +574,11 @@ int main(int argc, char * argv[]) {
     // ZZ_pX fegBin = ZZpPowMod(f,e,g);
     // ZZ_pX fegNTL = PowerMod(f,e,g);
 
-    // auto start = std::chrono::steady_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 100000; ++i) {
     //     PowerMod(f,e,g);
     // }
-    // auto lap1 = std::chrono::steady_clock::now();
+    // auto lap1 = std::chrono::high_resolution_clock::now();
     // std::cout << "\nNTL: f(x)^e (mod p, g(x)) = ";
     // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegNTL << "\n";
 
@@ -593,11 +586,11 @@ int main(int argc, char * argv[]) {
     // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(duration1).count();
     // std::printf("Time taken: %ld milliseconds\n",tNTL);
 
-    // auto lap2 = std::chrono::steady_clock::now();
+    // auto lap2 = std::chrono::high_resolution_clock::now();
     // for (int i = 0; i < 100000; ++i) {
     //     ZZpPowMod(f,e,g);
     // }
-    // auto lap3 = std::chrono::steady_clock::now();
+    // auto lap3 = std::chrono::high_resolution_clock::now();
     // std::cout << "\nBin: f(x)^e (mod p, g(x)) = ";
     // std::cout << "PowerMod(" << f << ", " << e << ", " << g << ") = " << fegBin << "\n";
 
@@ -638,41 +631,78 @@ int main(int argc, char * argv[]) {
     // // [133 197 27 69 13 53 17 34 407 190 82 39 48 14 10 6 2]
     // // 4885403941208064
 
-    // // ############### PowMod ZZ_p Profiling Tests 2 ############################################
+    // ############### PowMod ZZ_p Profiling Tests 2 ############################################
 
-    // ZZ_p::init(ZZ(11));
+    ZZ nos[] = {conv<ZZ>("11"),conv<ZZ>("347"),conv<ZZ>("9929"),conv<ZZ>("32353"),conv<ZZ>("104527"),conv<ZZ>("7741009"),conv<ZZ>("2968813"),conv<ZZ>("86456873"),conv<ZZ>("200000033"),conv<ZZ>("9999954997"),conv<ZZ>("10015571473"),conv<ZZ>("435465768733"),conv<ZZ>("1000528294751"),conv<ZZ>("99999999999973"),conv<ZZ>("1003026954441829"),conv<ZZ>("100055128505715869"),conv<ZZ>("29546363270378696821"),conv<ZZ>("4973004941902396102547"),conv<ZZ>("614783152143098270145193"),conv<ZZ>("86084043198752959566539087"),conv<ZZ>("1000474617637553175973957531"),conv<ZZ>("387121083116233373653498534693"),conv<ZZ>("53437079999999999999999994656293"),conv<ZZ>("689960931088884849033689023336009222695077")};
 
-    // ZZ mdls = ZZ_p::modulus();
-    // std::cout << "\nModulus is: " << mdls << "\n\n";
+    int nosSize = sizeof(nos)/sizeof(*nos);
+    int nosEnd = (sizeof(nos)/sizeof(*nos)) - 1;
 
-    // ZZ_pX f;
-    // std::cout << "Enter a polynomial using its coefficients in the place of the numbers";
-    // std::cout << " in the list [0,1,2,...,n] where n is its exponent (e.g. [2 -1 1] ";
-    // std::cout << " = x^2 - x + 2):\n";
-    // cin >> f;
-    // std::cout << "\nf(x) = " << f << "\n\n";
+    for (int i = 0; i < nosSize; ++i) {
+        ZZ n = nos[i];
 
-    // ZZ e;
-    // std::cout << "Enter the exponent you wish to raise it to:\n";
-    // cin >> e;
-    // std::cout << "\ne = " << e << "\n\n";
+        // ZZ mdls = ZZ_p::modulus();
+        // std::cout << "\nModulus is: " << mdls << "\n\n";
+        std::cout << "n = " << n << "\n";
+        std::printf("Running %d of %d\n",i+1,nosSize+1);
 
-    // ZZ_pX g;
-    // std::cout << "And the polynomial you wish to mod the product by:\n";
-    // cin >> g;
-    // std::cout << "\ng(x) = " << g << "\n\n";
+        // Find a suitable r
+        ZZ r = to_ZZ(2);
+        ZZ R;
+        ZZ r1;
 
-    // std::cout << "\nOperation " << f << "^" << e << " mod " << g << "\n";
+        while(r < n){
+            ZZ R = GCD(r, n);
+            if(R != 1 ){
+                std::printf("%ld is not prime.\n",to_long(n));
+                std::printf("%ld is a divisor.\n",to_long(R));
+                break;
+            }
+            else {
+                ZZ v = to_ZZ(floor(power_long(to_long(log(n)), 2)));
 
-    // ZZ_pX fegBin = ZZpPowMod(f,e,g);
-    // ZZ_pX fegNTL = PowerMod(f,e,g);
+                // order of n mod r is bigger than v;
+                int p = 0;
+                ZZ_p::init(r); // calculate mod r
 
-    // if (fegNTL == fegBin) {
-    //     printf("\nBinary Segmentation PowMod Successful.\n");
-    // }
-    // else {
-    //     printf("\nBinary Segmentation PowMod Failed.\n");
-    // }
+                while(v <= r){
+                    ZZ x = to_ZZ(power_long(to_long(n), to_long(v))); // calculates x = n^v
+                    ZZ_p z = to_ZZ_p(x);
+                    if(z == to_ZZ_p(1)){
+                        r1 = r; // store value of r
+                        r = n + 1;
+                        break;
+                    }
+                    else{
+                        v = v + 1;
+                    }
+                }
+            }
+            r = r + 1;
+        }
+
+        r = r1;
+
+        ZZ r2 = Euler(to_long(r));
+        std::printf("Phi(%ld) = %ld\n",to_long(r),to_long(r2));
+
+        long a = to_long(r2 - 1);
+
+        ZZ_p::init(n);                      // initialise mod n
+
+        ZZ_pX b = ZZ_pX(to_long(r), 1) - 1; // b = x^r - 1 (mod n);
+        ZZ_pX e = ZZ_pX(1, 1);              // e = x (mod n)
+        ZZ_pX d = PowerMod(e, n, b);        // d = x^n (mod b, n)
+
+        ZZ_pX fNTL;        // f = (x - a)^n (mod b, n) - LHS
+        ZZ_pX fBSg;
+
+        for(long j = 1; j <= a; ++j){
+            // ZZ_pX c = ZZ_pX(1, 1) - (j + 1);    // c = x - a (mod n);
+            ZZ_pX c = ZZ_pX(1, 1) - j;    // c = x - a (mod n);
+            ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
+        }
+    }
 
     // // ##################### TEST CASES ##############################################
     // // [2 10 14 6] = 2 + 10x + 14x^2 + 6x^3
@@ -691,8 +721,15 @@ int main(int argc, char * argv[]) {
 
     printf("Stop\n");
 
-    for (unsigned long long i = 10000; i < 10201 ; ++i) {
-        fileWrite(i,to_long(Carmichael(i)),to_long(Euler(i)));
-    }
+    // ############### Multiply ZZ_pX Profiling Tests 3 ############################################
+
+    // auto startNTL = std::chrono::high_resolution_clock::now();
+    // for (int i = 0; i < 99999; ++i) {
+        
+    // }
+    // auto stopNTL = std::chrono::high_resolution_clock::now();
+    // auto durationNTL = stopNTL - startNTL;
+    // auto tNTL = std::chrono::duration_cast<std::chrono::milliseconds>(durationNTL).count();
+    // std::printf("NTL Time:\t%ld milliseconds\n",tNTL);
 
 }
