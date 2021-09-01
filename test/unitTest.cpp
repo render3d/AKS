@@ -643,7 +643,7 @@ int main(int argc, char * argv[]) {
 
         // ZZ mdls = ZZ_p::modulus();
         // std::cout << "\nModulus is: " << mdls << "\n\n";
-        std::cout << "n = " << n << "\n";
+        std::cout << "\nn = " << n << "\n";
         std::printf("Running %d of %d\n",i+1,nosSize+1);
 
         // Find a suitable r
@@ -698,7 +698,7 @@ int main(int argc, char * argv[]) {
         ZZ_pX fBSg;
 
         for(long j = 1; j <= a; ++j){
-            std::cout << "a = " << a << "\n";
+            std::cout << "\na = " << a << "\n";
             std::printf("Running %ld of %ld\n",j,a);
             // ZZ_pX c = ZZ_pX(1, 1) - (j + 1);    // c = x - a (mod n);
             ZZ_pX c = ZZ_pX(1, 1) - j;    // c = x - a (mod n);
