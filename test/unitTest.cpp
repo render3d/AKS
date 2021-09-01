@@ -698,6 +698,8 @@ int main(int argc, char * argv[]) {
         ZZ_pX fBSg;
 
         for(long j = 1; j <= a; ++j){
+            std::cout << "a = " << a << "\n";
+            std::printf("Running %ld of %ld\n",j,a);
             // ZZ_pX c = ZZ_pX(1, 1) - (j + 1);    // c = x - a (mod n);
             ZZ_pX c = ZZ_pX(1, 1) - j;    // c = x - a (mod n);
             ZZ_pX fBSg = ZZpPowMod(c, n, b);        // f = (x - a)^n (mod b, n) - LHS
