@@ -120,14 +120,14 @@ inline bool Lenstra (const ZZ& n) {
     std::cout << "n = " << n << "\n\n";
 
     // start timing
-    auto start = std::chrono::steady_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
 
     // Test if n is a perfect power
     int PP = PerfectPower(n);
 
     // returns 1 if n is a perfect power, 0 otherwise;
     if(PP == 1){
-        auto finish = std::chrono::steady_clock::now();
+        auto finish = std::chrono::high_resolution_clock::now();
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
@@ -149,7 +149,7 @@ inline bool Lenstra (const ZZ& n) {
     while(r < n){
         ZZ R = GCD(r, n);
         if(R != 1 ){
-            auto finish = std::chrono::steady_clock::now();
+            auto finish = std::chrono::high_resolution_clock::now();
             auto duration = finish - start;
             auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
@@ -198,7 +198,7 @@ inline bool Lenstra (const ZZ& n) {
     long f = CongruenceZnx(n,r,r2,a);
 
     if(f == 0){
-        auto finish = std::chrono::steady_clock::now();
+        auto finish = std::chrono::high_resolution_clock::now();
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
@@ -212,7 +212,7 @@ inline bool Lenstra (const ZZ& n) {
         return true;
     }
     else {
-        auto finish = std::chrono::steady_clock::now();
+        auto finish = std::chrono::high_resolution_clock::now();
         auto duration = finish - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
