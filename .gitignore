@@ -1,7 +1,8 @@
+.DS_Store
 addresses.txt
 archive
 dump
 bin
-*.out
+*.out**
 *.exe
 AKSgallotMIRACL.cpp
