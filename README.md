@@ -24,3 +24,17 @@ Personal System Specifications for home benchmarking purposes:
 
 1. [Download](https://gmplib.org/) and [install](https://gmplib.org/manual/Installing-GMP) GMP
 2. [Download](https://libntl.org/download.html) and [install](https://libntl.org/doc/tour-gmp.html) the Number Theory Library
+
+## Running
+
+1. Compile the program with:
+
+    ```bash
+    g++ -g -O2 -std=c++11 -pthread -march=native devVR/LenstraZnx.cpp -o devVR/LenstraZnx.out -lntl -lgmp -lm
+    ```
+
+2. Run the program with:
+
+    ```bash
+    ./devVR/LenstraZnx.out
+    ```
