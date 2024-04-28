@@ -1,4 +1,8 @@
 .DS_Store
+.idea/
+**.dSYM/
+devVR/LenstraZ
+devVR/LenstraZnx
 addresses.txt
 archive
 dump
