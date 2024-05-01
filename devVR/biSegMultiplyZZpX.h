@@ -73,10 +73,10 @@ ZZ_pX ZZpXmultiply(const ZZ_pX& f, const ZZ_pX& g) {
     // ZZ rhs = maxTermFG * sqr(maxCoeff);                     // rhs = max(U,V) * max(f_j) * max(g_k)
 
     long b = 1;
-    ZZ lhs = (power2_ZZ(b)) - 1;                            // lhs = 2^b-1
-    while (lhs <= rhs) {                                    // Choose b such that 2^b − 1 > max(U,V) * max(f_j) * max(g_k)
+    ZZ lhs = (power2_ZZ(b - 1));                            // lhs = 2^(b - 1)
+    while (lhs <= rhs) {                                    // Choose b such that 2^(b - 1) > max(U,V) * max(f_j) * max(g_k)
         b = b + 1;
-        lhs = (power2_ZZ(b)) - 1;
+        lhs = (power2_ZZ(b - 1));
     }
 
     ZZ X = lhs;
